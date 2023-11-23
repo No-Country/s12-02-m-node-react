@@ -11,7 +11,6 @@ class UserManager {
 
 	async createUser(data) {
 		const { name, country, lastname, birthDate, email, role } = data;
-
 		const user = UserModel({
 			name,
 			country,
