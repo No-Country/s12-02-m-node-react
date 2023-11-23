@@ -1,5 +1,5 @@
-import UserManager from '../dao/managerUser';
-import UserModel from '../models/userModel';
+import UserManager from '../dao/managerUser.js';
+import UserModel from '../models/userModel.js';
 const usermanager = new UserManager();
 
 async function createUser(req, res) {

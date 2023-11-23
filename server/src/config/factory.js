@@ -1,4 +1,4 @@
-import Database from './mongodb';
+import Database from './mongodb.js';
 
 this.db = new Database();
 

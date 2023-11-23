@@ -1,4 +1,4 @@
-import Database from '../config/mongodb';
+import Database from '../config/mongodb.js';
 import { createDocument } from '../config/factory.js';
 
 import UserModel from '../models/userModel.js';
