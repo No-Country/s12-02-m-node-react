@@ -8,7 +8,7 @@ const URI = process.env.MONGO_DB_URI;
 class Database {
 	constructor() {
 		this.uri = URI;
-		this.client = new MongoClient(this.uri, { useNewUrlParser: true, useUnifiedTopology: true });
+		this.client = new MongoClient(this.uri);
 		this.db = null;
 	}
 
