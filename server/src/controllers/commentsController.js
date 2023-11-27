@@ -10,21 +10,18 @@ export const newComment = async (req, res) => {
 		if (newComment === 'FIELDS_EMPTY')
 			return res
 				.status(400)
-				.json({ error: { message: 'El campo no puede ir vacío', status: res.statusCode } });
+				.json({ data: { errorMessage: 'El campo no puede ir vacío' }, status: 1 });
 
 		if (newComment === 'EMAIL_NOT_SPECIFIED')
 			return res
 				.status(400)
-				.json({ error: { message: 'Email no especificado en la URL', status: res.statusCode } });
+				.json({ data: { errorMessage: 'Email no especificado en la URL' }, status: 1 });
 		if (newComment === 'USER_NOT_FOUND')
-			return res
-				.status(404)
-				.json({ error: { message: 'Usuario no encontrado', status: res.statusCode } });
+			return res.status(404).json({ data: { errorMessage: 'Usuario no encontrado' }, status: 1 });
 
-		return res.status(201).json({ newComment, status: res.statusCode });
+		return res.status(201).json({ data: { newComment }, status: 0 });
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({ error: { message: error.message, status: res.statusCode } });
+		return res.status(500).json({ data: { errorMessage: error.message }, status: 1 });
 	}
 };
 
@@ -35,12 +32,11 @@ export const getComments = async (req, res) => {
 		if (allComments === 'NO_COMMENTS')
 			return res
 				.status(404)
-				.json({ error: { message: 'No se encontraron comentarios', status: res.statusCode } });
+				.json({ data: { errorMessage: 'No se encontraron comentarios' }, status: 1 });
 
-		return res.json({ allComments, status: res.statusCode });
+		return res.json({ data: { allComments }, status: 0 });
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({ error: { message: error.message, status: res.statusCode } });
+		return res.status(500).json({ data: { errorMessage: error.message }, status: 1 });
 	}
 };
 
@@ -54,24 +50,20 @@ export const deleteComment = async (req, res) => {
 		if (deletedComment === 'EMAIL_NOT_SPECIFIED')
 			return res
 				.status(400)
-				.json({ error: { message: 'Email no especificado en la URL', status: res.statusCode } });
+				.json({ data: { errorMessage: 'Email no especificado en la URL' }, status: 1 });
 		if (deletedComment === 'USER_NOT_FOUND')
-			return res
-				.status(404)
-				.json({ error: { message: 'Usuario no encontrado', status: res.statusCode } });
+			return res.status(404).json({ data: { errorMessage: 'Usuario no encontrado' }, status: 1 });
 		if (deletedComment === 'COMMENT_NOT_FOUND')
 			return res
 				.status(404)
-				.json({ error: { message: 'Comentario no encontrado', status: res.statusCode } });
+				.json({ data: { errorMessage: 'Comentario no encontrado' }, status: 1 });
 
 		return res.json({
-			message: 'Comentario eliminado correctamente',
-			deletedComment,
-			status: res.statusCode,
+			data: { message: 'Comentario eliminado correctamente', deletedComment },
+			status: 0,
 		});
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({ error: { message: error.message, status: res.statusCode } });
+		return res.status(500).json({ error: { message: error.message }, status: 1 });
 	}
 };
 
@@ -80,29 +72,25 @@ export const updateComment = async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const commentUpdated = await managerComments.updateComment(id, email, req.body);
+		const updatedComment = await managerComments.updateComment(id, email, req.body);
 
-		if (commentUpdated === 'EMAIL_NOT_SPECIFIED')
+		if (updatedComment === 'EMAIL_NOT_SPECIFIED')
 			return res
 				.status(400)
-				.json({ error: { message: 'Email no especificado en la URL', status: res.statusCode } });
-		if (commentUpdated === 'USER_NOT_FOUND')
-			return res
-				.status(404)
-				.json({ error: { message: 'Usuario no encontrado', status: res.statusCode } });
+				.json({ data: { errorMessage: 'Email no especificado en la URL' }, status: 1 });
+		if (updatedComment === 'USER_NOT_FOUND')
+			return res.status(404).json({ data: { errorMessage: 'Usuario no encontrado' }, status: 1 });
 
-		if (commentUpdated === 'COMMENT_NOT_FOUND')
+		if (updatedComment === 'COMMENT_NOT_FOUND')
 			return res
 				.status(404)
-				.json({ error: { message: 'Comentario no encontrado', status: res.statusCode } });
+				.json({ data: { errorMessage: 'Comentario no encontrado' }, status: 1 });
 
 		return res.json({
-			message: 'Comentario actualizado correctamente',
-			commentUpdated,
-			status: res.statusCode,
+			data: { message: 'Comentario actualizado correctamente', updatedComment },
+			status: 0,
 		});
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({ error: { message: error.message, status: res.statusCode } });
+		return res.status(500).json({ data: { errorMessage: error.message }, status: 1 });
 	}
 };
