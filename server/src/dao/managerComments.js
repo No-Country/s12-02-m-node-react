@@ -49,10 +49,10 @@ class ManagerComments {
 		if (!getUser) return 'USER_NOT_FOUND';
 
 		const newComment = CommentsModel({ text: body.text, email });
-		const result = await this.createDocument('commentsCollection', newComment);
+		await this.createDocument('commentsCollection', newComment);
 
 		const { date } = newComment;
-		console.log(result);
+
 		return { ...newComment._doc, date: parseDateToJSON(date) };
 	};
 
