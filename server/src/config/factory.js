@@ -15,6 +15,7 @@ async function createDocument(collection, data) {
 
 // Funcion para buscar todo
 async function getAllDocuments(collection, query = {}) {
+	console.log(query);
 	try {
 		if (!db[collection]) {
 			await db.connectToDatabase();
