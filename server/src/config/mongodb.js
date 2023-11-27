@@ -18,6 +18,7 @@ class Database {
 
 			this.usersCollection = this.client.db(DB).collection('user');
 			this.eventsCollection = this.client.db(DB).collection('event');
+			this.commentsCollection = this.client.db(DB).collection('comments');
 
 			console.log('Conectado a la base de datos');
 		} catch (error) {
