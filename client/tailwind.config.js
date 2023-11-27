@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
       },
       transitionTimingFunction: {
         'out-expo': 'cubic-bezier(0.175, 0.885, 0.32, 1.475)',
