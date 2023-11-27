@@ -37,6 +37,10 @@ const publicationsScheme = new mongoose.Schema({
 		require: true,
 		trim: true,
 	},
+	active: {
+		type: Boolean,
+		default: true,
+	},
 });
 
 const PublicationsModel = mongoose.model('publications', publicationsScheme);
