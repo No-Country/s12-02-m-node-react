@@ -64,7 +64,11 @@ export const deleteComment = async (req, res) => {
 				.status(404)
 				.json({ error: { message: 'Comentario no encontrado', status: res.statusCode } });
 
-		return res.json({ message: 'Comentario eliminado correctamente', deletedComment, status: res.statusCode });
+		return res.json({
+			message: 'Comentario eliminado correctamente',
+			deletedComment,
+			status: res.statusCode,
+		});
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ error: { message: error.message, status: res.statusCode } });
@@ -92,9 +96,13 @@ export const updateComment = async (req, res) => {
 				.status(404)
 				.json({ error: { message: 'Comentario no encontrado', status: res.statusCode } });
 
-		return res.json({ message: 'Comentario actualizado correctamente', commentUpdated, status: res.statusCode });
+		return res.json({
+			message: 'Comentario actualizado correctamente',
+			commentUpdated,
+			status: res.statusCode,
+		});
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ error: { message: error.message, status: res.statusCode } });
 	}
-}
+};
