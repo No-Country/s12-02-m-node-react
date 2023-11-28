@@ -1,4 +1,4 @@
-const parseDateToJSON = (date) => {
+const parseDateToJSON = date => {
 	const dateParsed = date.toLocaleDateString('es-AR', {
 		year: 'numeric',
 		month: '2-digit',

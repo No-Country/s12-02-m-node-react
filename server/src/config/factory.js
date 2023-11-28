@@ -1,9 +1,8 @@
+/* eslint-disable no-useless-catch */
 import Database from './mongodb.js';
-
 const db = new Database();
 
 async function createDocument(collection, data) {
-	// eslint-disable-next-line no-useless-catch
 	try {
 		if (!db[collection]) {
 			await db.connectToDatabase();
@@ -23,8 +22,8 @@ async function getAllDocuments(collection, query = {}) {
 		// busca una coleccion mediante una query, si la query es un objeto vacio pinta todo.
 		const document = await db[collection].find(query).toArray();
 		return document;
-	} catch (e) {
-		console.error(e);
+	} catch (error) {
+		throw error;
 	}
 }
 
@@ -36,8 +35,8 @@ async function getOneDocument(collection, query) {
 		}
 		const document = await db[collection].findOne(query);
 		return document;
-	} catch (e) {
-		console.error(e);
+	} catch (error) {
+		throw error;
 	}
 }
 
@@ -50,8 +49,8 @@ async function updateDocument(collection, filter, dataUpdate) {
 			$set: dataUpdate,
 		});
 		return document;
-	} catch (e) {
-		console.error(e);
+	} catch (error) {
+		throw error;
 	}
 }
 
@@ -62,8 +61,8 @@ async function deleteDocument(collection, filter) {
 		}
 		const result = await db[collection].deleteOne(filter);
 		return result;
-	} catch (e) {
-		console.error(e);
+	} catch (error) {
+		throw error;
 	}
 }
 
