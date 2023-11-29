@@ -56,7 +56,7 @@ const eventSchema = new mongoose.Schema({
 		type: [String],
 		trim: true,
 	},
-	ageRange: {
+	minimumAge: {
 		type: Number,
 		require: true,
 		trim: true,

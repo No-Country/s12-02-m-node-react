@@ -1,20 +1,62 @@
 import EventManager from '../dao/managerEvent.js';
+import { uploadImage } from '../utils/cloudinary.js';
 
 const eventmananger = new EventManager();
 
 async function createEvent(req, res) {
 	try {
-		const data = req.body;
+		if (!req.files || Object.keys(req.files).length === 0) {
+			return res.status(400).json({
+				status: 1,
+				message: 'No se han enviado imagenes',
+			});
+		}
+		const imgArr = Array.isArray(req.files.img) ? req.files.img : [req.files.img];
+		const images = await Promise.all(
+			imgArr.map(async file => {
+				return await uploadImage(file.data);
+			})
+		);
+
+		const {
+			email,
+			title,
+			description,
+			capacity,
+			datein,
+			dateout,
+			modality,
+			ubication,
+			category,
+			price,
+			minimumAge,
+		} = req.body;
+
+		const data = {
+			email,
+			title,
+			description,
+			capacity: parseInt(capacity, 10),
+			datein,
+			dateout,
+			modality,
+			ubication,
+			category,
+			price: parseInt(price, 10),
+			minimumAge: parseInt(minimumAge, 10),
+			pictures: images,
+		};
 		const response = await eventmananger.createEvent(data);
 
 		return res.status(200).json({
-			message: response,
+			data: response,
+			message: 'Evento creado con éxito',
 			status: 0,
 		});
 	} catch (error) {
 		return res.status(400).send({
 			status: 1,
-			message: error,
+			message: error.message,
 		});
 	}
 }
@@ -29,7 +71,7 @@ async function getAllEvents(req, res) {
 	} catch (error) {
 		return res.status(400).send({
 			status: 1,
-			message: error,
+			message: error.message,
 		});
 	}
 }
@@ -45,6 +87,7 @@ async function getOneEvent(req, res) {
 			});
 		}
 		return res.status(200).json({
+			message: 'Evento encontrado',
 			data: event,
 			status: 0,
 		});

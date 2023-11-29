@@ -28,14 +28,14 @@ class EventManager {
 
 	async createEvent(data) {
 		const { email } = data;
-		if (!email) return 'EMAIL_NOT_SPECIFIED';
+		if (!email) return 'Email no especificado';
 
 		const getUser = await this.findEmail(email);
-		if (!getUser) return 'USER_NOT_FOUND';
+		if (!getUser) return 'Email no econtrado';
 
 		const newEvent = EventModel(data);
-		await this.createDocument(this.collection, newEvent);
-		return 'Evento creado con éxito';
+		const result = await this.createDocument(this.collection, newEvent);
+		return result;
 	}
 
 	async getOneEvent(_id) {
