@@ -1,6 +1,7 @@
 import PublicationsManager from '../dao/managerPublications.js';
 import PublicationsModel from '../models/publicationsModel.js';
 const publicationsmanager = new PublicationsManager();
+import { ObjectId } from 'mongodb';
 
 // This controller is for creating a publication
 async function createPublicationController(req, res) {
@@ -11,9 +12,17 @@ async function createPublicationController(req, res) {
 			throw validateError;
 		}
 		await publicationsmanager.createPublication(data);
-		return res.status(200).send('Publication created successfully');
+		return res.status(200).json({
+			data: {},
+			status: 0,
+			message: 'Se han guardado con éxito la publicación.',
+		});
 	} catch (error) {
-		return res.status(400).send(error);
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: error.message,
+		});
 	}
 }
 
@@ -21,21 +30,49 @@ async function createPublicationController(req, res) {
 async function getAllPublicationsController(req, res) {
 	try {
 		const query = req.query;
-		const allPublications = await PublicationsManager.getAllPublications(query);
-		return res.status(200).send(allPublications);
+		const allPublications = await publicationsmanager.getAllPublications(query);
+		if (allPublications.length === 0) throw new Error('No hay publicaciones para mostrar');
+		return res.status(200).json({
+			data: allPublications,
+			status: 0,
+			message: 'Se han encontrado las siguientes publicaciones.',
+		});
 	} catch (error) {
-		return res.status(400).send(error);
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: error.message,
+		});
 	}
 }
 
-// This controller return one publication that match the query
+// This controller return one publication that match the query (por id o title)
 async function getOnePublicationController(req, res) {
 	try {
-		const query = req.query;
-		const onePublication = await PublicationsManager.getOnePublication(query);
-		return res.status(200).send(onePublication);
+		const queryParams = req.query;
+		let query;
+		if (queryParams.id) {
+			const publicationId = new ObjectId(queryParams.id);
+			query = { _id: publicationId };
+		} else if (queryParams.title) {
+			query = { title: queryParams.title };
+		} else {
+			throw new Error('No hay publicaciones.');
+		}
+		const onePublication = await publicationsmanager.getOnePublication(query);
+		if (!onePublication)
+			throw new Error('No hay publicaciones para mostrar que coincidan con sus criterios de búsqueda.');
+		return res.status(200).json({
+			data: onePublication,
+			status: 0,
+			message: 'Se han encontrado las siguientes publicaciones.',
+		});
 	} catch (error) {
-		return res.status(400).send(error);
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: error.message,
+		});
 	}
 }
 
@@ -43,42 +80,61 @@ async function getOnePublicationController(req, res) {
 async function updatePublicationController(req, res) {
 	try {
 		const { dataUpdate, filter } = req.body;
-		const result = await PublicationsManager.updatePublication(filter, dataUpdate);
+		let query;
+		if (filter._id) {
+			const publicationId = new ObjectId(filter._id);
+			query = { _id: publicationId };
+		}
+		const result = await publicationsmanager.updatePublication(query, dataUpdate);
 		if (result.matchedCount > 0) {
-			const publicationUpdated = await PublicationsManager.getOnePublication(filter);
+			const publicationUpdated = await publicationsmanager.getOnePublication(filter);
 			return res.status(200).send(publicationUpdated);
 		} else {
-			return res.status(404).send('No post found to update with that filter');
+			return res.status(404).send('No se encontró ninguna publicación para actualizar con ese filtro.');
 		}
 	} catch (error) {
 		return res.status(400).send(error);
 	}
 }
 
-// This controller delete one publication physically or logically
+// This controller delete one publication physically (mode = 0) or logically (mode = 1)
 async function deletePublicationController(req, res) {
 	try {
-		const { mode, filter } = req.query;
-		if (mode === 'physically') {
-			// delete phisically
-			const result = await PublicationsManager.deletePublication(filter);
-			if (result.deletedCoint > 0) {
-				return res.status(200).send('The post has been deleted.');
-			} else {
-				return res.status(404).send('The post not found.');
-			}
+		const { mode, id } = req.params;
+		let result;
+		let filter = {};
+		const publicationId = new ObjectId(id);
+		filter = { _id: publicationId };
+		if (mode == 0) {
+			result = await publicationsmanager.deletePublication(filter);
 		} else {
-			// Delete logical
-			const result = await PublicationsManager.updatePublication(filter, { active: false });
-			if (result.matchedCount > 0) {
-				const publicationDeleted = await PublicationsManager.getOnePublication(filter);
-				return res.status(200).send(publicationDeleted);
-			} else {
-				return res.status(404).send('No post found to delete with that filter');
-			}
+			result = await publicationsmanager.updatePublication(filter, { active: false });
+		}
+		if (result.deletedCount > 0 || result.matchedCount > 0) {
+			const action = mode === 0 ? 'físicamente' : 'lógicamente';
+			const publicationDeleted = await publicationsmanager.getOnePublication(filter);
+			const successMessage = `La publicación ha sido eliminada exitosamente. ${action}.`;
+
+			return res.status(200).json({
+				data: publicationDeleted,
+				status: 0,
+				message: successMessage,
+			});
+		} else {
+			const errorMessage = 'No se encontró ninguna publicación para eliminar con ese filtro.';
+			return res.status(404).json({
+				data: {},
+				status: 1,
+				message: errorMessage,
+			});
 		}
 	} catch (error) {
-		return res.status(400).send(error);
+		const errorMessage = 'Se produjo un error al procesar la solicitud.';
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: errorMessage,
+		});
 	}
 }
 
