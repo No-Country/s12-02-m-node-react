@@ -12,7 +12,7 @@ function Header() {
     navigate("/Login");
   };
   return (
-    <header className="w-full h-32 py-2 flex items-center justify-between bg-gradient-to-b from-black to-secondary-1 text-primary-1 sticky top-0">
+    <header className="w-full h-32 py-2 flex items-center justify-between bg-gradient-to-b from-black to-secondary-1 text-primary-1 sticky top-0 z-50">
       <picture
         onClick={() => navigate("/")}
         className="h-16 overflow-hidden ml-10"

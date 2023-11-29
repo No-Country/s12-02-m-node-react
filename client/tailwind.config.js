@@ -22,6 +22,15 @@ export default {
           3: "#93c8ed",
         }
       },
+      keyframes: {
+        loadIn: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': {transform: 'translateX(0)'}
+        }
+      },
+      animation: {
+        loadIn: 'loadIn 7s linear'
+      }
     },
   },
   plugins: [],
