@@ -9,6 +9,7 @@ import {
 
 import EventModel from '../models/eventModel.js';
 import { ObjectId } from 'mongodb';
+import { deleteImage } from '../utils/cloudinary.js';
 
 class EventManager {
 	constructor() {
@@ -34,8 +35,8 @@ class EventManager {
 		if (!getUser) return 'Email no econtrado';
 
 		const newEvent = EventModel(data);
-		const result = await this.createDocument(this.collection, newEvent);
-		return result;
+		await this.createDocument(this.collection, newEvent);
+		return newEvent;
 	}
 
 	async getOneEvent(_id) {
@@ -50,6 +51,10 @@ class EventManager {
 
 	async deleteEvent(_id) {
 		const deletedEvent = await this.getOneDocument(this.collection, new ObjectId(_id));
+		for (let i = 0; i < deletedEvent.pictures.length; i++) {
+			const url = deletedEvent.pictures[i];
+			url.includes('cloudinary.com') && (await deleteImage(url));
+		}
 		await this.deleteDocument(this.collection, deletedEvent);
 		return deletedEvent;
 	}

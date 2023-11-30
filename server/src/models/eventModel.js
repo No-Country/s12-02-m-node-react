@@ -33,7 +33,7 @@ const eventSchema = new mongoose.Schema({
 	},
 	modality: {
 		type: String,
-		enum: ['online', 'in-person'],
+		enum: ['en-linea', 'presencial'],
 		require: true,
 		trim: true,
 	},

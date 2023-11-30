@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-catch */
 import { v2 as cloudinaryV2 } from 'cloudinary';
 import 'dotenv/config';
 
@@ -32,4 +31,21 @@ async function uploadImage(fileBuffer) {
 	return result.secure_url;
 }
 
-export { uploadImage };
+async function deleteImage(url) {
+	const publicId = getPublicIdFromImageUrl(url);
+	await cloudinaryV2.uploader.destroy(publicId);
+}
+
+function getPublicIdFromImageUrl(imageUrl) {
+	const regex = /\/([^/]+)\.[^.]+$/;
+	const match = imageUrl.match(regex);
+
+	if (match && match[1]) {
+		const publicId = match[1];
+		return publicId;
+	}
+
+	return null;
+}
+
+export { uploadImage, deleteImage, getPublicIdFromImageUrl };
