@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import { createUser, getUser, getUsers, updateUser } from '../controllers/userController.js';
+import authenticateToken from '../middleware/firebase.js';
 const userRouter = Router();
 
-userRouter.get('/', getUsers);
+userRouter.get('/', authenticateToken, getUsers);
 
 userRouter.get('/:email', getUser);
 

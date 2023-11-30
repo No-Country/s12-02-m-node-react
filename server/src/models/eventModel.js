@@ -33,7 +33,7 @@ const eventSchema = new mongoose.Schema({
 	},
 	modality: {
 		type: String,
-		enum: ['online', 'in-person'],
+		enum: ['en-linea', 'presencial'],
 		require: true,
 		trim: true,
 	},
@@ -56,7 +56,7 @@ const eventSchema = new mongoose.Schema({
 		type: [String],
 		trim: true,
 	},
-	ageRange: {
+	minimumAge: {
 		type: Number,
 		require: true,
 		trim: true,
