@@ -24,9 +24,9 @@ export default function Categories() {
           key={index}
           className="flex flex-col items-center justify-between px-5"
         >
-          <div className="flex h-32 w-32 bg-white p-3 rounded-full  items-center justify-center shadow-md shadow-primary-3">
+          <div className="flex 2xl:h-36 2xl:w-36 xl:h-32 xl:w-32  flex-wrap  bg-white p-3 rounded-full  items-center justify-center shadow-md shadow-primary-3">
             <button>
-              <category.icon className="w-14 h-14 text-primary-3" />
+              <category.icon className="xl:w-16 xl:h-16 w-14 h-14 p-2 text-primary-3" />
             </button>
           </div>
           <p className="mt-2 text-primary-2">{category.description}</p>
