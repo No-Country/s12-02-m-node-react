@@ -18,11 +18,11 @@ const categories = [
 
 export default function Categories() {
   return (
-    <div className="h-96 bg-primary-1 flex items-center justify-center">
+    <div className="h-96 bg-primary-1 flex items-center justify-start w-full overflow-scroll">
       {categories.map((category, index) => (
         <div
           key={index}
-          className="flex flex-col items-center justify-center px-7"
+          className="flex flex-col items-center justify-center px-7 w-full"
         >
           <div className="flex bg-white p-3 rounded-full w-[150px] h-[150px] items-center justify-center shadow-md shadow-primary-3">
             <button>
