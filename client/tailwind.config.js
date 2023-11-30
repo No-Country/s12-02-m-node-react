@@ -4,7 +4,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        sans: ["Poppins", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
+      },
+      transitionTimingFunction: {
+        'out-expo': 'cubic-bezier(0.175, 0.885, 0.32, 1.475)',
       },
       colors: {
         primary: {
@@ -15,7 +19,21 @@ export default {
           5: "#828D9E",
           6: "#E5E4E4",
         },
+        secondary: {
+          1: "#0E1445",
+          2: "#4285F4",
+          3: "#93c8ed",
+        }
       },
+      keyframes: {
+        loadIn: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': {transform: 'translateX(0)'}
+        }
+      },
+      animation: {
+        loadIn: 'loadIn 7s linear'
+      }
     },
   },
   plugins: [],
