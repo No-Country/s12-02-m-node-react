@@ -24,7 +24,7 @@ function Hero({ events }) {
   },[idSelected])
 
   return (
-    <section className="w-full h-[500px] text-primary-1 relative">
+    <section className="w-screen h-[500px] text-primary-1 relative">
       <div className="absolute h-full flex flex-col justify-evenly pl-10 z-20">
         <h3 className="text-6xl font-bold">{events[idSelected].title}</h3>
         <footer className="flex-col flex items-start gap-5 w-fit">
