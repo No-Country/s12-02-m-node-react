@@ -7,6 +7,7 @@ import Layout from "./components/pages/Layout";
 import Home from "./components/pages/Home";
 
 import "./index.css";
+import Detail from "./components/pages/EventDetail";
 
 const router = createBrowserRouter([
   {
@@ -18,9 +19,13 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '*',
-        element: <h2>Ya casi hacemos esa pagina, paciencia 🤓</h2>
-      }
+        path: "/detail",
+        element: <Detail />,
+      },
+      {
+        path: "*",
+        element: <h2>Ya casi hacemos esa pagina, paciencia 🤓</h2>,
+      },
     ],
   },
 ]);

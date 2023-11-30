@@ -1,17 +1,21 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 const dataCard = {
-  photo: 'https://thesportsgrail.com/wp-content/uploads/2022/11/Imagine-Dragons-and-The-Strokes-to-headline-Lollapalooza-India.-Jackson-Wang-to-bring-Magicman-to-Mumbai.jpg',
-  title: 'Lollapalooza',
-  date: '15 al 17 de Marzo de 2024',
-  location: 'Hipódromo de San Isidro',
-}
+  photo:
+    "https://thesportsgrail.com/wp-content/uploads/2022/11/Imagine-Dragons-and-The-Strokes-to-headline-Lollapalooza-India.-Jackson-Wang-to-bring-Magicman-to-Mumbai.jpg",
+  title: "Lollapalooza",
+  date: "15 al 17 de Marzo de 2024",
+  location: "Hipódromo de San Isidro",
+};
 
 export const Card = ({ customImageSize }) => {
+  const navigate = useNavigate();
   return (
     <div className="font-poppins overflow-hidden flex flex-col gap-3 p-3">
       <img
-        className={`w-full object-cover rounded-lg ${customImageSize || "h-[200px]"}`}
+        className={`w-full object-cover rounded-lg ${
+          customImageSize || "h-[200px]"
+        }`}
         src={dataCard.photo}
         alt="Imagen evento"
       />
@@ -31,7 +35,10 @@ export const Card = ({ customImageSize }) => {
           <p>{dataCard.location}</p>
         </div>
       </div>
-      <button className="w-28 text-primary-4 text-sm font-semibold bg-transparent border border-primary-4 rounded-full px-6 py-2">
+      <button
+        onClick={() => navigate("/detail")}
+        className="w-28 text-primary-4 text-sm font-semibold bg-transparent border border-primary-4 rounded-full px-6 py-2"
+      >
         Ver más
       </button>
     </div>

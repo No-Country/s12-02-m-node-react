@@ -5,7 +5,7 @@ import { GrLanguage } from "react-icons/gr";
 import { ImHeadphones } from "react-icons/im";
 function Footer() {
   return (
-    <div className="bg-black w-full flex flex-col text-white items-center">
+    <div className="bg-black w-full flex flex-col text-white items-center ">
       <div className="flex justify-between w-4/5 py-10">
         <div className="flex justify-center m-2 ">
           <ImHeadphones className="text-2xl mr-1 mt-1" />
