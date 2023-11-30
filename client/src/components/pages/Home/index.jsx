@@ -7,11 +7,11 @@ import ProximosEventos from "../../organisms/proximosEventos";
 
 function Home() {
   return (
-    <main className="w-screen h-full">
-      <Hero events={heroData}/>
+    <main className="w-full h-full">
+      <Hero events={heroData} />
       <Categories />
-      <ProximosEventos/>
-      <EventosEnLinea/>
+      <ProximosEventos />
+      <EventosEnLinea />
       <CreateEvent />
     </main>
   );
