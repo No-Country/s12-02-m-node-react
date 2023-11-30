@@ -3,6 +3,16 @@ import 'dotenv/config';
 import router from './src/routers/index.js';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
+import admin from 'firebase-admin';
+import { readFileSync } from 'fs';
+
+const serviceAccount = JSON.parse(
+	readFileSync('../server/eventwave-ar-firebase-adminsdk-i8suk-1b96ec4c0c.json')
+);
+admin.initializeApp({
+	credential: admin.credential.cert(serviceAccount),
+});
+
 
 const app = express();
 
