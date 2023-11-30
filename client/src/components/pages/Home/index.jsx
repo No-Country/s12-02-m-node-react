@@ -1,5 +1,6 @@
 import Categories from "../../molecules/categories/Categories";
 import CreateEvent from "../../molecules/create event/index";
+import EventosEnLinea from "../../organisms/eventosEnLinea";
 import ProximosEventos from "../../organisms/proximosEventos";
 
 function Home() {
@@ -8,6 +9,7 @@ function Home() {
       Home
       <Categories />
       <ProximosEventos/>
+      <EventosEnLinea/>
       <CreateEvent />
     </div>
   );

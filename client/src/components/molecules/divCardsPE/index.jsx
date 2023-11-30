@@ -16,7 +16,7 @@ export default function DivCards() {
           <Card />
         </div>
       </div>
-      <div className="flex gap-4 mt-4">
+      <div className="flex gap-4">
         <div className="w-2/5 flex flex-col gap-4">
           <div className="flex-1 bg-white overflow-visible rounded-lg shadow-md">
             <Card />
