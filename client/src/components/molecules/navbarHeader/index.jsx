@@ -11,12 +11,12 @@ function NavbarHeader({className}) {
       route: '/Events'
     },
     {
-      text: 'Crear Eventos',
-      route: '/Create-Event'
-    },
-    {
       text: 'Novedades',
       route: '/News'
+    },
+    {
+      text: 'Crear Eventos',
+      route: '/Create-Event'
     },
     
   ]

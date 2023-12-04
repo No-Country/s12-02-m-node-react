@@ -6,9 +6,9 @@ const heroData = [
     id: 1,
   },
   {
-    title: "Vuelta a la Sabana",
+    title: "Bicicletada",
     banner_img:
-      "https://tatoo.ws/files/public/photos/eventos/2019/Colombia/Peloton/VueltaSabanabanner.jpg",
+      "https://www.biciclot.coop/wp-content/uploads/2022/06/Banner_1920x1080px-1024x576.jpg",
     id: 2,
   },
   {
