@@ -2,8 +2,8 @@ import React from "react";
 
 function CreateEvent() {
   return (
-    <div className="w-full bg-primary-1 p-8">
-      <div className="text-center text-black text-5xl font-semibold font-poppins leading-10 mb-4">
+    <div className="w-full bg-primary-1 p-24">
+      <div className="text-center text-black text-5xl font-semibold font-poppins leading-10 pt-5 mb-4">
         Crea tu propio evento
       </div>
       <div className="text-center text-black text-base font-normal font-poppins leading-normal mb-4">
