@@ -15,14 +15,14 @@ export default function EventosEnLinea() {
   ));
 
   return (
-    <div className="p-20 bg-white">
+    <div className="p-5 bg-white">
       <h1 className="text-3xl font-medium mb-5">Eventos en linea</h1>
       <div className="flex justify-end mb-4 font-poppins font-medium">
         <button className="flex items-center">
           Ver todo <MdArrowRight size={20} />
         </button>
       </div>
-      <div className="w-full flex flex-row gap-3">{renderedCards}</div>
+      <div className="w-full columns-[15rem] md:columns-2 lg:columns-4">{renderedCards}</div>
     </div>
   );
 }
