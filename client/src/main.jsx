@@ -8,6 +8,7 @@ import Home from "./components/pages/Home";
 import { ThemeProvider } from "@material-tailwind/react";
 import "./index.css";
 import Detail from "./components/pages/EventDetail";
+import Register from "./components/pages/Register";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/detail",
         element: <Detail />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
       {
         path: "*",

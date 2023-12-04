@@ -11,7 +11,7 @@ function NavbarHeader() {
       route: '/Events'
     },
     {
-      text: 'Creat Eventos',
+      text: 'Crear Eventos',
       route: '/Create-Event'
     },
     {

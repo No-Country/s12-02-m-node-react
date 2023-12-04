@@ -1,6 +1,6 @@
 import { MdArrowRight } from "react-icons/md";
 import { FaChevronDown } from 'react-icons/fa';
-import { Card } from "../../atoms/navbarItem/cards";
+import { Card } from "../../atoms/card/index.jsx";
 
 const DependingOnLocation = () => {
   const cardsData = [
