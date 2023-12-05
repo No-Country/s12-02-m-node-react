@@ -3,54 +3,65 @@ import mongoose from 'mongoose';
 const eventSchema = new mongoose.Schema({
 	email: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
 	},
 	title: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
+		maxlength: [100, 'El título no puede tener más de 100 caracteres.'],
 	},
 	description: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
+		maxlength: [500, 'La descripción no puede tener más de 500 caracteres.'],
 	},
 	capacity: {
 		type: Number,
-		require: true,
-		trim: true,
+		required: true,
+		min: [1, 'La capacidad debe ser al menos 1.'],
 	},
 	datein: {
 		type: Date,
-		require: true,
-		trim: true,
+		required: true,
+		validate: {
+			validator: value => value > Date.now(),
+			message: 'La fecha de inicio debe ser en el futuro.',
+		},
 	},
 	dateout: {
 		type: Date,
-		require: true,
-		trim: true,
+		required: true,
+		validate: {
+			validator: function (value) {
+				return value > this.datein;
+			},
+			message: 'La fecha de finalización debe ser después de la fecha de inicio.',
+		},
 	},
 	modality: {
 		type: String,
 		enum: ['en-linea', 'presencial'],
-		require: true,
+		required: true,
 		trim: true,
 	},
 	ubication: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
 	},
 	category: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
 	},
 	price: {
 		type: Number,
 		default: 0,
-		trim: true,
+		required: true,
+		min: [0, 'El precio no puede ser negativo.'],
 	},
 	pictures: {
 		type: [String],
@@ -58,8 +69,8 @@ const eventSchema = new mongoose.Schema({
 	},
 	minimumAge: {
 		type: Number,
-		require: true,
-		trim: true,
+		required: true,
+		min: [0, 'La edad mínima no puede ser negativa.'],
 	},
 });
 
