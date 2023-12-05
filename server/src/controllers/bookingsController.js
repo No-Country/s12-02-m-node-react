@@ -112,7 +112,7 @@ async function deleteBookingController(req, res) {
 		let filter = {};
 		const bookingId = new ObjectId(id);
 		filter = { _id: bookingId };
-		if (mode == 0) {
+		if (mode === 0) {
 			result = await bookingsmanager.deleteBooking(filter);
 		} else {
 			result = await bookingsmanager.updateBooking(filter, { active: false });
@@ -123,7 +123,7 @@ async function deleteBookingController(req, res) {
 			const successMessage = `La publicación ha sido eliminada exitosamente. ${action}.`;
 
 			return res.status(200).json({
-				data: publicationDeleted,
+				data: bookingDeleted,
 				status: 0,
 				message: successMessage,
 			});

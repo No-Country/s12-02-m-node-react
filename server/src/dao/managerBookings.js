@@ -54,11 +54,7 @@ class BookingsManager {
 	// Update one booking that match the filter
 	async updateBooking(filter, dataUpdate) {
 		try {
-			const bookingUpdate = await this.updateDocument(
-				'bookingsCollection',
-				filter,
-				dataUpdate
-			);
+			const bookingUpdate = await this.updateDocument('bookingsCollection', filter, dataUpdate);
 			return bookingUpdate;
 		} catch (error) {
 			throw new Error(`Error al intentar actualizar la reserva: ${error.message}`);
