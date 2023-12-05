@@ -18,11 +18,11 @@ const categories = [
 
 export default function Categories() {
   return (
-    <div className="bg-primary-1 flex flex-row items-center justify-center w-full flex-wrap h-96">
+    <div className="bg-primary-1 h-fit p-5 columns-[8rem] w-full sm:columns-4 lg:flex lg:justify-around lg:p-10">
       {categories.map((category, index) => (
         <div
           key={index}
-          className="flex flex-col items-center justify-between px-5"
+          className="flex flex-col items-center justify-between mb-5 lg:mb-0"
         >
           <div className="flex 2xl:h-36 2xl:w-36 xl:h-32 xl:w-32  flex-wrap  bg-white p-3 rounded-full  items-center justify-center shadow-md shadow-primary-3">
             <button>

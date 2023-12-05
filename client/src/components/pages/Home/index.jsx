@@ -1,5 +1,5 @@
-import Categories from "../../molecules/categories/Categories";
-import CreateEvent from "../../molecules/create event/index";
+import Categories from "../../molecules/categories";
+import CreateEvent from "../../molecules/createEvent";
 import Hero from "../../molecules/hero";
 import { heroData } from "./mockData";
 import EventosEnLinea from "../../organisms/eventosEnLinea";
