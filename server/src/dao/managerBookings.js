@@ -42,7 +42,7 @@ class BookingsManager {
 	}
 
 	// Get only one booking that match the query
-	async getOnePublication(query) {
+	async getOneBooking(query) {
 		try {
 			const booking = await this.getOneDocument('bookingsCollection', query);
 			return booking;

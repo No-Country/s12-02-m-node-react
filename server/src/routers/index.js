@@ -13,6 +13,6 @@ indexRouter.use('/event', eventRouter);
 indexRouter.use('/comments', commentsRouter);
 indexRouter.use('/publications', publicationsRouter);
 indexRouter.use('/login', loginRouter);
-indexRouter.use('/booking', bookingsRouter);
+indexRouter.use('/bookings', bookingsRouter);
 
 export default indexRouter;

@@ -1,7 +1,7 @@
 import BookingsManager from '../dao/managerBookings.js';
 import BookingsModel from '../models/bookingsModel.js';
-const bookingsmanager = new BookingsManager();
 import { ObjectId } from 'mongodb';
+const bookingsmanager = new BookingsManager();
 
 // This controller is for creating a booking
 async function createBookingController(req, res) {
@@ -29,7 +29,14 @@ async function createBookingController(req, res) {
 // This controller return all bookings, the query is optional for data subsets
 async function getAllBookingsController(req, res) {
 	try {
-		const query = req.query;
+		const queryParams = req.query;
+		let query = {};
+		if (queryParams.email) {
+			query = { email: queryParams.email };
+		} else {
+			query = queryParams;
+		}
+		console.log(query);
 		const allBookings = await bookingsmanager.getAllBookings(query);
 		if (allBookings.length === 0) throw new Error('No hay reservas para mostrar');
 		return res.status(200).json({
@@ -54,8 +61,8 @@ async function getOneBookingController(req, res) {
 		if (queryParams.id) {
 			const bookingId = new ObjectId(queryParams.id);
 			query = { _id: bookingId };
-		} else if (queryParams.title) {
-			query = { title: queryParams.title };
+		} else if (queryParams.email) {
+			query = { email: queryParams.email };
 		} else {
 			throw new Error('No hay reservas.');
 		}
