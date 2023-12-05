@@ -20,7 +20,8 @@ class Database {
 			this.eventsCollection = this.client.db(DB).collection('event');
 			this.commentsCollection = this.client.db(DB).collection('comments');
 			this.publicationsCollection = this.client.db(DB).collection('publications');
-
+			this.bookingsCollection = this.client.db(DB).collection('bookings');
+			this.commentsPublicationCollection = this.client.db(DB).collection('commentsPublication');
 			console.log('Conectado a la base de datos');
 		} catch (error) {
 			console.error(error);
