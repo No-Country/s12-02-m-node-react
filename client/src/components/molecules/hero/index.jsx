@@ -24,15 +24,15 @@ function Hero({ events }) {
   },[idSelected])
 
   return (
-    <section className="w-full h-[500px] text-primary-1 relative">
-      <div className="absolute h-full flex flex-col justify-evenly pl-10 z-20">
-        <h3 className="text-6xl font-bold">{events[idSelected].title}</h3>
-        <footer className="flex-col flex items-start gap-5 w-fit">
-          <div className="flex gap-2 w-full justify-center">
+    <section className="w-screen h-[500px] text-primary-1 relative">
+      <div className="absolute h-full w-full flex flex-col items-center md:items-start md:justify-around justify-between p-5 md:p-10 z-20">
+        <h3 className="md:text-5xl text-4xl font-bold text-center">{events[idSelected].title}</h3>
+        <footer className="flex-col flex md:items-start gap-5 w-full items-center">
+          <div className="flex gap-2 w-full justify-center md:justify-start">
             {events.map((event, i) => (
               <button
               onClick={() => setIdSelected(i)}
-              className={`focus:outline-none group bg-primary-1 h-4 block rounded-full relative overflow-hidden ${idSelected === i ? 'active w-14': 'w-7 inactive'}`}
+              className={`group bg-primary-1 h-4 block rounded-full relative overflow-hidden ${idSelected === i ? 'active w-14': 'w-7 inactive'}`}
               key={event.id}
               aria-label={`show slide ${i+1} of ${events.length}`}
               aria-current={idSelected == i}
@@ -54,7 +54,7 @@ function Hero({ events }) {
         className="
       w-full h-full overflow-hidden relative"
       >
-        <div className="inset-0 after:bg-gradient-to-r absolute after:from-secondary-1  after:w-f after:h-full after:content-[''] after:block"></div>
+        <div className="inset-0 after:bg-gradient-to-b absolute after:from-secondary-1 after:to-secondary-1 after:via-transparent  after:w-full after:h-full after:content-[''] after:block md:after:bg-gradient-to-r md:after:to-transparent md:after:via-70%"></div>
         <img
           className="w-full h-full object-cover"
           src={events[idSelected].banner_img}
