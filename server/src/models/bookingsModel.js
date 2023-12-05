@@ -19,7 +19,7 @@ const bookingsScheme = new mongoose.Schema({
 		trim: true,
 		validate: {
 			validator: function (value) {
-			  return mongoose.Types.ObjectId.isValid(value);
+				return mongoose.Types.ObjectId.isValid(value);
 			},
 			message: 'El campo comment_ID no es un ObjectId válido.',
 		},
