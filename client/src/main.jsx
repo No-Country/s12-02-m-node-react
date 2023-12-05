@@ -24,14 +24,14 @@ const router = createBrowserRouter([
         element: <Detail />,
       },
       {
-        path: "/register",
-        element: <Register />,
-      },
-      {
         path: "*",
         element: <h2>Ya casi hacemos esa pagina, paciencia 🤓</h2>,
       },
     ],
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(

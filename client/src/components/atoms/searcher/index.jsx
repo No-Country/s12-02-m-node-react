@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 
-function Searcher({ onSearch }) {
+function Searcher({ onSearch, className }) {
   const [searchValue, setSearchValue] = useState("");
   return (
-    <label className="rounded-xl bg-primary-1 flex items-center overflow-hidden">
+    <label className={`${className} rounded-xl bg-primary-1 flex items-center overflow-hidden`}>
       <button
         onClick={() => onSearch(searchValue)}
         className="focus:outline-secondary-3 focus:bg-secondary-3 focus:bg-opacity-20 hover:bg-secondary-3 hover:bg-opacity-20 transition-colors duration-500"
