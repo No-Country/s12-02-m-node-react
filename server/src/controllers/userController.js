@@ -20,10 +20,21 @@ async function getUser(req, res) {
 	const email = req.params;
 	try {
 		const User = await usermanager.getOneUser(email);
-		return res.status(200).send(User);
+		if (!User) {
+			throw new Error('El usuario no existe');
+		}
+		return res.status(200).json({
+			data: User,
+			status: 0,
+			message: 'Usuario encontrado',
+		});
 	} catch (error) {
 		console.error('Error al obtener el usuario', error);
-		return res.status(400).send(error);
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: error.message,
+		});
 	}
 }
 

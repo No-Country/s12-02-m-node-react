@@ -9,6 +9,7 @@ import { ThemeProvider } from "@material-tailwind/react";
 import "./index.css";
 import Detail from "./components/pages/EventDetail";
 import Register from "./components/pages/Register";
+import Login from "./components/pages/Login/Login";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         element: <Detail />,
       },
       {
+        path: "/login",
+        element: <Login />,
+      },
+      {
         path: "*",
         element: <h2>Ya casi hacemos esa pagina, paciencia 🤓</h2>,
       },
@@ -33,6 +38,7 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -14,8 +14,7 @@ function Header() {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
-
-  const [userInfo, setUserInfo] = useState({ name: "Capipop" });
+  const [userInfo, setUserInfo] = useState( JSON.parse(localStorage.getItem('user')));
 
   const navigate = useNavigate();
 
@@ -61,7 +60,7 @@ function Header() {
             data-test="UserMenuToggle"
           >
             <span className="hover:text-secondary-3 group-focus:text-secondary-3">
-              {userInfo.name}
+              {userInfo.names}
             </span>
             <ChevronLeft
               className={`transform ${
