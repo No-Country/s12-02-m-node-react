@@ -5,7 +5,7 @@ import NavbarHeader from "../../molecules/navbarHeader";
 import NavbarButton from "../../atoms/navbarButton";
 import Searcher from "../../atoms/searcher";
 import UserIcon from "../../atoms/userIcon";
-import UserHeaderMenu from "../../atoms/UserHeaderMenu";
+import UserHeaderMenu from "../../atoms/userHeaderMenu";
 
 import { useState, useEffect } from "react";
 
