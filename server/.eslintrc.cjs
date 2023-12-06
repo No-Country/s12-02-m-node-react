@@ -22,5 +22,6 @@ module.exports = {
 	},
 	rules: {
 		'no-console': 'warn',
+		camelcase: ['error', { properties: 'never', ignoreDestructuring: true }],
 	},
 };
