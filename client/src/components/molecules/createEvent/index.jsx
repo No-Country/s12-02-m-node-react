@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 function CreateEvent() {
   return (
-    <div className="w-full bg-primary-1 p-5">
+    <div className="w-full bg-primary-1 p-16">
       <h2 className="text-center text-black text-4xl font-semibold pt-5 mb-4">
         Crea tu propio evento
       </h2>
