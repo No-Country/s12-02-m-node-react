@@ -4,7 +4,7 @@ import { ChevronLeft, Menu } from "lucide-react";
 import NavbarHeader from "../../molecules/navbarHeader";
 import NavbarButton from "../../atoms/navbarButton";
 import Searcher from "../../atoms/searcher";
-import UserIcon from "../../atoms/UserIcon";
+import UserIcon from "../../atoms/userIcon";
 import UserHeaderMenu from "../../atoms/UserHeaderMenu";
 
 import { useState, useEffect } from "react";
@@ -123,7 +123,7 @@ function Header() {
       )}
       <div className="hidden lg:flex lg:items-center lg:justify-between lg:mr-10 lg:gap-5 lg:flex-grow">
         <Searcher className={"hidden xl:inline-flex xl:ml-5"} />
-        <NavbarHeader className={'lg:flex-grow'}/>
+        <NavbarHeader className={"lg:flex-grow"} />
         {renderLogSection()}
       </div>
     </header>
