@@ -7,7 +7,7 @@ const dataCard = {
 
 export const Card = () => {
     return (
-      <div className="font-poppins overflow-hidden flex flex-col gap-3 p-3 shadow-md rounded-lg">
+      <div className="snap-start flex flex-col gap-3 p-3 shadow-md rounded-lg min-w-fit lg:mb-5">
         <img
           className="w-full h-[200px] object-cover rounded-lg"
           src={dataCard.photo}
@@ -15,8 +15,8 @@ export const Card = () => {
         />
         <div>
           <h1 className="text-primary-4 text-xl">{dataCard.title}</h1>
-          <div className="flex flex-row items-center gap-2 text-primary-5 text-xs">
-            <p>{dataCard.date}</p>
+          <div className="flex flex-row items-center gap-2 text-primary-5 text-xs min-w-fit">
+            <p className="inline-block">{dataCard.date}</p>
             <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
               <circle cx="2.5" cy="2.5" r="2.5" fill="#828D9E" />
             </svg>

@@ -1,9 +1,15 @@
 import DivCards from "../../molecules/divCardsPE";
+import { MdArrowRight } from "react-icons/md";
 
 export default function ProximosEventos() {
   return (
-    <div className="p-20 bg-primary-6">
-      <h1 className="text-3xl font-medium mb-5">Próximos eventos</h1>
+    <div className="p-5 lg:p-10 bg-primary-6">
+      <h2 className="text-2xl font-bold mb-2">Próximos eventos</h2>
+      <div className="flex justify-end mb-4 font-medium">
+        <button className="flex items-center ">
+          Ver todo <MdArrowRight size={20} />
+        </button>
+      </div>
       <DivCards />
     </div>
   );

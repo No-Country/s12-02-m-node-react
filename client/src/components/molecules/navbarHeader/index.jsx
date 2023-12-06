@@ -1,6 +1,6 @@
 import NavBarItem from '../../atoms/navbarItem'
 
-function NavbarHeader() {
+function NavbarHeader({className}) {
   const items = [
     {
       text: 'Inicio',
@@ -11,18 +11,18 @@ function NavbarHeader() {
       route: '/Events'
     },
     {
-      text: 'Creat Eventos',
-      route: '/Create-Event'
-    },
-    {
       text: 'Novedades',
       route: '/News'
+    },
+    {
+      text: 'Crear Eventos',
+      route: '/Create-Event'
     },
     
   ]
   return (
-    <nav>
-      <ul className='list-none flex gap-5 items-center'>
+    <nav className={`${className}`}>
+      <ul className={`list-none flex gap-5 items-center justify-evenly flex-wrap lg:justify-center`}>
         {items.map(item =>(
           <NavBarItem key={item.route} text={item.text} route={item.route}/>
         ))}

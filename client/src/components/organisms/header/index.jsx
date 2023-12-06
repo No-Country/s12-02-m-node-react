@@ -4,7 +4,7 @@ import { ChevronLeft, Menu } from "lucide-react";
 import NavbarHeader from "../../molecules/navbarHeader";
 import NavbarButton from "../../atoms/navbarButton";
 import Searcher from "../../atoms/searcher";
-import UserIcon from "../../atoms/userIcon";
+import UserIcon from "../../atoms/UserIcon";
 import UserHeaderMenu from "../../atoms/UserHeaderMenu";
 
 import { useState, useEffect } from "react";

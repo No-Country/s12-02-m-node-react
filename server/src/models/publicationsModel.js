@@ -19,7 +19,6 @@ const publicationsScheme = new mongoose.Schema({
 		trim: true,
 		minlength: [5, 'El título no puede ser inferior a 5 carcateres.'],
 		maxlength: [60, 'El título no puede exceder los 60 caracteres.'],
-
 	},
 	description: {
 		type: String,
@@ -41,20 +40,20 @@ const publicationsScheme = new mongoose.Schema({
 		trim: true,
 		validate: {
 			validator: function (value) {
-			  return value.every(url => /^(http|https):\/\//.test(url));
+				return value.every(url => /^(http|https):\/\//.test(url));
 			},
 			message: 'Todas las URLs de las fotos deben comenzar con "http://" o "https://".',
-		  },
+		},
 	},
 	date: {
 		type: Date,
 		default: Date.now,
 		validate: {
-		  validator: function (value) {
-			// Verificar si la fecha proporcionada es válida (puede ser nula)
-			return value === null || !isNaN(value);
-		  },
-		  message: 'La fecha proporcionada no es válida.',
+			validator: function (value) {
+				// Verificar si la fecha proporcionada es válida (puede ser nula)
+				return value === null || !isNaN(value);
+			},
+			message: 'La fecha proporcionada no es válida.',
 		},
 	},
 	comment_ID: {
@@ -63,7 +62,7 @@ const publicationsScheme = new mongoose.Schema({
 		trim: true,
 		validate: {
 			validator: function (value) {
-			  return mongoose.Types.ObjectId.isValid(value);
+				return mongoose.Types.ObjectId.isValid(value);
 			},
 			message: 'El campo comment_ID no es un ObjectId válido.',
 		},
