@@ -16,7 +16,7 @@ export default function EventosEnLinea() {
 
   return (
     <div className="p-5 lg:p-10 bg-white">
-      <h1 className="text-3xl font-medium mb-5">Eventos en linea</h1>
+      <h1 className="text-2xl font-bold mb-2">Eventos en linea</h1>
       <div className="flex justify-end mb-4 font-poppins font-medium">
         <button className="flex items-center">
           Ver todo <MdArrowRight size={20} />
