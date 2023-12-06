@@ -11,8 +11,9 @@ async function createEvent(req, res) {
 			title,
 			description,
 			capacity,
-			datein,
-			dateout,
+			dates,
+			startHour,
+			endHour,
 			modality,
 			ubication,
 			category,
@@ -20,13 +21,15 @@ async function createEvent(req, res) {
 			minimumAge,
 		} = req.body;
 
+		console.log(dates);
 		const data = {
 			email,
 			title,
 			description,
 			capacity: parseInt(capacity, 10),
-			datein,
-			dateout,
+			dates,
+			startHour,
+			endHour,
 			modality,
 			ubication,
 			category,

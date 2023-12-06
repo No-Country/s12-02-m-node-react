@@ -48,13 +48,6 @@ class EventManager {
 		const fieldsToRetrieve = { title: 1, datein: 1, dateout: 1, ubication: 1, pictures: 1 };
 		const allEvents = await this.getAllDocuments(this.collection, query, fieldsToRetrieve);
 		return allEvents;
-
-		// // Recupera eventos de la base de datos
-		// if (!this.db[this.collection]) {
-		// 	await this.db.connectToDatabase();
-		// }
-		// const events = await this.db[this.collection].find({}, fieldsToRetrieve);
-		// return events;
 	}
 
 	async deleteEvent(_id) {

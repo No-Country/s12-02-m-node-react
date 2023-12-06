@@ -23,22 +23,41 @@ const eventSchema = new mongoose.Schema({
 		required: true,
 		min: [1, 'La capacidad debe ser al menos 1.'],
 	},
-	datein: {
-		type: Date,
+	dates: {
+		type: [
+			{
+				type: String,
+				validate: {
+					validator: function (value) {
+						// Expresión regular para validar el formato aaaa-mm-dd
+						return /^\d{4}-\d{2}-\d{2}$/.test(value);
+					},
+					message: props => `${props.value} no es un formato de fecha válido (aaaa-mm-dd)`,
+				},
+			},
+		],
+		required: true,
+	},
+	startHour: {
+		type: String,
 		required: true,
 		validate: {
-			validator: value => value > Date.now(),
-			message: 'La fecha de inicio debe ser en el futuro.',
+			validator: function (v) {
+				// Expresión regular para validar el formato hh:mm
+				return /^([01]\d|2[0-3]):([0-5]\d)$/.test(v);
+			},
+			message: props => `${props.value} no es un formato de hora válido (hh:mm)`,
 		},
 	},
-	dateout: {
-		type: Date,
+	endHour: {
+		type: String,
 		required: true,
 		validate: {
-			validator: function (value) {
-				return value > this.datein;
+			validator: function (v) {
+				// Expresión regular para validar el formato hh:mm
+				return /^([01]\d|2[0-3]):([0-5]\d)$/.test(v);
 			},
-			message: 'La fecha de finalización debe ser después de la fecha de inicio.',
+			message: props => `${props.value} no es un formato de hora válido (hh:mm)`,
 		},
 	},
 	modality: {
@@ -54,6 +73,16 @@ const eventSchema = new mongoose.Schema({
 	},
 	category: {
 		type: String,
+		enum: [
+			'música',
+			'vida nocturna',
+			'gastronomia',
+			'arte',
+			'feriados',
+			'salud',
+			'pasatiempos',
+			'negocios',
+		],
 		required: true,
 		trim: true,
 	},
