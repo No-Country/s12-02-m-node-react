@@ -4,8 +4,10 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 export default function RegisterForm (){
     
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
+        // name: user.user.displayName,
+        // email: user.user.email,
+        name: "",
+        email: "",
         password: '',
         showPassword: true,
       });
@@ -29,7 +31,6 @@ export default function RegisterForm (){
         // Agrega lógica para enviar los datos del formulario al servidor
         console.log('Datos enviados:', formData);
       };
-    
       return (
         <div className="flex justify-center items-center h-auto pt-4 pb-4">
           <form className="flex flex-col gap-5 w-80">
