@@ -1,7 +1,7 @@
 import PublicationsManager from '../dao/managerPublications.js';
 import PublicationsModel from '../models/publicationsModel.js';
-const publicationsmanager = new PublicationsManager();
 import { ObjectId } from 'mongodb';
+const publicationsmanager = new PublicationsManager();
 
 // This controller is for creating a publication
 async function createPublicationController(req, res) {
@@ -61,7 +61,9 @@ async function getOnePublicationController(req, res) {
 		}
 		const onePublication = await publicationsmanager.getOnePublication(query);
 		if (!onePublication)
-			throw new Error('No hay publicaciones para mostrar que coincidan con sus criterios de búsqueda.');
+			throw new Error(
+				'No hay publicaciones para mostrar que coincidan con sus criterios de búsqueda.'
+			);
 		return res.status(200).json({
 			data: onePublication,
 			status: 0,
@@ -90,7 +92,9 @@ async function updatePublicationController(req, res) {
 			const publicationUpdated = await publicationsmanager.getOnePublication(filter);
 			return res.status(200).send(publicationUpdated);
 		} else {
-			return res.status(404).send('No se encontró ninguna publicación para actualizar con ese filtro.');
+			return res
+				.status(404)
+				.send('No se encontró ninguna publicación para actualizar con ese filtro.');
 		}
 	} catch (error) {
 		return res.status(400).send(error);
@@ -105,7 +109,7 @@ async function deletePublicationController(req, res) {
 		let filter = {};
 		const publicationId = new ObjectId(id);
 		filter = { _id: publicationId };
-		if (mode == 0) {
+		if (mode === 0) {
 			result = await publicationsmanager.deletePublication(filter);
 		} else {
 			result = await publicationsmanager.updatePublication(filter, { active: false });
