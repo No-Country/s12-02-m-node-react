@@ -1,5 +1,5 @@
-import RegisterForm from "../../molecules/registerElements/registerForm";
-import SocialAuthButtons from "../../molecules/registerElements/registerGoogle";
+import RegisterButton from "../../molecules/registerElements/registerButton";
+import GoogleLogin from "../../molecules/registerElements/registerGoogle";
 import { IoMdClose } from 'react-icons/io';
 import { useNavigate } from "react-router-dom";
 
@@ -21,15 +21,18 @@ const RegisterModal = () => {
             <h1 className="text-black text-center font-poppins text-5xl font-semibold leading-tight mb-4">Regístrate</h1>
             <h3 className="text-center text-base mb-4">
                 ¿Ya tienes una cuenta?{" "}
-                <a href="#" className="text-blue-500 hover:underline" onClick={""}> Inicia Sesión </a>
             </h3>
-            <div className="flex flex-row justify-between items-center mb-4">
-                <div className="flex-1 pr-4">
-                    <RegisterForm />
+            <div className="flex flex-col justify-between items-center mb-4 w-full">
+                <div className="flex-1">
+                    <GoogleLogin />
                 </div>
-                <div className="border-1 border-gray-300 h-60 mx-8"></div>
-                <div className="flex-1 pl-4">
-                    <SocialAuthButtons />
+                <div className="flex-1">
+                    <h3 className="text-center text-base mt-6 border-t border-gray-300 pt-4">
+                        ¿Quieres registrarte manualmente?{" "}
+                    </h3>
+                    <div>
+                    <RegisterButton />
+                </div>
                 </div>
             </div>
             <div className="text-gray-600 text-xs">

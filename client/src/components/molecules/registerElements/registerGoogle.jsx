@@ -1,13 +1,9 @@
 import React from 'react';
 import { FaGoogle, FaFacebook } from 'react-icons/fa';
 
-const SocialAuthButtons = () => {
+const GoogleLogin = () => {
   const handleGoogleLogin = () => {
     // Lógica para iniciar sesión con Google
-  };
-
-  const handleFacebookLogin = () => {
-    // Lógica para iniciar sesión con Facebook
   };
 
   return (
@@ -20,14 +16,13 @@ const SocialAuthButtons = () => {
         Continuar con Google
       </button>
       <button
-        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center w-full"
-        onClick={handleFacebookLogin}
+        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center w-full"
+        onClick={""}
       >
-        <FaFacebook className="mr-2" />
-        Continuar con Facebook
+        Inicia Sesión
       </button>
     </div>
   );
 };
 
-export default SocialAuthButtons;
+export default GoogleLogin;
