@@ -31,7 +31,6 @@ const RegisterModal = (user) => {
     
       const handleSubmit = (e) => {
         e.preventDefault();
-        // Agrega lógica para enviar los datos del formulario al servidor
         console.log('Datos enviados:', formData);
       };
     
@@ -49,8 +48,11 @@ const RegisterModal = (user) => {
             />
             <h1 className="text-black text-center font-poppins text-5xl font-semibold leading-tight mb-4">Regístrate</h1>
             <h3 className="text-center text-base mb-4">
-                ¿Ya tienes una cuenta? Inicia Sesión{" "}
+                ¿Ya tienes una cuenta? Inicia Sesión
             </h3>
+
+            {/* Formulario para iniciar sesion, inputs de Email y Contraseña */}
+
             <form className="flex flex-col w-full justify-center items-center">
               <div className="flex flex-col w-2/5">
                 <div className="flex pb-5 justify-center items-center w-full">
@@ -84,6 +86,7 @@ const RegisterModal = (user) => {
               </button>
               <p className='flex m-1'>o</p>
             </form>
+
             <div className="flex flex-col justify-between items-center mb-4 w-full">
                 <div className="flex-1">
                     <GoogleLogin />
@@ -97,10 +100,12 @@ const RegisterModal = (user) => {
                 </div>
                 </div>
             </div>
+
             <div className="text-gray-600 text-xs">
                 <p className="border-b border-gray-300 pb-2 mb-2">*Al registrarte, aceptas nuestras Condiciones de Servicio y reconoces que has leído nuestra Política de Privacidad </p>
                 <p>Este sitio está protegido por Eventeware int. Se aplican la Política de Privacidad y las Condiciones de Servicio de Google.</p>
             </div>
+
         </div>
     );
 };

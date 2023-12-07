@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 import Modal from 'react-modal';
 
@@ -30,7 +29,6 @@ const RegisterForm = ({ isOpen, onRequestClose }) => {
     
       const handleSubmit = (e) => {
         e.preventDefault();
-        // Agrega lógica para enviar los datos del formulario al servidor
         console.log('Datos enviados:', formData);
       };
       return (
@@ -42,6 +40,9 @@ const RegisterForm = ({ isOpen, onRequestClose }) => {
               }}>
           <div className="flex justify-center items-center pt-4 pb-6">
             <button className="absolute top-4 right-4 text-gray-600 cursor-pointer" onClick={onRequestClose}><IoMdClose/></button>
+
+            {/* Formulario para registrarse, inputs de name, lastname, birthdate, country, email y password */}
+
             <form className="flex flex-col max-w-6xl w-full pl-10 pt-5">
               <h2 className="text-2xl font-bold mb-10">Completa los datos para registrarte</h2>
               <div className="flex flex-wrap w-full">
@@ -111,19 +112,6 @@ const RegisterForm = ({ isOpen, onRequestClose }) => {
                       value={formData.password}
                       onChange={handleChange}
                     />
-                  <div className="ml-2">
-                    {formData.showPassword ? (
-                      <FaEyeSlash
-                        className="text-gray-500 cursor-pointer"
-                        onClick={toggleShowPassword}
-                      />
-                    ) : (
-                      <FaEye
-                        className="text-gray-500 cursor-pointer"
-                        onClick={toggleShowPassword}
-                      />
-                    )}
-                  </div>
                 </div>
               </div>
               </div>
@@ -137,6 +125,7 @@ const RegisterForm = ({ isOpen, onRequestClose }) => {
                 </button>
               </div>
           </form>
+
         </div>
         <div className="text-gray-600 text-xs text-center mt-4">
             <p className="border-b border-gray-300 pb-2 mb-2">*Al registrarte, aceptas nuestras Condiciones de Servicio y reconoces que has leído nuestra Política de Privacidad </p>
