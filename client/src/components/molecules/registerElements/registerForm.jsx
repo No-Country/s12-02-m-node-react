@@ -42,8 +42,8 @@ const RegisterForm = ({ isOpen, onRequestClose }) => {
               }}>
           <div className="flex justify-center items-center pt-4 pb-6">
             <button className="absolute top-4 right-4 text-gray-600 cursor-pointer" onClick={onRequestClose}><IoMdClose/></button>
-            <form className="flex flex-col max-w-6xl w-full pl-10 pt-5 gap-6">
-              <h2 className="text-2xl font-bold mb-6">Completa los datos para registrarte</h2>
+            <form className="flex flex-col max-w-6xl w-full pl-10 pt-5">
+              <h2 className="text-2xl font-bold mb-10">Completa los datos para registrarte</h2>
               <div className="flex flex-wrap w-full">
               <div className="w-full sm:w-1/2 px-2 mb-10">
                 <input
@@ -137,6 +137,10 @@ const RegisterForm = ({ isOpen, onRequestClose }) => {
                 </button>
               </div>
           </form>
+        </div>
+        <div className="text-gray-600 text-xs text-center mt-4">
+            <p className="border-b border-gray-300 pb-2 mb-2">*Al registrarte, aceptas nuestras Condiciones de Servicio y reconoces que has leído nuestra Política de Privacidad </p>
+            <p>Este sitio está protegido por Eventeware int. Se aplican la Política de Privacidad y las Condiciones de Servicio de Google.</p>
         </div>
       </Modal>
       );

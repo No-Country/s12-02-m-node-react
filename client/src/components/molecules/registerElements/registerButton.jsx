@@ -14,9 +14,9 @@ const RegisterButton = () => {
     };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <button
-        className="bg-white hover:bg-black text-black hover:text-white border border-black border-solid font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 mt-4 flex items-center justify-center w-full"
+        className="bg-white hover:bg-black text-black hover:text-white border border-black border-solid font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 mt-4 flex items-center justify-center w-auto"
         onClick={abrirModal}
       >
         Regístrate
