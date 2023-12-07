@@ -14,7 +14,8 @@ function Header() {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
-  const [userInfo, setUserInfo] = useState( JSON.parse(localStorage.getItem('user')));
+  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('user')) || "");
+
 
   const navigate = useNavigate();
 

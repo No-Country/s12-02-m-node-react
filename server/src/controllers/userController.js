@@ -78,7 +78,7 @@ async function updateUser(req, res) {
 				message: 'La actualización de datos fue exitosa.',
 			});
 		} else {
-			throw new Error('No se pudo realizar la actualización.')
+			throw new Error('No se pudo realizar la actualización.');
 		}
 	} catch (error) {
 		return res.status(400).json({
