@@ -14,7 +14,7 @@ export const Card = ({ className }) => {
     <div
       className={`group ${className} overflow-hidden grid grid-rows-6 xl:grid-cols-3 gap-3 p-3 h-full`}
     >
-      <picture className="row-span-4 xl:col-span-3 group-[.long]:xl:col-span-2 group-[.long]:xl:row-span-6 group-[.big]:md:row-span-5">
+      <picture className="row-span-4 xl:col-span-3 group-[.long]:xl:col-span-2 group-[.long]:xl:row-span-6 group-[.big]:lg:row-span-5">
         <img
           className={`w-full object-cover rounded-lg h-full`}
           src={dataCard.photo}

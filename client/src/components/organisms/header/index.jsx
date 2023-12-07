@@ -23,14 +23,17 @@ function Header() {
     {
       text: "Mi Cuenta",
       redirect: "/Myaccount",
+      dataTest: 'link_mi-cuenta',
     },
     {
       text: "Reservas",
       redirect: "/booked",
+      dataTest: 'link_reservas',
     },
     {
       text: "Cerrar Sesión",
       redirect: "/Logout",
+      dataTest: 'link_cerrar-sesion',
     },
   ];
 
@@ -58,7 +61,7 @@ function Header() {
             className="group flex focus:outline-none"
             onClick={() => setIsMenuToggled((prev) => !prev)}
             onBlur={closeMenu}
-            data-test="UserMenuToggle"
+            data-test="user_menu_toggle"
           >
             <span className="hover:text-secondary-3 group-focus:text-secondary-3">
               {userInfo.name}
@@ -110,6 +113,7 @@ function Header() {
           onClick={() => setIsMobileNav((prev) => !prev)}
           className="group w-10 h-10 mr-10 lg:hidden"
           aria-label="menu toggle"
+          data-test='toggle_mobile_menu'
         >
           <Menu className="group-[:hover]:text-secondary-3 group-[:hover]:scale-110 group-[:focus]:text-secondary-3 group-[:focus]:scale-110 transition-transform transform duration-300 ease-out-expo w-full h-full" />
         </button>
