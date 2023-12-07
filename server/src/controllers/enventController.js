@@ -1,30 +1,19 @@
 import EventManager from '../dao/managerEvent.js';
+import EventModel from '../models/eventModel.js';
 import { uploadImage } from '../utils/cloudinary.js';
 
 const eventmananger = new EventManager();
 
 async function createEvent(req, res) {
 	try {
-		if (!req.files || Object.keys(req.files).length === 0) {
-			return res.status(400).json({
-				status: 1,
-				message: 'No se han enviado imagenes',
-			});
-		}
-		const imgArr = Array.isArray(req.files.img) ? req.files.img : [req.files.img];
-		const images = await Promise.all(
-			imgArr.map(async file => {
-				return await uploadImage(file.data);
-			})
-		);
-
 		const {
 			email,
 			title,
 			description,
 			capacity,
-			datein,
-			dateout,
+			dates,
+			startHour,
+			endHour,
 			modality,
 			ubication,
 			category,
@@ -32,20 +21,36 @@ async function createEvent(req, res) {
 			minimumAge,
 		} = req.body;
 
+		console.log(dates);
 		const data = {
 			email,
 			title,
 			description,
 			capacity: parseInt(capacity, 10),
-			datein,
-			dateout,
+			dates,
+			startHour,
+			endHour,
 			modality,
 			ubication,
 			category,
 			price: parseInt(price, 10),
 			minimumAge: parseInt(minimumAge, 10),
-			pictures: images,
 		};
+
+		const validateError = EventModel(data).validateSync();
+		if (validateError) {
+			throw validateError;
+		}
+
+		const imgArr = Array.isArray(req.files.img) ? req.files.img : [req.files.img];
+		const images = await Promise.all(
+			imgArr.map(async file => {
+				return await uploadImage(file.data);
+			})
+		);
+
+		data.pictures = images;
+
 		const response = await eventmananger.createEvent(data);
 
 		return res.status(200).json({

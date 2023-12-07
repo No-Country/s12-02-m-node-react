@@ -4,8 +4,8 @@ import { ChevronLeft, Menu } from "lucide-react";
 import NavbarHeader from "../../molecules/navbarHeader";
 import NavbarButton from "../../atoms/navbarButton";
 import Searcher from "../../atoms/searcher";
-import UserIcon from "../../atoms/UserIcon";
-import UserHeaderMenu from "../../atoms/UserHeaderMenu";
+import UserIcon from "../../atoms/userIcon";
+import UserHeaderMenu from "../../atoms/userHeaderMenu";
 
 import { useState, useEffect } from "react";
 
@@ -14,8 +14,11 @@ function Header() {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
+  const userDefault = {
+    names: "Caperactus"
+  }
+  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('user')) || userDefault);
 
-  const [userInfo, setUserInfo] = useState({ name: "Capipop" });
 
   const navigate = useNavigate();
 
@@ -61,7 +64,7 @@ function Header() {
             data-test="UserMenuToggle"
           >
             <span className="hover:text-secondary-3 group-focus:text-secondary-3">
-              {userInfo.name}
+              {userInfo.names}
             </span>
             <ChevronLeft
               className={`transform ${
@@ -123,7 +126,7 @@ function Header() {
       )}
       <div className="hidden lg:flex lg:items-center lg:justify-between lg:mr-10 lg:gap-5 lg:flex-grow">
         <Searcher className={"hidden xl:inline-flex xl:ml-5"} />
-        <NavbarHeader className={'lg:flex-grow'}/>
+        <NavbarHeader className={"lg:flex-grow"} />
         {renderLogSection()}
       </div>
     </header>
