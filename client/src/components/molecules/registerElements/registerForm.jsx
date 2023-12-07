@@ -6,8 +6,10 @@ import Modal from 'react-modal';
 const RegisterForm = ({ isOpen, onRequestClose }) => {
     
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
+        // name: user.user.displayName,
+        // email: user.user.email,
+        name: "",
+        email: "",
         password: '',
         showPassword: true,
       });
@@ -31,7 +33,6 @@ const RegisterForm = ({ isOpen, onRequestClose }) => {
         // Agrega lógica para enviar los datos del formulario al servidor
         console.log('Datos enviados:', formData);
       };
-    
       return (
         
       <Modal className="" isOpen={isOpen} onRequestClose={onRequestClose}

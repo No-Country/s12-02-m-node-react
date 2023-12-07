@@ -3,14 +3,13 @@ import GoogleLogin from "../../molecules/registerElements/registerGoogle";
 import { IoMdClose } from 'react-icons/io';
 import { useNavigate } from "react-router-dom";
 
-const RegisterModal = () => {
+const RegisterModal = (user) => {
     
     const navigate = useNavigate();
 
       const toHome = () => {
         navigate("/");
       };
-     
     return (
         <div className="relative flex flex-col bg-white rounded-lg border-none w-3.5/5 justify-between items-center p-8 pb-10 mt-12">
             <IoMdClose

@@ -37,7 +37,10 @@ function Register() {
                 />
             </div>
             <div className='flex items-center justify-center'>
-                <RegisterModal />
+            {/* {props.userData.user && (
+              <RegisterModal user={props.userData.user} showRegister={props.userData.showRegister} />
+            )} */}
+            <RegisterModal />
             </div>
         </div>
       </div>

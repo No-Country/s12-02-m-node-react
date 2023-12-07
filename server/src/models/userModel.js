@@ -36,6 +36,11 @@ const userScheme = new mongoose.Schema({
 		require: true,
 		trim: true,
 	},
+	picture: {
+		type: String,
+		require: true,
+		trim: true,
+	},
 	rol: {
 		type: String,
 		enum: ['admin', 'user'],
