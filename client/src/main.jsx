@@ -9,6 +9,7 @@ import { ThemeProvider } from "@material-tailwind/react";
 import "./index.css";
 import Detail from "./components/pages/EventDetail";
 import Register from "./components/pages/Register";
+import CreateEventPage from "./components/pages/CreateEventPage";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/detail",
         element: <Detail />,
+      },
+      {
+        path: "/createEvent",
+        element: <CreateEventPage />,
       },
       {
         path: "*",
