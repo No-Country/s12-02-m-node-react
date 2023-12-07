@@ -14,7 +14,7 @@ const SocialAuthButtons = () => {
   const handleGoogleLogin = async () => {
     // Lógica para iniciar sesión con Google
       try {
-        const response = await axios.get("http://localhost:3031/api/login");
+        const response = await axios.get("/login");
         if (!response.data) {
           throw new Error("Empty response from server");
         }
@@ -30,7 +30,7 @@ const SocialAuthButtons = () => {
   
         try {
           const registered = await axios.get(
-            `http://localhost:3031/api/user/${userData.email}`
+            `/user/${userData.email}`
           );
   
           if (registered.data.status === 0) {
