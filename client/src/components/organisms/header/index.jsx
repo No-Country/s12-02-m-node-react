@@ -14,7 +14,10 @@ function Header() {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
-  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('user')) || "");
+  const userDefault = {
+    names: "Caperactus"
+  }
+  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('user')) || userDefault);
 
 
   const navigate = useNavigate();
