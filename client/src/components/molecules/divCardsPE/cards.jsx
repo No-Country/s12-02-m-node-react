@@ -8,7 +8,8 @@ const dataCard = {
   location: "Hipódromo de San Isidro",
 };
 
-export const Card = ({ className }) => {
+export const Card = ({ className, info={} }) => {
+  const eventId = info.id || 1;
   const navigate = useNavigate();
   return (
     <div
@@ -39,7 +40,7 @@ export const Card = ({ className }) => {
           </div>
         </header>
         <button
-          onClick={() => navigate("/detail")}
+          onClick={() => navigate(`event/${eventId}`)}
           className="w-28 text-primary-4 text-sm font-semibold bg-transparent border border-primary-4 rounded-full px-6 py-2"
         >
           Ver más

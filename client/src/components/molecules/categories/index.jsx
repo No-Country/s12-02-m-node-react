@@ -19,10 +19,11 @@ const categories = [
 export default function Categories() {
   const handleClick = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget.getAttribute('data-filter_by'));
+    const filter = e.currentTarget.getAttribute('data-filter_by');
+    alert(`Filtrando eventos: ${filter}`)
   };
   return (
-    <div className="bg-primary-1 h-fit p-5 columns-[8rem] w-full sm:columns-4 lg:flex lg:justify-around lg:p-10">
+    <section className="bg-primary-1 h-fit p-5 columns-[8rem] w-full sm:columns-4 lg:flex lg:justify-around lg:p-10">
       {categories.map((category, index) => (
         <div
           key={index}
@@ -39,6 +40,6 @@ export default function Categories() {
           <p className="mt-2 text-primary-2">{category.description}</p>
         </div>
       ))}
-    </div>
+    </section>
   );
 }

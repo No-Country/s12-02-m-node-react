@@ -10,7 +10,7 @@ import UserHeaderMenu from "../../atoms/userHeaderMenu";
 import { useState, useEffect } from "react";
 
 function Header() {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
@@ -88,7 +88,7 @@ function Header() {
       );
     }
     return (
-      <div className="flex gap-4 justify-evenly w-full">
+      <div className="flex gap-4 justify-evenly w-fit">
         <NavbarButton
           filled={false}
           text={"Iniciar Sesión"}
