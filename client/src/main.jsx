@@ -10,14 +10,11 @@ import { ThemeProvider } from "@material-tailwind/react";
 import "./index.css";
 import Detail from "./components/pages/EventDetail";
 import Register from "./components/pages/Register";
-<<<<<<< HEAD
 import CreateEventPage from "./components/pages/CreateEventPage";
-=======
 import axios from "axios";
 
 // axios.defaults.baseURL = `http://localhost:3031/api`; //Local
 axios.defaults.baseURL = `https://event-wave-server.vercel.app/api`; //deployada
->>>>>>> aa5f1fa97cdef4b4f1e4c0d9f0d44280a714dffd
 
 const router = createBrowserRouter([
   {
