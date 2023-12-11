@@ -68,11 +68,11 @@ async function getOneBookingController(req, res) {
 		}
 		const oneBooking = await bookingsmanager.getOneBooking(query);
 		if (!oneBooking)
-			throw new Error('No hay reservas para mostrar que coincidan con sus criterios de búsqueda.');
+			throw new Error('No hay reserva para mostrar que coincidan con sus criterios de búsqueda.');
 		return res.status(200).json({
 			data: oneBooking,
 			status: 0,
-			message: 'Se han encontrado las siguientes reservas.',
+			message: 'Se han encontrado la siguiente reserva.',
 		});
 	} catch (error) {
 		return res.status(400).json({
@@ -95,12 +95,24 @@ async function updateBookingController(req, res) {
 		const result = await bookingsmanager.updatebooking(query, dataUpdate);
 		if (result.matchedCount > 0) {
 			const bookingUpdated = await bookingsmanager.getOneBooking(filter);
-			return res.status(200).send(bookingUpdated);
+			return res.status(200).json({
+				data: bookingUpdated,
+				status: 0,
+				message: 'Reserva actualizada con éxito',
+			});
 		} else {
-			return res.status(404).send('No se encontró ninguna reserva para actualizar con ese filtro.');
+			return res.status(400).json({
+				data: {},
+				status: 1,
+				message: 'No se pudo realizar la actualización.',
+			});
 		}
 	} catch (error) {
-		return res.status(400).send(error);
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: error.message,
+		});
 	}
 }
 

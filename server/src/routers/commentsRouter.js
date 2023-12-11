@@ -1,19 +1,22 @@
 import { Router } from 'express';
 import {
-	deleteComment,
-	getComments,
-	newComment,
-	updateComment,
+	deleteCommentController,
+	getAllCommentsController,
+	getOneCommentController,
+	createCommentController,
+	updateCommentController,
 } from '../controllers/commentsController.js';
 
 const router = Router();
 
-router.get('/all-comments', getComments);
+router.get('/all', getAllCommentsController);
 
-router.post('/:email/new-comment', newComment);
+router.get('/:id', getOneCommentController);
 
-router.delete('/:email/delete-comment/:id', deleteComment);
+router.post('/', createCommentController);
 
-router.put('/:email/update-comment/:id', updateComment);
+router.delete('/:mode/:id', deleteCommentController);
+
+router.put('/:id', updateCommentController);
 
 export default router;

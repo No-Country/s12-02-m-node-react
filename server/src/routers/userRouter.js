@@ -3,7 +3,9 @@ import { createUser, getUser, getUsers, updateUser } from '../controllers/userCo
 import authenticateToken from '../middleware/firebase.js';
 const userRouter = Router();
 
-userRouter.get('/', authenticateToken, getUsers);
+// userRouter.get('/', authenticateToken, getUsers);
+
+userRouter.get('/', getUsers);
 
 userRouter.get('/:email', getUser);
 
