@@ -1,4 +1,4 @@
-import DivCards from "../../molecules/divCardsPE";
+import UpcomingEventsGrid from "../../molecules/upcomingEventsGrid";
 import { MdArrowRight } from "react-icons/md";
 
 export default function ProximosEventos() {
@@ -10,7 +10,7 @@ export default function ProximosEventos() {
           Ver todo <MdArrowRight size={20} />
         </button>
       </div>
-      <DivCards />
+      <UpcomingEventsGrid />
     </div>
   );
 }

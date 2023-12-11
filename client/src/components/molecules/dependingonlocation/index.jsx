@@ -114,7 +114,7 @@ const DependingOnLocation = () => {
         </button>
       </div>
 
-      <div className="snap-x snap-mandatory w-full flex gap-3 overflow-scroll lg:overflow-hidden lg:columns-4 lg:block">
+      <div className="group regular snap-x snap-mandatory w-full flex gap-3 overflow-scroll xl:overflow-hidden xl:columns-2xs xl:block">
         {cardsData.map((card, i) => (
           <Card key={i} />
         ))}
