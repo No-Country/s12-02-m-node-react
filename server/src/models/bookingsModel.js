@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const bookingsScheme = new mongoose.Schema({
 	email: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
 		validate: {
 			validator: function (value) {
@@ -15,7 +15,7 @@ const bookingsScheme = new mongoose.Schema({
 	},
 	event_ID: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
 		validate: {
 			validator: function (value) {
