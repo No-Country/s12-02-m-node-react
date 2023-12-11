@@ -5,7 +5,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const SocialAuthButtons = () => {
+const GoogleLogin = () => {
   const [firebaseConfig, setFirebaseConfig] = useState(null);
   const [showRegister, setShowRegister] = useState(false);
   const [user, setUser] = useState(null);  // Nuevo estado para almacenar el usuario
@@ -51,28 +51,17 @@ const SocialAuthButtons = () => {
     
   };
 
-  const handleFacebookLogin = () => {
-    // Lógica para iniciar sesión con Facebook
-  };
-
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-start w-full">
       <button
-        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 flex items-center w-full"
+        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-9 rounded focus:outline-none focus:shadow-outline flex items-center w-5/5"
         onClick={handleGoogleLogin}
       >
-        <FaGoogle className="mr-2" />
+        <FaGoogle className="mr-4" />
         Continuar con Google
-      </button>
-      <button
-        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center w-full"
-        onClick={handleFacebookLogin}
-      >
-        <FaFacebook className="mr-2" />
-        Continuar con Facebook
       </button>
     </div>
   );
 };
 
-export default SocialAuthButtons;
+export default GoogleLogin;
