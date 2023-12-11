@@ -7,6 +7,7 @@ module.exports = withMT({
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/tailwind-datepicker-react/dist/**/*.js",
   ],
   theme: {
     extend: {
@@ -30,6 +31,8 @@ module.exports = withMT({
           1: "#0E1445",
           2: "#4285F4",
           3: "#93c8ed",
+          4: "#03193B",
+          5: "#111111"
         },
       },
       keyframes: {
