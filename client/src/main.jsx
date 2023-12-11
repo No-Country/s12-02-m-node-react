@@ -10,6 +10,7 @@ import { ThemeProvider } from "@material-tailwind/react";
 import "./index.css";
 import Detail from "./components/pages/EventDetail";
 import Register from "./components/pages/Register";
+import CreateEventPage from "./components/pages/CreateEventPage";
 import axios from "axios";
 
 // axios.defaults.baseURL = `http://localhost:3031/api`; //Local
@@ -25,8 +26,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/detail",
+        path: "/event/:id",
         element: <Detail />,
+      },
+      {
+        path: "/createEvent",
+        element: <CreateEventPage />,
       },
       {
         path: "*",

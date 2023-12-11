@@ -10,7 +10,7 @@ import UserHeaderMenu from "../../atoms/userHeaderMenu";
 import { useState, useEffect } from "react";
 
 function Header() {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
@@ -26,14 +26,17 @@ function Header() {
     {
       text: "Mi Cuenta",
       redirect: "/Myaccount",
+      dataTest: 'link_mi-cuenta',
     },
     {
       text: "Reservas",
       redirect: "/booked",
+      dataTest: 'link_reservas',
     },
     {
       text: "Cerrar Sesión",
       redirect: "/Logout",
+      dataTest: 'link_cerrar-sesion',
     },
   ];
 
@@ -61,7 +64,7 @@ function Header() {
             className="group flex focus:outline-none"
             onClick={() => setIsMenuToggled((prev) => !prev)}
             onBlur={closeMenu}
-            data-test="UserMenuToggle"
+            data-test="user_menu_toggle"
           >
             <span className="hover:text-secondary-3 group-focus:text-secondary-3">
               {userInfo.names}
@@ -85,7 +88,7 @@ function Header() {
       );
     }
     return (
-      <div className="flex gap-4 justify-evenly w-full">
+      <div className="flex gap-4 justify-evenly w-fit">
         <NavbarButton
           filled={false}
           text={"Iniciar Sesión"}
@@ -113,6 +116,7 @@ function Header() {
           onClick={() => setIsMobileNav((prev) => !prev)}
           className="group w-10 h-10 mr-10 lg:hidden"
           aria-label="menu toggle"
+          data-test='toggle_mobile_menu'
         >
           <Menu className="group-[:hover]:text-secondary-3 group-[:hover]:scale-110 group-[:focus]:text-secondary-3 group-[:focus]:scale-110 transition-transform transform duration-300 ease-out-expo w-full h-full" />
         </button>

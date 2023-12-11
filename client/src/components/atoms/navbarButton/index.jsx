@@ -1,8 +1,16 @@
 import React from "react";
 
-function NavbarButton({ text, handler, filled = false, color = 'secondary-2', line = 'primary-1' }) {
+function NavbarButton({
+  text,
+  handler,
+  filled = false,
+  color = "secondary-2",
+  line = "primary-1",
+  dataTest = "",
+}) {
   return (
     <button
+      data-test={dataTest}
       onClick={(e) => {
         e.preventDefault;
         handler(e);

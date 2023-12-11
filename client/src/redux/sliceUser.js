@@ -7,6 +7,7 @@ const initialState = {
   email: "",
   country: "",
   rol: "",
+  location: "",
 };
 
 export const userHandler = createSlice({
@@ -31,6 +32,9 @@ export const userHandler = createSlice({
     setRol: (state, action) => {
       state.rol = action.payload;
     },
+    setLocation: (state,action) => {
+      state.location = action.payload;
+    }
   },
 });
 
@@ -48,6 +52,7 @@ export const {
   setEmail,
   setCountry,
   setRol,
+  setLocation,
 } = userHandler.actions;
 
 export default userHandler.reducer;
