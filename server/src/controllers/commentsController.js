@@ -1,96 +1,151 @@
-import managerComments from '../dao/managerComments.js';
+/* eslint-disable eqeqeq */
+import CommentsManager from '../dao/managerComments.js';
+import CommentsModel from '../models/commentsModel.js';
+import { ObjectId } from 'mongodb';
+const commentsmanager = new CommentsManager();
 
-export const newComment = async (req, res) => {
-	const email = req.params.email;
-	const text = req.body;
-
+// This controller is for creating a comment
+async function createCommentController(req, res) {
 	try {
-		const newComment = await managerComments.createNewComment(email, text);
-
-		if (newComment === 'FIELDS_EMPTY')
-			return res
-				.status(400)
-				.json({ data: { errorMessage: 'El campo no puede ir vacío' }, status: 1 });
-
-		if (newComment === 'EMAIL_NOT_SPECIFIED')
-			return res
-				.status(400)
-				.json({ data: { errorMessage: 'Email no especificado en la URL' }, status: 1 });
-		if (newComment === 'USER_NOT_FOUND')
-			return res.status(404).json({ data: { errorMessage: 'Usuario no encontrado' }, status: 1 });
-
-		return res.status(201).json({ data: { newComment }, status: 0 });
-	} catch (error) {
-		return res.status(500).json({ data: { errorMessage: error.message }, status: 1 });
-	}
-};
-
-export const getComments = async (req, res) => {
-	try {
-		const allComments = await managerComments.getAllComments();
-
-		if (allComments === 'NO_COMMENTS')
-			return res
-				.status(404)
-				.json({ data: { errorMessage: 'No se encontraron comentarios' }, status: 1 });
-
-		return res.json({ data: { allComments }, status: 0 });
-	} catch (error) {
-		return res.status(500).json({ data: { errorMessage: error.message }, status: 1 });
-	}
-};
-
-export const deleteComment = async (req, res) => {
-	const email = req.params.email;
-	const id = req.params.id;
-
-	try {
-		const deletedComment = await managerComments.deleteComment(email, id);
-
-		if (deletedComment === 'EMAIL_NOT_SPECIFIED')
-			return res
-				.status(400)
-				.json({ data: { errorMessage: 'Email no especificado en la URL' }, status: 1 });
-		if (deletedComment === 'USER_NOT_FOUND')
-			return res.status(404).json({ data: { errorMessage: 'Usuario no encontrado' }, status: 1 });
-		if (deletedComment === 'COMMENT_NOT_FOUND')
-			return res
-				.status(404)
-				.json({ data: { errorMessage: 'Comentario no encontrado' }, status: 1 });
-
-		return res.json({
-			data: { message: 'Comentario eliminado correctamente', deletedComment },
+		const data = req.body;
+		const validateError = CommentsModel(data).validateSync();
+		if (validateError) {
+			throw validateError;
+		}
+		await commentsmanager.createComment(data);
+		return res.status(200).json({
+			data,
 			status: 0,
+			message: 'Se han guardado con éxito el comentario.',
 		});
 	} catch (error) {
-		return res.status(500).json({ error: { message: error.message }, status: 1 });
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: error.message,
+		});
 	}
-};
+}
 
-export const updateComment = async (req, res) => {
-	const email = req.params.email;
-	const id = req.params.id;
-
+// This controller return all comments of the one publication
+async function getAllCommentsController(req, res) {
 	try {
-		const updatedComment = await managerComments.updateComment(id, email, req.body);
-
-		if (updatedComment === 'EMAIL_NOT_SPECIFIED')
-			return res
-				.status(400)
-				.json({ data: { errorMessage: 'Email no especificado en la URL' }, status: 1 });
-		if (updatedComment === 'USER_NOT_FOUND')
-			return res.status(404).json({ data: { errorMessage: 'Usuario no encontrado' }, status: 1 });
-
-		if (updatedComment === 'COMMENT_NOT_FOUND')
-			return res
-				.status(404)
-				.json({ data: { errorMessage: 'Comentario no encontrado' }, status: 1 });
-
-		return res.json({
-			data: { message: 'Comentario actualizado correctamente', updatedComment },
+		const queryParams = req.query;
+		let query = {};
+		if (queryParams.email) {
+			query = { email: queryParams.email };
+		} else if (queryParams.event_ID) {
+			query = { event_ID: queryParams.event_ID };
+		}
+		const allComments = await commentsmanager.getAllComments(query);
+		if (allComments.length === 0) throw new Error('No hay comentarios para mostrar');
+		return res.status(200).json({
+			data: allComments,
 			status: 0,
+			message: 'Se han encontrado los siguientes comentarios.',
 		});
 	} catch (error) {
-		return res.status(500).json({ data: { errorMessage: error.message }, status: 1 });
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: error.message,
+		});
 	}
+}
+
+// This controller return one comentario that match by id)
+async function getOneCommentController(req, res) {
+	try {
+		const id = req.params;
+		const commentId = new ObjectId(id);
+		const query = { _id: commentId };
+		const oneComment = await commentsmanager.getOneComment(query);
+		if (!oneComment) throw new Error('No hay comentario con ese id.');
+		return res.status(200).json({
+			data: oneComment,
+			status: 0,
+			message: 'Se han encontrado el siguiente comentario.',
+		});
+	} catch (error) {
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: error.message,
+		});
+	}
+}
+
+// This controller update one comentario that match with id
+async function updateCommentController(req, res) {
+	try {
+		const dataUpdate = req.body;
+		const id = req.params;
+		const commentId = new ObjectId(id);
+		const query = { _id: commentId };
+		const result = await commentsmanager.updateComment(query, dataUpdate);
+		if (result.matchedCount > 0) {
+			const commentUpdated = await commentsmanager.getOneComment(query);
+			return res.status(200).json({
+				data: commentUpdated,
+				status: 0,
+				message: 'Comentario actualizado con éxito',
+			});
+		} else {
+			return res.status(400).json({
+				data: {},
+				status: 1,
+				message: 'No se pudo realizar la actualización.',
+			});
+		}
+	} catch (error) {
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: error.message,
+		});
+	}
+}
+
+// This controller delete one comment physically (mode = 0) or logically (mode = 1)
+async function deleteCommentController(req, res) {
+	try {
+		const { mode, id } = req.params;
+		let result;
+		let filter = {};
+		const commentId = new ObjectId(id);
+		filter = { _id: commentId };
+		if (mode == 0) {
+			result = await commentsmanager.deleteComment(filter);
+		} else {
+			result = await commentsmanager.updateComment(filter, { active: false });
+		}
+		if (result.deletedCount > 0 || result.matchedCount > 0) {
+			const action = mode == 0 ? 'físicamente' : 'lógicamente';
+			return res.status(200).json({
+				data: result,
+				status: 0,
+				message: `El comentario ha sido eliminado ${action}.`,
+			});
+		} else {
+			return res.status(404).json({
+				data: {},
+				status: 1,
+				message: 'No se encontró ningun comentario para eliminar con ese id.',
+			});
+		}
+	} catch (error) {
+		return res.status(400).json({
+			data: {},
+			status: 1,
+			message: 'Se produjo un error al procesar la solicitud.',
+		});
+	}
+}
+
+export {
+	createCommentController,
+	getAllCommentsController,
+	getOneCommentController,
+	updateCommentController,
+	deleteCommentController,
 };
