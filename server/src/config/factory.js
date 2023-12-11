@@ -14,13 +14,13 @@ async function createDocument(collection, data) {
 }
 
 // Funcion para buscar todo
-async function getAllDocuments(collection, query = {}) {
+async function getAllDocuments(collection, query = {}, select) {
 	try {
 		if (!db[collection]) {
 			await db.connectToDatabase();
 		}
 		// busca una coleccion mediante una query, si la query es un objeto vacio pinta todo.
-		const document = await db[collection].find(query).toArray();
+		const document = await db[collection].find(query).project(select).toArray();
 		return document;
 	} catch (error) {
 		throw error;

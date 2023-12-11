@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "./components/pages/Layout";
@@ -9,7 +10,14 @@ import { ThemeProvider } from "@material-tailwind/react";
 import "./index.css";
 import Detail from "./components/pages/EventDetail";
 import Register from "./components/pages/Register";
+<<<<<<< HEAD
 import CreateEventPage from "./components/pages/CreateEventPage";
+=======
+import axios from "axios";
+
+// axios.defaults.baseURL = `http://localhost:3031/api`; //Local
+axios.defaults.baseURL = `https://event-wave-server.vercel.app/api`; //deployada
+>>>>>>> aa5f1fa97cdef4b4f1e4c0d9f0d44280a714dffd
 
 const router = createBrowserRouter([
   {
@@ -38,11 +46,14 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </ThemeProvider>
   </React.StrictMode>
 );
