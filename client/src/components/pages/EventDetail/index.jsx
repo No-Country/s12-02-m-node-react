@@ -1,5 +1,6 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { useState } from "react";
+import Comments from "../../organisms/comments";
 
 export default function Detail() {
   const [favorited, setFavorited] = useState(false);
@@ -30,6 +31,9 @@ export default function Detail() {
             </button>
           </div>
         </div>
+        <div className="mt-4">
+          <button className="w-full rounded-full border-none border-primary-600 bg-primary-500 hover:bg-primary-600 shadow-md p-3 text-white">Reservar Ahora</button>
+        </div>
         <div className="mt-7 flex flex-col">
           <h3 className="font-bold text-xl font-poppins">Acerca del evento</h3>
           <p className="font-poppins mt-2">
@@ -43,7 +47,13 @@ export default function Detail() {
             que nadie sabe desplegar como lo hace Diego Torres.
           </p>
         </div>
-        <Accordion variant="splitted" className="my-3">
+        <div className="mt-7 flex flex-col">
+          <h3 className="font-bold text-xl font-poppins">Comentarios</h3>
+          <div>
+            <Comments />
+          </div>
+        </div>
+        {/* <Accordion variant="splitted" className="my-3">
           <AccordionItem
             key="1"
             aria-label="Accordion 1"
@@ -84,7 +94,7 @@ export default function Detail() {
               alt=""
             />
           </AccordionItem>
-        </Accordion>
+        </Accordion> */}
       </div>
       <div className="w-1/3 flex flex-col mr-7 items-center">
         <div className="flex flex-col flex-wrap md:flex-nowrap gap-4 bg-primary-1 mt-4 w-4/5 rounded-xl">
