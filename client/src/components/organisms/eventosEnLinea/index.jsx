@@ -22,7 +22,7 @@ export default function EventosEnLinea() {
           Ver todo <MdArrowRight size={20} />
         </button>
       </div>
-      <div className="w-full columns-[15rem] md:columns-2 lg:columns-4">{renderedCards}</div>
+      <div className="w-full columns-2xs md:columns-2 xl:columns-4">{renderedCards}</div>
     </div>
   );
 }

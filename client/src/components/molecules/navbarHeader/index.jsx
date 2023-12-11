@@ -4,19 +4,23 @@ function NavbarHeader({className}) {
   const items = [
     {
       text: 'Inicio',
-      route: '/'
+      route: '/',
+      dataTest: 'link_inicio',
     },
     {
       text: 'Eventos',
-      route: '/Events'
+      route: '/Events',
+      dataTest: 'link_eventos',
     },
     {
       text: 'Novedades',
-      route: '/News'
+      route: '/News',
+      dataTest: 'link_novedades',
     },
     {
       text: 'Crear Eventos',
-      route: '/Create-Event'
+      route: '/Create-Event',
+      dataTest: 'link_crear-eventos',
     },
     
   ]
@@ -24,7 +28,7 @@ function NavbarHeader({className}) {
     <nav className={`${className}`}>
       <ul className={`list-none flex gap-5 items-center justify-evenly flex-wrap lg:justify-center`}>
         {items.map(item =>(
-          <NavBarItem key={item.route} text={item.text} route={item.route}/>
+          <NavBarItem key={item.route} text={item.text} route={item.route} dataTest={item.dataTest} />
         ))}
       </ul>
     </nav>

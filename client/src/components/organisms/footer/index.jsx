@@ -111,7 +111,7 @@ function Footer() {
               >
                 <ul className="flex flex-col gap-2 items-center">
                   {section.links.map((link) => (
-                    <li>
+                    <li key={link.text}>
                       <NavLink
                         to={link.to}
                         className="text-primary-1 text-medium font-thin hover:text-secondary-3 focus:text-secondary-3"
@@ -127,11 +127,11 @@ function Footer() {
         </section>
         <section className="hidden lg:flex flex-grow justify-evenly">
           {footerLinks.map((section) => (
-            <div>
+            <div key={section.linksTitle}>
               <h3 className="font-semibold text-lg mb-2">{section.linksTitle}</h3>
               <ul>
                 {section.links.map((link) => (
-                  <li>
+                  <li key={link.text}>
                     <NavLink
                       to={link.to}
                       className="text-primary-1 text-medium font-thin hover:text-secondary-3 focus:text-secondary-3"
