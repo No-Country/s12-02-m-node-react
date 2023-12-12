@@ -5,7 +5,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const GoogleLogin = () => {
+const WithGoogleLogin = () => {
   const [firebaseConfig, setFirebaseConfig] = useState(null);
   const [showRegister, setShowRegister] = useState(false);
   const [user, setUser] = useState(null);  // Nuevo estado para almacenar el usuario
@@ -64,4 +64,4 @@ const GoogleLogin = () => {
   );
 };
 
-export default GoogleLogin;
+export default WithGoogleLogin;

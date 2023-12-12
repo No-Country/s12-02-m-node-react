@@ -16,11 +16,27 @@ function Header() {
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
   const userDefault = {
     names: "Caperactus"
-  }
+  };
   const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('user')) || userDefault);
-
-
+  
   const navigate = useNavigate();
+
+  const toLogout = () => {
+    setIsLogged(false);  
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/"); 
+  };
+
+  useEffect(() => {
+    if (userInfo.email) {
+      setIsLogged(true);
+    } 
+  }, [userInfo]);
+
+const closeSession = () => {
+  toLogout();
+};
 
   const headerMenuOptions = [
     {
@@ -35,9 +51,12 @@ function Header() {
     },
     {
       text: "Cerrar Sesión",
-      redirect: "/Logout",
+      onClick: () => {
+        console.log("Clic en Cerrar Sesión");
+        toLogout();
+      },
       dataTest: 'link_cerrar-sesion',
-    },
+    }
   ];
 
   const toRegister = () => {
@@ -59,7 +78,7 @@ function Header() {
     if (isLogged) {
       return (
         <div className="relative flex items-center gap-2 justify-center w-fit">
-          <UserIcon />
+          <UserIcon imgUrl={userInfo.picture} />
           <button
             className="group flex focus:outline-none"
             onClick={() => setIsMenuToggled((prev) => !prev)}

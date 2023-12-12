@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import UserManager from '../dao/managerUser.js';
 // import UserModel from '../models/userModel.js';
 import UserModel from '../models/userModel.js';
@@ -7,8 +8,19 @@ async function createUser(req, res) {
 	try {
 		const data = req.body;
 		const validateError = UserModel(data).validateSync();
+		if (data.picture == '' || data.picture == null) {
+			data.picture = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png';
+		}
 		if (validateError) {
 			throw validateError;
+		}
+		const response = await usermanager.getOneUser({ email: data.email });
+		if (response) {
+			return res.status(400).json({
+				data: {},
+				status: 2,
+				message: 'El usuario con este correo electrónico ya existe.',
+			});
 		}
 		const newUser = await usermanager.createUser(data);
 		return res.status(200).json({

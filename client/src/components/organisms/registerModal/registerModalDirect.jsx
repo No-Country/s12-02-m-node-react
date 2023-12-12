@@ -4,16 +4,23 @@ import { useNavigate } from "react-router-dom";
 import WithGoogleLogin from "../../molecules/registerElements/registerWithGoogle";
 import axios from "axios";
 
-const RegisterModal = (user) => {
+//registro con Google intento de inicio
+const RegisterModalDirect = (user) => {
   const [formData, setFormData] = useState({
-    names: user.user.displayName,
+    names: "",
     lastname: "",
-    email: user.user.email,
+    email: "",
     country: "",
     birthDate: "01/01/2000",
-    picture: user.user.photoURL || "",
+    picture: "",
+    password: "",
+    showPassword: true,
   });
-
+  if (user=={}) {
+    formData.names = user.user.displayName;
+    formData.email = user.user.email;
+    formData.picture = user.user.photoURL || "";
+  }
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,23 +28,35 @@ const RegisterModal = (user) => {
     });
   };
 
+  const toggleShowPassword = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      showPassword: !prevData.showPassword,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Datos enviados:", formData);
     try {
       const response = await axios.post("/user", formData);
-      console.log(response);
+      if (response.data.status === 0) {
+        toHome();
+      }
     } catch (error) {
-      console.error("Error al registrar usuario:", error);
+      if (error.response && error.response.data.status === 2) {
+        alert("El correo electrónico ya existe!");
+      }
+      console.error("Error al registrar usuario:", error.response ? error.response.data.message : error.message);
     }
   };
+  
+  
 
   const navigate = useNavigate();
 
   const toHome = () => {
     navigate("/");
   };
-
   return (
     <div className="relative flex flex-col bg-white rounded-lg border-none w-3.5/5 justify-between items-center p-8 pb-10 mt-12">
       <IoMdClose
@@ -48,19 +67,20 @@ const RegisterModal = (user) => {
       <h1 className="text-black text-center font-poppins text-5xl font-semibold leading-tight mb-4">
         Regístrate
       </h1>
+      {/* Formulario para registrarse, inputs de name, lastname, birthdate, country, email y password */}
 
       <form className="flex flex-col max-w-6xl w-full pl-10 pt-5">
         <h2 className="text-1xl font-bold mb-10">
           Completa los datos para registrarte
         </h2>
-
-        <div className="flex-1">
-          <WithGoogleLogin />
-        </div>
-
+        
+                <div className="flex-1">
+                    <WithGoogleLogin />
+                </div>
+            
         <div className="flex flex-wrap w-full">
           <div className="w-full sm:w-1/2 px-2 mb-10">
-            <input
+          <input
               className="border-b border-gray-500 w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 placeholder-black"
               id="names"
               type="text"
@@ -103,6 +123,30 @@ const RegisterModal = (user) => {
               onChange={handleChange}
             />
           </div>
+          <div className="w-full sm:w-1/2 px-2 mb-10">
+            <input
+              className="border-b border-gray-500 w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 placeholder-black"
+              id="email"
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full sm:w-1/2 px-2 mb-10">
+            <div className="flex items-center">
+              <input
+                className="border-b border-gray-500 w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 placeholder-black"
+                id="password"
+                type={formData.showPassword ? "password" : "text"}
+                placeholder="Contraseña"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
         </div>
         <div className="flex items-center justify-between">
           <button
@@ -128,4 +172,4 @@ const RegisterModal = (user) => {
   );
 };
 
-export default RegisterModal;
+export default RegisterModalDirect;

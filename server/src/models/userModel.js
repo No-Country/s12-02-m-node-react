@@ -18,13 +18,13 @@ const userScheme = new mongoose.Schema({
 		required: true,
 		trim: true,
 	},
+
 	email: {
 		type: String,
 		required: true,
 		trim: true,
 		validate: {
 			validator: function (value) {
-				// Utiliza una expresión regular para validar el formato del correo electrónico
 				return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(value);
 			},
 			message: 'El campo email no es una dirección de correo electrónico válida.',
@@ -36,11 +36,12 @@ const userScheme = new mongoose.Schema({
 		required: true,
 		trim: true,
 	},
+
 	picture: {
 		type: String,
-		required: true,
 		trim: true,
 	},
+
 	rol: {
 		type: String,
 		enum: ['admin', 'user'],
