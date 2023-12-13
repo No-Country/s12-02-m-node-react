@@ -19,7 +19,7 @@ function NavbarHeader({className}) {
     },
     {
       text: 'Crear Eventos',
-      route: '/Create-Event',
+      route: '/CreateEvent',
       dataTest: 'link_crear-eventos',
     },
     

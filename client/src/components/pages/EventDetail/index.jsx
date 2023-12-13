@@ -1,9 +1,14 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Comments from "../../organisms/comments";
 
 export default function Detail() {
   const [favorited, setFavorited] = useState(false);
+  useEffect(() => {
+    if (window.scrollY > 0) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   const toggleFavorite = () => {
     setFavorited((prev) => !prev);
@@ -32,7 +37,9 @@ export default function Detail() {
           </div>
         </div>
         <div className="mt-8">
-          <button className="w-full rounded-full border-none border-primary-600 bg-primary-500 hover:bg-primary-600 shadow-md p-3 text-white">Reservar Ahora</button>
+          <button className="w-full rounded-full border-none border-primary-600 bg-primary-500 hover:bg-primary-600 shadow-md p-3 text-white">
+            Reservar Ahora
+          </button>
         </div>
         <div className="mt-7 flex flex-col">
           <h3 className="font-bold text-xl font-poppins">Acerca del evento</h3>
