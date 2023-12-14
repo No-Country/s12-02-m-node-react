@@ -66,7 +66,7 @@ const eventSchema = new mongoose.Schema({
 		required: true,
 		trim: true,
 	},
-	ubication: {
+	location: {
 		type: String,
 		required: true,
 		trim: true,
