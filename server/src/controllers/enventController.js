@@ -28,7 +28,7 @@ async function createEvent(req, res) {
 			title,
 			description,
 			capacity: parseInt(capacity, 10),
-			dates,
+			dates: JSON.parse(dates),
 			startHour,
 			endHour,
 			modality,
