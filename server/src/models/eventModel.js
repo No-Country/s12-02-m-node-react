@@ -24,18 +24,26 @@ const eventSchema = new mongoose.Schema({
 		min: [1, 'La capacidad debe ser al menos 1.'],
 	},
 	dates: {
-		type: [
-			{
+		type: {
+			start: {
 				type: String,
 				validate: {
 					validator: function (value) {
-						// Expresión regular para validar el formato aaaa-mm-dd
 						return /^\d{4}-\d{2}-\d{2}$/.test(value);
 					},
 					message: props => `${props.value} no es un formato de fecha válido (aaaa-mm-dd)`,
 				},
 			},
-		],
+			end: {
+				type: String,
+				validate: {
+					validator: function (value) {
+						return /^\d{4}-\d{2}-\d{2}$/.test(value);
+					},
+					message: props => `${props.value} no es un formato de fecha válido (aaaa-mm-dd)`,
+				},
+			},
+		},
 		required: true,
 	},
 	startHour: {

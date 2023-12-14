@@ -5,6 +5,7 @@ import { uploadImage } from '../utils/cloudinary.js';
 const eventmananger = new EventManager();
 
 async function createEvent(req, res) {
+	console.log(req.body);
 	try {
 		const {
 			email,
