@@ -37,7 +37,7 @@ function CreateEventPage() {
     });
     console.log(datesObj);
     setSelectedDates(e);
-    setFormatedSelectedDates(arrayDates);
+    setFormatedSelectedDates(datesObj);
 
     // console.log(formatedDates);
   };
@@ -85,7 +85,7 @@ function CreateEventPage() {
     const formData = new FormData(e.currentTarget);
     console.log("fechas: ", formatedSelectedDates);
     // formatedSelectedDates.forEach((date, i) => formData.append(`dates[${i}]`, date ))
-    formData.append("dates", formatedSelectedDates);
+    formData.append("dates", JSON.stringify(formatedSelectedDates));
     formData.append("email", "pedro@example.com");
 
     const dataObj = Object.fromEntries(formData);
