@@ -86,7 +86,7 @@ const closeSession = () => {
             onBlur={closeMenu}
             data-test="user_menu_toggle"
           >
-            <UserIcon />
+            <UserIcon imgUrl={userInfo.picture}/>
             <span className="group-hover:text-secondary-3 group-focus:text-secondary-3">
               {userInfo.names}
             </span>
