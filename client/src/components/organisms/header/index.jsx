@@ -10,15 +10,17 @@ import UserHeaderMenu from "../../atoms/userHeaderMenu";
 import { useState, useEffect } from "react";
 
 function Header() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
   const userDefault = {
-    names: "Caperactus"
+    names: "Caperactus",
   };
-  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('user')) || userDefault);
-  
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("user")) || userDefault
+  );
+
   const navigate = useNavigate();
 
   const toLogout = () => {
@@ -42,12 +44,12 @@ const closeSession = () => {
     {
       text: "Mi Cuenta",
       redirect: "/Myaccount",
-      dataTest: 'link_mi-cuenta',
+      dataTest: "link_mi-cuenta",
     },
     {
       text: "Reservas",
       redirect: "/booked",
-      dataTest: 'link_reservas',
+      dataTest: "link_reservas",
     },
     {
       text: "Cerrar Sesión",
@@ -78,14 +80,14 @@ const closeSession = () => {
     if (isLogged) {
       return (
         <div className="relative flex items-center gap-2 justify-center w-fit">
-          <UserIcon imgUrl={userInfo.picture} />
           <button
-            className="group flex focus:outline-none"
+            className="group flex focus:outline-none items-center gap-1"
             onClick={() => setIsMenuToggled((prev) => !prev)}
             onBlur={closeMenu}
             data-test="user_menu_toggle"
           >
-            <span className="hover:text-secondary-3 group-focus:text-secondary-3">
+            <UserIcon />
+            <span className="group-hover:text-secondary-3 group-focus:text-secondary-3">
               {userInfo.names}
             </span>
             <ChevronLeft
@@ -135,7 +137,7 @@ const closeSession = () => {
           onClick={() => setIsMobileNav((prev) => !prev)}
           className="group w-10 h-10 mr-10 lg:hidden"
           aria-label="menu toggle"
-          data-test='toggle_mobile_menu'
+          data-test="toggle_mobile_menu"
         >
           <Menu className="group-[:hover]:text-secondary-3 group-[:hover]:scale-110 group-[:focus]:text-secondary-3 group-[:focus]:scale-110 transition-transform transform duration-300 ease-out-expo w-full h-full" />
         </button>
