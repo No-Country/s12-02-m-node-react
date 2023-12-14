@@ -1,28 +1,55 @@
-import UserIcon from "../../atoms/userIcon";
-import { useEffect, useState } from "react";
-import TimeInput from "../../atoms/timeInput";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import useFetch from "../../../hooks/useFetch";
 
+import UserIcon from "../../atoms/userIcon";
 import Calendar from "@demark-pro/react-booking-calendar";
+import TimeInput from "../../atoms/timeInput";
+
+import toast, { Toaster } from "react-hot-toast";
 
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { RiMoneyDollarBoxFill } from "react-icons/ri";
 import { FaLocationDot } from "react-icons/fa6";
 
 function CreateEventPage() {
+  const [fileImageURL, setFileImageUrl] = useState(null);
+  const [selectedDates, setSelectedDates] = useState([]);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+
+  const [formatedSelectedDates, setFormatedSelectedDates] = useState({});
+  const form = useRef(null);
+
+  const [eventResponse, eventStatus, eventPost] = useFetch();
+
   /*   useEffect(() => {
     if (window.scrollY > 0) {
       window.scrollTo(0, 0);
     }
   }, []); */
 
-  const [fileImageURL, setFileImageUrl] = useState(null);
-  const [selectedDates, setSelectedDates] = useState([]);
-  const [formatedSelectedDates, setFormatedSelectedDates] = useState({});
+  useEffect(() => {
+    if (eventStatus.success) {
+      toast.success("Evento creado exitosamente");
+      resetForm();
+      console.log(eventResponse);
+    } else if (eventStatus.loading) {
+      toast.loading("...Creando Evento", { duration: 2000 });
+    } else if (eventStatus.error) {
+      toast.error("No se logro crear el evento");
+    }
+  }, [eventStatus]);
+
+  const resetForm = () => {
+    form.current.reset();
+    setFileImageUrl(null);
+    setSelectedDates([]);
+    setStartTime("");
+    setEndTime("");
+  };
 
   const handleCalendarChange = (e) => {
-    // const firstDate = String(e[0]).split(' ').splice(1, 3).join(' ')
-    // const formatedDates = formatDates(firstDate)
     const datesObj = {};
     const arrayDates = e.map((date) => {
       const stringDate = String(date).split(" ").splice(1, 3).join(" ");
@@ -35,11 +62,9 @@ function CreateEventPage() {
         datesObj.end = date;
       }
     });
-    console.log(datesObj);
+    // console.log(datesObj);
     setSelectedDates(e);
     setFormatedSelectedDates(datesObj);
-
-    // console.log(formatedDates);
   };
 
   const handleFooters = (e) => {
@@ -84,22 +109,29 @@ function CreateEventPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     console.log("fechas: ", formatedSelectedDates);
-    // formatedSelectedDates.forEach((date, i) => formData.append(`dates[${i}]`, date ))
     formData.append("dates", JSON.stringify(formatedSelectedDates));
     formData.append("email", "pedro@example.com");
 
-    const dataObj = Object.fromEntries(formData);
+    // const dataObj = Object.fromEntries(formData);
+    const myrequest = eventPost({
+      path: "/event",
+      data: formData,
+      method: "POST",
+    });
 
-    console.log("formData:", formData.get("dates"));
-
-    axios.post("http://localhost:3031/api/event", formData);
+    // axios.post("http://localhost:3031/api/event", formData);
   };
   return (
     <main className="w-full flex flex-col items-center">
+      <Toaster />
       <header className="bg-secondary-4 h-72 flex items-center justify-start px-16 w-full">
         <h2 className="text-white text-7xl text-center">Crear evento</h2>
       </header>
-      <form onSubmit={handleSubmit} className=" w-11/12 bg-primary-6 p-20">
+      <form
+        ref={form}
+        onSubmit={handleSubmit}
+        className=" w-11/12 bg-primary-6 p-20"
+      >
         <div className="flex items-center gap-2 p-10">
           <div className="flex-shrink-0">
             <UserIcon />
@@ -130,6 +162,7 @@ function CreateEventPage() {
               <span>Agregar foto de portada</span>
             </p>
             <input
+              data-test="event-banner"
               type="file"
               name="img"
               onChange={handleFile}
@@ -153,7 +186,7 @@ function CreateEventPage() {
         <div className="p-6 flex items-center">
           <div className="relative bg-white p-5 block rounded-xl outline-2 outline-secondary-2 focus-within:outline hover:outline focus-within:shadow-lg shadow-secondary-1 w-4/12">
             <Calendar
-              data-test="calendar"
+              id="calendar"
               selected={selectedDates}
               onChange={handleCalendarChange}
               range={true}
@@ -164,16 +197,18 @@ function CreateEventPage() {
           </div>
           <div className="ml-4 flex flex-col items-center">
             <TimeInput
-              data-test="start-time"
+              dataTest="start-hour"
               label="Hora de Inicio"
               propertyName={"startHour"}
               className=""
+              state={[startTime, setStartTime]}
             />
             <TimeInput
-              data-test="end-time"
+              dataTest="end-hour"
               label="Hora de Finalizacion"
               propertyName={"endHour"}
               className=""
+              state={[endTime, setEndTime]}
             />
           </div>
         </div>
@@ -204,6 +239,7 @@ function CreateEventPage() {
             <label className="bg-white p-6 rounded-xl flex items-center">
               <FaLocationDot className="w-6 h-6" />
               <input
+                data-test="location"
                 type="text"
                 name="location"
                 placeholder="Ubicacion"
@@ -230,7 +266,12 @@ function CreateEventPage() {
           </select>
         </div>
         <div className="p-6">
-          <input type="number" name="minimumAge" placeholder="Edad minima" />
+          <input
+            type="number"
+            name="minimumAge"
+            placeholder="Edad minima"
+            data-test="minimum-age"
+          />
         </div>
         <div className="p-6 flex items-center">
           <input

@@ -5,7 +5,7 @@ const dataCard = {
     location: 'Virtual',
   }
 
-export const Card = () => {
+export const Card = ({cardInfo}) => {
     return (
       <div className="snap-start flex flex-col gap-3 p-3 shadow-md rounded-lg min-w-fit lg:mb-5">
         <img

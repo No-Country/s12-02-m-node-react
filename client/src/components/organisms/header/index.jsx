@@ -18,29 +18,29 @@ function Header() {
     names: "Caperactus",
   };
   const [userInfo, setUserInfo] = useState(
-    JSON.parse(localStorage.getItem("user")) 
+    JSON.parse(localStorage.getItem("user"))
   );
 
   const navigate = useNavigate();
 
   const toLogout = () => {
-    setIsLogged(false);  
+    setIsLogged(false);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    navigate("/"); 
+    navigate("/");
   };
 
   useEffect(() => {
     if (userInfo?.email) {
       setIsLogged(true);
     } else {
-      setIsLogged(false)
+      setIsLogged(false);
     }
   }, [userInfo]);
 
-const closeSession = () => {
-  toLogout();
-};
+  const closeSession = () => {
+    toLogout();
+  };
 
   const headerMenuOptions = [
     {
@@ -59,8 +59,8 @@ const closeSession = () => {
         console.log("Clic en Cerrar Sesión");
         toLogout();
       },
-      dataTest: 'link_cerrar-sesion',
-    }
+      dataTest: "link_cerrar-sesion",
+    },
   ];
 
   const toRegister = () => {
@@ -88,7 +88,7 @@ const closeSession = () => {
             onBlur={closeMenu}
             data-test="user_menu_toggle"
           >
-            <UserIcon imgUrl={userInfo?.picture}/>
+            <UserIcon imgUrl={userInfo?.picture} />
             <span className="group-hover:text-secondary-3 group-focus:text-secondary-3">
               {userInfo?.names}
             </span>
@@ -116,8 +116,14 @@ const closeSession = () => {
           filled={false}
           text={"Iniciar Sesión"}
           handler={toLogin}
+          dataTest="Login"
         />
-        <NavbarButton filled text={"Registrarse"} handler={toRegister} />
+        <NavbarButton
+          filled
+          text={"Registrarse"}
+          handler={toRegister}
+          dataTest="signUp"
+        />
       </div>
     );
   };

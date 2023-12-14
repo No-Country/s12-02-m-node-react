@@ -1,7 +1,7 @@
 import Categories from "../../molecules/categories";
 import CreateEvent from "../../molecules/createEvent";
 import Hero from "../../molecules/hero";
-import { heroData } from "./mockData";
+import { heroData, dataCard } from "./mockData";
 import EventosEnLinea from "../../organisms/eventosEnLinea";
 import ProximosEventos from "../../organisms/proximosEventos";
 import DependingOnLocation from "../../molecules/dependingonlocation";
