@@ -16,10 +16,20 @@ function CreateEventPage() {
 
   const [fileImageURL, setFileImageUrl] = useState(null);
   const [selectedDates, setSelectedDates] = useState([]);
+  const [formatedSelectedDates, setFormatedSelectedDates] = useState([]);
 
   const handleCalendarChange = (e) => {
-    console.log(e);
-    setSelectedDates(e);
+    // const firstDate = String(e[0]).split(' ').splice(1, 3).join(' ')
+    // const formatedDates = formatDates(firstDate)
+    const arrayDates = e.map((date) => {
+      const stringDate = String(date).split(" ").splice(1, 3).join(" ");
+      return formatDates(stringDate);
+    });
+    console.log(arrayDates);
+    setSelectedDates(e)
+    setFormatedSelectedDates(arrayDates);
+
+    // console.log(formatedDates);
   };
 
   const handleFooters = (e) => {
@@ -32,7 +42,7 @@ function CreateEventPage() {
       );
     }
     if (e.state.isSelectedEnd) {
-      console.log(e);
+      // console.log(e);
       return (
         <span className="text-xs text-secondary-1 z-10 absolute bottom-1">
           Final
@@ -42,16 +52,29 @@ function CreateEventPage() {
   };
 
   const handleFile = (e) => {
-    // console.log(e.target.files);
     const fileUrl = URL.createObjectURL(e.target.files[0]);
     setFileImageUrl(fileUrl);
+  };
+  const formatDates = (date) => {
+    const initialDate = new Date(date);
+    const formatedDate = new Intl.DateTimeFormat("es", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+      .format(initialDate)
+      .split("/")
+      .reverse()
+      .join("-");
+
+    return formatedDate;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const dataObj = Object.fromEntries(formData)
-    const times = {start: selectedDates[0], end: selectedDates[1]}
+    const dataObj = Object.fromEntries(formData);
+    const times = formatedSelectedDates;
     dataObj.dates = times;
 
     console.log(dataObj);
@@ -77,7 +100,7 @@ function CreateEventPage() {
           <input
             data-test="event-name"
             type="text"
-            name="eventName"
+            name="title"
             className="border rounded px-2 py-1 w-6/12"
             defaultValue="Nombre del evento"
             onFocus={(e) => (e.target.value = "")}
@@ -93,7 +116,7 @@ function CreateEventPage() {
           </p>
           <input
             type="file"
-            name="image"
+            name="img"
             onChange={handleFile}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             accept="image/*"
@@ -119,8 +142,8 @@ function CreateEventPage() {
             classNamePrefix="eventCalendar"
           />
         </div>
-        <TimeInput label='Hora de Inicio' propertyName={'startingTime'}/>
-        <TimeInput label='Hora de Finalizacion' propertyName={'endingTime'}/>
+        <TimeInput label="Hora de Inicio" propertyName={"startHour"} />
+        <TimeInput label="Hora de Finalizacion" propertyName={"endHour"} />
         <div className="p-6">
           <textarea
             data-test="event-description"
@@ -142,44 +165,30 @@ function CreateEventPage() {
             className="border rounded px-2 py-1 w-6/12"
             id="modalidadSelect"
           >
-            <option value="">
-              Selecciona una modalidad
-            </option>
-            <option value="online">
-              Online
-            </option>
-            <option value="presencial">
-              Presencial
-            </option>
+            <option value="">Selecciona una modalidad</option>
+            <option value="en-linea">Online</option>
+            <option value="presencial">Presencial</option>
           </select>
         </div>
         <div className="p-6">
           <select
-          name="category"
+            name="category"
             data-test="event-category"
             className="border rounded px-2 py-1 w-6/12"
           >
             <option value="">Selecciona una categoria</option>
-            <option value="music">Musica</option>
-            <option value="art">Arte</option>
-            <option value="nightLife">Vida nocturna</option>
-            <option value="gastronomy">Gastronomia</option>
-            <option value="holidays">Feriados</option>
-            <option value="healt">Salud</option>
-            <option value="hobbies">Pasatiempos</option>
-            <option value="business">Negocios</option>
+            <option value="música">Música</option>
+            <option value="arte">Arte</option>
+            <option value="vida nocturna">Vida nocturna</option>
+            <option value="gastronomia">Gastronomía</option>
+            <option value="feriados">Feriados</option>
+            <option value="salud">Salud</option>
+            <option value="pasatiempos">Pasatiempos</option>
+            <option value="negocios">Negocios</option>
           </select>
         </div>
         <div className="p-6">
-          <select
-          name="class"
-            data-test="event-clasification"
-            className="border rounded px-2 py-1 w-6/12"
-          >
-            <option value="">Selecciona una clasificacion</option>
-            <option value="allPublic">Apta para todo publico</option>
-            <option value="plusEighteen">Mayores de edad</option>
-          </select>
+          <input type="number" name="minimumAge" placeholder="Edad minima" />
         </div>
         <div className="p-6">
           <input
