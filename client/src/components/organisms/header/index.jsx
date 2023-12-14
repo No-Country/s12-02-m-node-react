@@ -18,7 +18,7 @@ function Header() {
     names: "Caperactus",
   };
   const [userInfo, setUserInfo] = useState(
-    JSON.parse(localStorage.getItem("user")) || userDefault
+    JSON.parse(localStorage.getItem("user")) 
   );
 
   const navigate = useNavigate();
@@ -31,9 +31,11 @@ function Header() {
   };
 
   useEffect(() => {
-    if (userInfo.email) {
+    if (userInfo?.email) {
       setIsLogged(true);
-    } 
+    } else {
+      setIsLogged(false)
+    }
   }, [userInfo]);
 
 const closeSession = () => {
@@ -86,9 +88,9 @@ const closeSession = () => {
             onBlur={closeMenu}
             data-test="user_menu_toggle"
           >
-            <UserIcon imgUrl={userInfo.picture}/>
+            <UserIcon imgUrl={userInfo?.picture}/>
             <span className="group-hover:text-secondary-3 group-focus:text-secondary-3">
-              {userInfo.names}
+              {userInfo?.names}
             </span>
             <ChevronLeft
               className={`transform ${
