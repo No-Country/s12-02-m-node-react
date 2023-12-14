@@ -1,6 +1,7 @@
 import UserIcon from "../../atoms/userIcon";
 import { useEffect, useState } from "react";
 import TimeInput from "../../atoms/timeInput";
+import axios from "axios";
 
 import Calendar from "@demark-pro/react-booking-calendar";
 
@@ -17,17 +18,25 @@ function CreateEventPage() {
 
   const [fileImageURL, setFileImageUrl] = useState(null);
   const [selectedDates, setSelectedDates] = useState([]);
-  const [formatedSelectedDates, setFormatedSelectedDates] = useState([]);
+  const [formatedSelectedDates, setFormatedSelectedDates] = useState({});
 
   const handleCalendarChange = (e) => {
     // const firstDate = String(e[0]).split(' ').splice(1, 3).join(' ')
     // const formatedDates = formatDates(firstDate)
+    const datesObj = {};
     const arrayDates = e.map((date) => {
       const stringDate = String(date).split(" ").splice(1, 3).join(" ");
       return formatDates(stringDate);
     });
-    console.log(arrayDates);
-    setSelectedDates(e)
+    arrayDates.forEach((date, i) => {
+      if (i === 0) {
+        datesObj.start = date;
+      } else {
+        datesObj.end = date;
+      }
+    });
+    console.log(datesObj);
+    setSelectedDates(e);
     setFormatedSelectedDates(arrayDates);
 
     // console.log(formatedDates);
@@ -74,14 +83,16 @@ function CreateEventPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const times = formatedSelectedDates;
-  
-    formData.append('dates', formatedSelectedDates )
-    
+    console.log("fechas: ", formatedSelectedDates);
+    // formatedSelectedDates.forEach((date, i) => formData.append(`dates[${i}]`, date ))
+    formData.append("dates", formatedSelectedDates);
+    formData.append("email", "pedro@example.com");
+
     const dataObj = Object.fromEntries(formData);
-    dataObj.dates = times;
-    
-    console.log(dataObj);
+
+    console.log("formData:", formData.get("dates"));
+
+    axios.post("http://localhost:3031/api/event", formData);
   };
   return (
     <main className="w-full flex flex-col items-center">
@@ -152,8 +163,18 @@ function CreateEventPage() {
             />
           </div>
           <div className="ml-4 flex flex-col items-center">
-            <TimeInput data-test="start-time" label='Hora de Inicio' propertyName={'startHour'} className=""/>
-            <TimeInput data-test="end-time" label='Hora de Finalizacion' propertyName={'endHour'} className=""/>
+            <TimeInput
+              data-test="start-time"
+              label="Hora de Inicio"
+              propertyName={"startHour"}
+              className=""
+            />
+            <TimeInput
+              data-test="end-time"
+              label="Hora de Finalizacion"
+              propertyName={"endHour"}
+              className=""
+            />
           </div>
         </div>
         <div className="p-6">
@@ -182,7 +203,12 @@ function CreateEventPage() {
           <div className="px-4">
             <label className="bg-white p-6 rounded-xl flex items-center">
               <FaLocationDot className="w-6 h-6" />
-              <input type="text" name="location" placeholder="Ubicacion" className="outline-white w-11/12" />
+              <input
+                type="text"
+                name="location"
+                placeholder="Ubicacion"
+                className="outline-white w-11/12"
+              />
             </label>
           </div>
         </div>
@@ -217,13 +243,25 @@ function CreateEventPage() {
           <div className="px-4">
             <label className="bg-white p-6 rounded-xl flex items-center">
               <RiMoneyDollarBoxFill className="w-6 h-6" />
-              <input data-test="input-price" type="number" name="price" placeholder="Precio" className="outline-white w-11/12" />
+              <input
+                data-test="input-price"
+                type="number"
+                name="price"
+                placeholder="Precio"
+                className="outline-white w-11/12"
+              />
             </label>
           </div>
         </div>
         <div className="p-6"></div>
         <div className="flex justify-center p-4">
-          <button data-test="button-create-event-form" className="text-lg font-medium bg-secondary-2 text-primary-1 p-3 rounded-full hover:scale-110 focus:scale-110 transform transition-transform duration-200 ease-out-expo shadow-md shadow-secondary-3 w-52" type="submit">crear evento</button>
+          <button
+            data-test="button-create-event-form"
+            className="text-lg font-medium bg-secondary-2 text-primary-1 p-3 rounded-full hover:scale-110 focus:scale-110 transform transition-transform duration-200 ease-out-expo shadow-md shadow-secondary-3 w-52"
+            type="submit"
+          >
+            crear evento
+          </button>
         </div>
       </form>
     </main>
