@@ -1,8 +1,14 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Comments from "../../organisms/comments";
 
 export default function Detail() {
   const [favorited, setFavorited] = useState(false);
+  useEffect(() => {
+    if (window.scrollY > 0) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   const toggleFavorite = () => {
     setFavorited((prev) => !prev);
@@ -30,6 +36,11 @@ export default function Detail() {
             </button>
           </div>
         </div>
+        <div className="mt-8">
+          <button className="w-full rounded-full border-none border-primary-600 bg-primary-500 hover:bg-primary-600 shadow-md p-3 text-white">
+            Reservar Ahora
+          </button>
+        </div>
         <div className="mt-7 flex flex-col">
           <h3 className="font-bold text-xl font-poppins">Acerca del evento</h3>
           <p className="font-poppins mt-2">
@@ -43,48 +54,12 @@ export default function Detail() {
             que nadie sabe desplegar como lo hace Diego Torres.
           </p>
         </div>
-        <Accordion variant="splitted" className="my-3">
-          <AccordionItem
-            key="1"
-            aria-label="Accordion 1"
-            title="Cantidad maxima de entradas por compra"
-            className="mt-10"
-          >
-            Se podrán adquirir un máximo de 4 entradas por transacción.
-          </AccordionItem>
-          <AccordionItem
-            key="2"
-            aria-label="Accordion 2"
-            title="Política de menores"
-          >
-            Está prohibido el ingreso a menores de 3 años. Mayores de 3 años
-            abonan ticket. Menores de 14 años deben ingresar acompañados por un
-            adulto.
-          </AccordionItem>
-          <AccordionItem
-            key="3"
-            aria-label="Accordion 3"
-            title="Movilidad Reducida"
-          >
-            El usuario de silla de ruedas y su acompañante abonan el 100% del
-            valor correspondiente al sector de la entrada adquirida. Aplica
-            únicamente para personas en silla de ruedas. Sectores Disponibles:
-            102, 104, 107, 110, 113, 116, 118, 301, 303, 306, 309, 312, 315 y
-            317. Cupo: 22.
-          </AccordionItem>
-          <AccordionItem
-            key="4"
-            aria-label="Accordion 4"
-            title="Objetos"
-            className="mb-10"
-          >
-            <img
-              src="/image 11.png"
-              className="self-center flex w-full"
-              alt=""
-            />
-          </AccordionItem>
-        </Accordion>
+        <div className="mt-7 flex flex-col">
+          <h3 className="font-bold text-xl font-poppins">Comentarios</h3>
+          <div>
+            <Comments />
+          </div>
+        </div>
       </div>
       <div className="w-1/3 flex flex-col mr-7 items-center">
         <div className="flex flex-col flex-wrap md:flex-nowrap gap-4 bg-primary-1 mt-4 w-4/5 rounded-xl">

@@ -1,15 +1,77 @@
+/* eslint-disable eqeqeq */
 import UserManager from '../dao/managerUser.js';
+// import UserModel from '../models/userModel.js';
 import UserModel from '../models/userModel.js';
+import { uploadImage } from '../utils/cloudinary.js';
 const usermanager = new UserManager();
+
+// async function createUser(req, res) {
+// 	try {
+// 		const data = req.body;
+// 		let img = '';
+// 		const validateError = UserModel(data).validateSync();
+// 		if (data.picture == '' || data.picture == null) {
+// 			data.picture = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png';
+// 		} else {
+// 			img = data.picture;
+// 			await uploadImage(img);
+// 		}
+// 		data.picture = img;
+// 		if (validateError) {
+// 			throw validateError;
+// 		}
+// 		const response = await usermanager.getOneUser({ email: data.email });
+// 		if (response) {
+// 			return res.status(400).json({
+// 				data: {},
+// 				status: 2,
+// 				message: 'El usuario con este correo electrónico ya existe.',
+// 			});
+// 		}
+// 		const newUser = await usermanager.createUser(data);
+// 		return res.status(200).json({
+// 			data: newUser,
+// 			status: 0,
+// 			message: 'Usuario creado correctamente',
+// 		});
+// 	} catch (error) {
+// 		return res.status(400).json({
+// 			data: {},
+// 			status: 1,
+// 			message: error.message,
+// 		});
+// 	}
+// }
 
 async function createUser(req, res) {
 	try {
 		const data = req.body;
+
+		// eslint-disable-next-line no-unused-vars
 		const validateError = UserModel(data).validateSync();
-		if (validateError) {
-			throw validateError;
+
+		if (data.picture && data.picture !== '') {
+			try {
+				const imageUrl = await uploadImage(data.picture);
+				data.picture = imageUrl;
+			} catch (uploadError) {
+				console.error('Error al cargar la imagen a Cloudinary:', uploadError);
+			}
+		} else {
+			data.picture = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png';
 		}
+
+		const existingUser = await usermanager.getOneUser({ email: data.email });
+		if (existingUser) {
+			return res.status(400).json({
+				data: {},
+				status: 2,
+				message: 'El usuario con este correo electrónico ya existe.',
+			});
+		}
+
 		const newUser = await usermanager.createUser(data);
+
 		return res.status(200).json({
 			data: newUser,
 			status: 0,

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const publicationsScheme = new mongoose.Schema({
 	email: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
 		validate: {
 			validator: function (value) {
@@ -15,14 +15,14 @@ const publicationsScheme = new mongoose.Schema({
 	},
 	title: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
 		minlength: [5, 'El título no puede ser inferior a 5 carcateres.'],
 		maxlength: [60, 'El título no puede exceder los 60 caracteres.'],
 	},
 	description: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
 		minlength: [50, 'La descripción no puede ser menor a 50 caracteres.'],
 		maxlength: [1000, 'La descripción no puede exceder los 1000 caracteres.'],
@@ -36,7 +36,7 @@ const publicationsScheme = new mongoose.Schema({
 
 	photos: {
 		type: [String],
-		require: true,
+		required: true,
 		trim: true,
 		validate: {
 			validator: function (value) {
@@ -58,7 +58,7 @@ const publicationsScheme = new mongoose.Schema({
 	},
 	comment_ID: {
 		type: String,
-		require: true,
+		required: true,
 		trim: true,
 		validate: {
 			validator: function (value) {

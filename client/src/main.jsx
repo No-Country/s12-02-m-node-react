@@ -10,10 +10,12 @@ import { ThemeProvider } from "@material-tailwind/react";
 import "./index.css";
 import Detail from "./components/pages/EventDetail";
 import Register from "./components/pages/Register";
+import Login from "./components/pages/Login"
+import CreateEventPage from "./components/pages/CreateEventPage";
 import axios from "axios";
 
-// axios.defaults.baseURL = `http://localhost:3031/api`; //Local
-axios.defaults.baseURL = `https://event-wave-server.vercel.app/api`; //deployada
+axios.defaults.baseURL = `http://localhost:3031/api`; //Local
+//axios.defaults.baseURL = `https://event-wave-server.vercel.app/api`; //deployada
 
 const router = createBrowserRouter([
   {
@@ -25,14 +27,22 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/detail",
+        path: "/event/:id",
         element: <Detail />,
+      },
+      {
+        path: "/createEvent",
+        element: <CreateEventPage />,
       },
       {
         path: "*",
         element: <h2>Ya casi hacemos esa pagina, paciencia 🤓</h2>,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/register",

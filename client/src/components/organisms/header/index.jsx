@@ -15,26 +15,52 @@ function Header() {
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
   const userDefault = {
-    names: "Caperactus"
-  }
-  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('user')) || userDefault);
-
+    names: "Caperactus",
+  };
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("user")) 
+  );
 
   const navigate = useNavigate();
+
+  const toLogout = () => {
+    setIsLogged(false);  
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/"); 
+  };
+
+  useEffect(() => {
+    if (userInfo?.email) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false)
+    }
+  }, [userInfo]);
+
+const closeSession = () => {
+  toLogout();
+};
 
   const headerMenuOptions = [
     {
       text: "Mi Cuenta",
       redirect: "/Myaccount",
+      dataTest: "link_mi-cuenta",
     },
     {
       text: "Reservas",
       redirect: "/booked",
+      dataTest: "link_reservas",
     },
     {
       text: "Cerrar Sesión",
-      redirect: "/Logout",
-    },
+      onClick: () => {
+        console.log("Clic en Cerrar Sesión");
+        toLogout();
+      },
+      dataTest: 'link_cerrar-sesion',
+    }
   ];
 
   const toRegister = () => {
@@ -56,15 +82,15 @@ function Header() {
     if (isLogged) {
       return (
         <div className="relative flex items-center gap-2 justify-center w-fit">
-          <UserIcon />
           <button
-            className="group flex focus:outline-none"
+            className="group flex focus:outline-none items-center gap-1"
             onClick={() => setIsMenuToggled((prev) => !prev)}
             onBlur={closeMenu}
-            data-test="UserMenuToggle"
+            data-test="user_menu_toggle"
           >
-            <span className="hover:text-secondary-3 group-focus:text-secondary-3">
-              {userInfo.names}
+            <UserIcon imgUrl={userInfo?.picture}/>
+            <span className="group-hover:text-secondary-3 group-focus:text-secondary-3">
+              {userInfo?.names}
             </span>
             <ChevronLeft
               className={`transform ${
@@ -85,7 +111,7 @@ function Header() {
       );
     }
     return (
-      <div className="flex gap-4 justify-evenly w-full">
+      <div className="flex gap-4 justify-evenly w-fit">
         <NavbarButton
           filled={false}
           text={"Iniciar Sesión"}
@@ -113,6 +139,7 @@ function Header() {
           onClick={() => setIsMobileNav((prev) => !prev)}
           className="group w-10 h-10 mr-10 lg:hidden"
           aria-label="menu toggle"
+          data-test="toggle_mobile_menu"
         >
           <Menu className="group-[:hover]:text-secondary-3 group-[:hover]:scale-110 group-[:focus]:text-secondary-3 group-[:focus]:scale-110 transition-transform transform duration-300 ease-out-expo w-full h-full" />
         </button>

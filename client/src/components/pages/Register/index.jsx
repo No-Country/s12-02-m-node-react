@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import backgroundImage from '../../../assets/bgregister.jpg';
 import RegisterModal from '../../organisms/registerModal';
 import Footer from '../../organisms/footer/index'
+import RegisterModalDirect from "../../organisms/registerModal/registerModalDirect";
 
 function Register() {
 
@@ -40,7 +41,7 @@ function Register() {
             {/* {props.userData.user && (
               <RegisterModal user={props.userData.user} showRegister={props.userData.showRegister} />
             )} */}
-            <RegisterModal />
+            <RegisterModalDirect />
             </div>
         </div>
       </div>
