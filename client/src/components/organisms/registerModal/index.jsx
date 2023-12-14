@@ -1,113 +1,131 @@
-import React, { useState } from 'react';
-import RegisterButton from "../../molecules/registerElements/registerButton";
-import GoogleLogin from "../../molecules/registerElements/registerGoogle";
-import { IoMdClose } from 'react-icons/io';
+import React, { useState } from "react";
+import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import WithGoogleLogin from "../../molecules/registerElements/registerWithGoogle";
+import axios from "axios";
 
 const RegisterModal = (user) => {
+  const [formData, setFormData] = useState({
+    names: user.user.displayName,
+    lastname: "",
+    email: user.user.email,
+    country: "",
+    birthDate: "01/01/2000",
+    picture: user.user.photoURL || "",
+  });
 
-    const [formData, setFormData] = useState({
-        // name: user.user.displayName,
-        // email: user.user.email,
-        name: "",
-        email: "",
-        password: '',
-        showPassword: true,
-      });
-    
-      const handleChange = (e) => {
-        setFormData({
-          ...formData,
-          [e.target.name]: e.target.value,
-        });
-      };
-    
-      const toggleShowPassword = () => {
-        setFormData((prevData) => ({
-          ...prevData,
-          showPassword: !prevData.showPassword,
-        }));
-      };
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Datos enviados:', formData);
-      };
-    
-    const navigate = useNavigate();
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-      const toHome = () => {
-        navigate("/");
-      };
-    return (
-        <div className="relative flex flex-col bg-white rounded-lg border-none w-3.5/5 justify-between items-center p-8 pb-10 mt-12">
-            <IoMdClose
-                className="absolute top-4 right-4 text-gray-600 cursor-pointer"
-                size={24}
-                onClick={toHome}
-            />
-            <h1 className="text-black text-center font-poppins text-5xl font-semibold leading-tight mb-4">Regístrate</h1>
-            <h3 className="text-center text-base mb-4">
-                ¿Ya tienes una cuenta? Inicia Sesión
-            </h3>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Datos enviados:", formData);
+    try {
+      const response = await axios.post("/user", formData);
+      console.log(response);
+    } catch (error) {
+      console.error("Error al registrar usuario:", error);
+    }
+  };
 
-            {/* Formulario para iniciar sesion, inputs de Email y Contraseña */}
+  const navigate = useNavigate();
 
-            <form className="flex flex-col w-full justify-center items-center">
-              <div className="flex flex-col w-2/5">
-                <div className="flex pb-5 justify-center items-center w-full">
-                    <input
-                    className="border-b border-gray-500 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 placeholder-black"
-                    id="email"
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    />
-                </div>
-                <div className="flex pb-5 justify-center items-center w-full">
-                    <input
-                      className="border-b border-gray-500 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 placeholder-black"
-                      id="password"
-                      type={formData.showPassword ? 'password' : 'text'}
-                      placeholder="Contraseña"
-                      name="password"
-                      value={formData.password}
-                      onChange={handleChange}
-                    />
-                </div>
-              </div>
-              <button
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center w-2/5"
-                  onClick={""}
-                >
-                  Inicia Sesión
-              </button>
-              <p className='flex m-1'>o</p>
-            </form>
+  const toHome = () => {
+    navigate("/");
+  };
 
-            <div className="flex flex-col justify-between items-center mb-4 w-full">
-                <div className="flex-1">
-                    <GoogleLogin />
-                </div>
-                <div className="flex-1">
-                    <h3 className="text-center text-base mt-6 border-t border-gray-300 pt-4">
-                        ¿Quieres registrarte manualmente?{" "}
-                    </h3>
-                    <div>
-                    <RegisterButton />
-                </div>
-                </div>
-            </div>
+  return (
+    <div className="relative flex flex-col bg-white rounded-lg border-none w-3.5/5 justify-between items-center p-8 pb-10 mt-12">
+      <IoMdClose
+        className="absolute top-4 right-4 text-gray-600 cursor-pointer"
+        size={24}
+        onClick={toHome}
+      />
+      <h1 className="text-black text-center font-poppins text-5xl font-semibold leading-tight mb-4">
+        Regístrate
+      </h1>
 
-            <div className="text-gray-600 text-xs">
-                <p className="border-b border-gray-300 pb-2 mb-2">*Al registrarte, aceptas nuestras Condiciones de Servicio y reconoces que has leído nuestra Política de Privacidad </p>
-                <p>Este sitio está protegido por Eventeware int. Se aplican la Política de Privacidad y las Condiciones de Servicio de Google.</p>
-            </div>
+      <form className="flex flex-col max-w-6xl w-full pl-10 pt-5">
+        <h2 className="text-1xl font-bold mb-10">
+          Completa los datos para registrarte
+        </h2>
 
+        <div className="flex-1">
+          <WithGoogleLogin />
         </div>
-    );
+
+        <div className="flex flex-wrap w-full">
+          <div className="w-full sm:w-1/2 px-2 mb-10">
+            <input
+              className="border-b border-gray-500 w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 placeholder-black"
+              id="names"
+              type="text"
+              placeholder="Nombre"
+              name="names"
+              value={formData.names}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full sm:w-1/2 px-2 mb-10">
+            <input
+              className="border-b border-gray-500 w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 placeholder-black"
+              id="lastname"
+              type="text"
+              placeholder="Apellido"
+              name="lastname"
+              value={formData.lastname}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full sm:w-1/2 px-2 mb-10">
+            <input
+              className="border-b border-gray-500 w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 placeholder-black"
+              id="birthDate"
+              type="date"
+              placeholder="Fecha de Nacimiento"
+              name="birthDate"
+              value={formData.birthDate}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full sm:w-1/2 px-2 mb-10">
+            <input
+              className="border-b border-gray-500 w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 placeholder-black"
+              id="country"
+              type="text"
+              placeholder="País"
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-5 rounded-full focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={handleSubmit}
+          >
+            Registrarse
+          </button>
+        </div>
+      </form>
+      <div className="text-gray-600 text-xs">
+        <p className="border-b border-gray-300 pb-2 mb-2">
+          *Al registrarte, aceptas nuestras Condiciones de Servicio y reconoces
+          que has leído nuestra Política de Privacidad{" "}
+        </p>
+        <p>
+          Este sitio está protegido por Eventeware int. Se aplican la Política
+          de Privacidad y las Condiciones de Servicio de Google.
+        </p>
+      </div>
+    </div>
+  );
 };
 
-export default RegisterModal
+export default RegisterModal;

@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import backgroundImage from '../../../assets/bgregister.jpg';
-import RegisterModal from '../../organisms/registerModal';
+import LoginModal from "../../organisms/loginModal";
 import Footer from '../../organisms/footer/index'
-import RegisterModalDirect from "../../organisms/registerModal/registerModalDirect";
 
-function Register() {
+function Login() {
 
     const backgroundStyle = {
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${backgroundImage})`,
@@ -41,7 +40,7 @@ function Register() {
             {/* {props.userData.user && (
               <RegisterModal user={props.userData.user} showRegister={props.userData.showRegister} />
             )} */}
-            <RegisterModalDirect />
+            <LoginModal />
             </div>
         </div>
       </div>
@@ -50,5 +49,5 @@ function Register() {
     );
   }
   
-  export default Register;
+  export default Login;
   

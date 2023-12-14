@@ -18,10 +18,29 @@ function Header() {
     names: "Caperactus",
   };
   const [userInfo, setUserInfo] = useState(
-    JSON.parse(localStorage.getItem("user")) || userDefault
+    JSON.parse(localStorage.getItem("user")) 
   );
 
   const navigate = useNavigate();
+
+  const toLogout = () => {
+    setIsLogged(false);  
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/"); 
+  };
+
+  useEffect(() => {
+    if (userInfo?.email) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false)
+    }
+  }, [userInfo]);
+
+const closeSession = () => {
+  toLogout();
+};
 
   const headerMenuOptions = [
     {
@@ -36,9 +55,12 @@ function Header() {
     },
     {
       text: "Cerrar Sesión",
-      redirect: "/Logout",
-      dataTest: "link_cerrar-sesion",
-    },
+      onClick: () => {
+        console.log("Clic en Cerrar Sesión");
+        toLogout();
+      },
+      dataTest: 'link_cerrar-sesion',
+    }
   ];
 
   const toRegister = () => {
@@ -66,9 +88,9 @@ function Header() {
             onBlur={closeMenu}
             data-test="user_menu_toggle"
           >
-            <UserIcon />
+            <UserIcon imgUrl={userInfo?.picture}/>
             <span className="group-hover:text-secondary-3 group-focus:text-secondary-3">
-              {userInfo.names}
+              {userInfo?.names}
             </span>
             <ChevronLeft
               className={`transform ${
