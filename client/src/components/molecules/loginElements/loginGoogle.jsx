@@ -49,9 +49,9 @@ const GoogleLogin = () => {
   };
 
   return (
-    <div className="flex flex-col items-start w-full">
+    <div className="flex flex-col items-center w-full">
       <button
-        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-9 rounded focus:outline-none focus:shadow-outline flex items-center w-5/5"
+        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-14 rounded focus:outline-none focus:shadow-outline flex items-center"
         onClick={handleGoogleLogin}
       >
         Continuar con Google
