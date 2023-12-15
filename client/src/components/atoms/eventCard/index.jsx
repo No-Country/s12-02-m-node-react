@@ -1,12 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-const dataCard = {
-  photo:
-    "https://cdn-cefip.nitrocdn.com/ybeySFXGglflJkEZOZyILOIlSfsvMhtE/assets/static/optimized/wp-content/uploads/2017/10/cac6d46bea5ef2c2e4e69d99c5f0f64c.League-of-Legends-Tournament.jpg",
-  title: "Lollapalooza",
-  date: "15 al 17 de Marzo de 2024",
-  location: "Hipódromo de San Isidro",
-};
 
 export const Card = ({ className, info={} }) => {
   const eventId = info.id || 1;
@@ -18,15 +11,15 @@ export const Card = ({ className, info={} }) => {
       <picture className="row-span-4 xl:col-span-3 group-[.long]:xl:col-span-2 group-[.long]:xl:row-span-6 group-[.big]:lg:row-span-5">
         <img
           className={`w-full object-cover rounded-lg h-full`}
-          src={dataCard.photo}
+          src={info.photo}
           alt="Imagen evento"
         />
       </picture>
       <div className="flex flex-col justify-between gap-2 row-span-2 xl:col-span-3 group-[.long]:xl:col-span-1 group-[.long]:xl:row-span-6 group-[.big]:md:row-span-1">
         <header>
-          <h1 className="text-primary-4 text-2xl">{dataCard.title}</h1>
+          <h1 className="text-primary-4 text-2xl">{info.title}</h1>
           <div className="flex flex-row items-center gap-2 text-primary-5 text-sm">
-            <p>{dataCard.date}</p>
+            <p>{info.date}</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="5"
@@ -36,7 +29,7 @@ export const Card = ({ className, info={} }) => {
             >
               <circle cx="2.5" cy="2.5" r="2.5" fill="#828D9E" />
             </svg>
-            <p>{dataCard.location}</p>
+            <p>{info.location}</p>
           </div>
         </header>
         <button

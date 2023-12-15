@@ -1,8 +1,23 @@
-import { Accordion, AccordionItem } from "@nextui-org/react";
 import { useEffect, useState } from "react";
+import { Accordion, AccordionItem } from "@nextui-org/react";
+import { useParams } from "react-router-dom";
 import Comments from "../../organisms/comments";
+import useFetch from "../../../hooks/useFetch";
 
 export default function Detail() {
+  const { id } = useParams();
+  const [eventRes, eventStatus, fetchEvent] = useFetch()
+
+  useEffect(()=> {
+    fetchEvent({path: `/event/${id}`, method: 'GET'})
+  },[])
+
+  useEffect(()=> {
+    if(eventStatus.success) {
+      console.log(eventRes);
+    }
+  },[eventStatus])
+
   const [favorited, setFavorited] = useState(false);
   useEffect(() => {
     if (window.scrollY > 0) {

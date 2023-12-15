@@ -4,7 +4,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { Card } from "../../atoms/eventCard";
 import { UseGeolocalization } from "../../../hooks/geolocalization";
 
-const DependingOnLocation = () => {
+const DependingOnLocation = ({cardsInfo}) => {
   const [locationSelected, setLocationSelected] = useState("Buenos Aires");
   const [isLocationMenuOn, setIsLocationMenuOn] = useState(false);
   const [userLocation, fetchStatus, getUserLocation] = UseGeolocalization();
@@ -13,8 +13,6 @@ const DependingOnLocation = () => {
   useEffect(() => {
     // getUserLocation()
   }, []);
-
-  console.log(fetchStatus);
 
   const cities = [
     "Buenos Aires",
@@ -43,8 +41,6 @@ const DependingOnLocation = () => {
       setIsLocationMenuOn(false);
     }, 1000);
   };
-
-  const cardsData = [{}, {}, {}, {}, {}, {}, {}, {}];
 
   return (
     <section className="p-5 lg:p-10">
@@ -117,8 +113,8 @@ const DependingOnLocation = () => {
       </div>
 
       <div className="group regular snap-x snap-mandatory w-full flex gap-3 overflow-scroll xl:overflow-hidden xl:columns-2xs xl:block">
-        {cardsData.map((card, i) => (
-          <Card key={i} />
+        {cardsInfo.map((card, i) => (
+          <Card key={i} info={card} />
         ))}
       </div>
     </section>

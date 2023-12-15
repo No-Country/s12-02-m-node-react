@@ -24,9 +24,10 @@ const heroData = [
   },
 ];
 const dataCard = {
-  photo: 'https://th.bing.com/th/id/OIP.zF_astuhx1EG7SVCpqar2gHaEo?rs=1&pid=ImgDetMain',
-  title: 'Congreso de Ciberseguridad',
-  date: '3 de febrero de 2024',
-  location: 'Virtual',
+  photo:
+    "https://cdn-cefip.nitrocdn.com/ybeySFXGglflJkEZOZyILOIlSfsvMhtE/assets/static/optimized/wp-content/uploads/2017/10/cac6d46bea5ef2c2e4e69d99c5f0f64c.League-of-Legends-Tournament.jpg",
+  title: "Lollapalooza",
+  date: "15 al 17 de Marzo de 2024",
+  location: "Hipódromo de San Isidro",
 }
 export { heroData, dataCard };
