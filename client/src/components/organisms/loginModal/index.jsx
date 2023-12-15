@@ -87,8 +87,8 @@ const LoginModal = () => {
                 size={24}
                 onClick={toHome}
             />
-            <h1 className="text-black text-center font-poppins text-5xl font-semibold leading-tight mb-4">Inicia Sesión</h1>
-            <h3 className="text-center text-base mb-4">
+            <h1 className="text-black text-center font-poppins text-5xl font-semibold leading-tight mb-2">Inicia Sesión</h1>
+            <h3 className="text-center text-base mb-6">
                 Ingresa tus credenciales 
             </h3>
 
@@ -136,7 +136,7 @@ const LoginModal = () => {
                 </div>
             </div>
 
-            <div className="text-gray-600 text-xs">
+            <div className="text-gray-600 text-xs mt-6">
                 <p className="border-b border-gray-300 pb-2 mb-2">*Al iniciar sesión, aceptas nuestras Condiciones de Servicio y reconoces que has leído nuestra Política de Privacidad </p>
                 <p>Este sitio está protegido por Eventeware int. Se aplican la Política de Privacidad y las Condiciones de Servicio de Google.</p>
             </div>
