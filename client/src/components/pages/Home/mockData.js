@@ -23,5 +23,10 @@ const heroData = [
     id: 4,
   },
 ];
-
-export { heroData };
+const dataCard = {
+  photo: 'https://th.bing.com/th/id/OIP.zF_astuhx1EG7SVCpqar2gHaEo?rs=1&pid=ImgDetMain',
+  title: 'Congreso de Ciberseguridad',
+  date: '3 de febrero de 2024',
+  location: 'Virtual',
+}
+export { heroData, dataCard };

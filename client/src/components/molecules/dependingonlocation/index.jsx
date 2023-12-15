@@ -47,7 +47,7 @@ const DependingOnLocation = () => {
   const cardsData = [{}, {}, {}, {}, {}, {}, {}, {}];
 
   return (
-    <div className="p-5 lg:p-10">
+    <section className="p-5 lg:p-10">
       <div>
         <h2 className="text-2xl font-bold mb-2">Según tu ubicación</h2>
         <p className="mb-4">
@@ -57,6 +57,7 @@ const DependingOnLocation = () => {
           <button
             onClick={() => setIsLocationMenuOn((prev) => !prev)}
             onBlur={handleBlur}
+            data-test='toggle-location-menu'
             className="text-secondary-2 flex items-center mb-4 px-2  py-1 rounded-full hover:scale-105 transform transition-transform duration-100 ease-out-expo"
           >
             <FaChevronDown className="mr-2" />
@@ -96,6 +97,7 @@ const DependingOnLocation = () => {
                 type="submit"
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                data-test='select-location'
                 className="bg-secondary-3 w-full py-1 text-secondary-1 font-medium hover:bg-secondary-2 hover:text-primary-1 focus:bg-secondary-2 focus:text-primary-1"
               >
                 Seleccionar
@@ -119,14 +121,8 @@ const DependingOnLocation = () => {
           <Card key={i} />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
 export default DependingOnLocation;
-
-/*       <div className="flex justify-end mb-4 font-poppins font-medium">
-                <button className="flex items-center">
-                    Ver todo <MdArrowRight size={20} />
-                </button>
-            </div> */
