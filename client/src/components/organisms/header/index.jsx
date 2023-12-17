@@ -10,13 +10,11 @@ import UserHeaderMenu from "../../atoms/userHeaderMenu";
 import { useState, useEffect } from "react";
 
 function Header() {
-  const [isLogged, setIsLogged] = useState(false);
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
-  const userDefault = {
-    names: "Caperactus",
-  };
+
+  const [isLogged, setIsLogged] = useState(false);
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
@@ -38,10 +36,6 @@ function Header() {
     }
   }, [userInfo]);
 
-  const closeSession = () => {
-    toLogout();
-  };
-
   const headerMenuOptions = [
     {
       text: "Mi Cuenta",
@@ -49,9 +43,19 @@ function Header() {
       dataTest: "link_mi-cuenta",
     },
     {
+      text: "Mis eventos",
+      redirect: "/my-events",
+      dataTest: "link_mis_eventos",
+    },
+    {
       text: "Reservas",
       redirect: "/booked",
       dataTest: "link_reservas",
+    },
+    {
+      text: "'Me gusta'",
+      redirect: "/my-likes",
+      dataTest: "link_me_gusta",
     },
     {
       text: "Cerrar Sesión",
@@ -67,15 +71,15 @@ function Header() {
     navigate("/Register");
   };
 
+  const toLogin = () => {
+    navigate("/Login");
+  };
+
   const closeMenu = () => {
     let timeout = setTimeout(() => {
       setIsMenuToggled(false);
     }, 200);
     setCloseMenuTimeOut(timeout);
-  };
-
-  const toLogin = () => {
-    navigate("/Login");
   };
 
   const renderLogSection = () => {

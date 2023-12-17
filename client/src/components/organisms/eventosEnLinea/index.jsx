@@ -3,16 +3,6 @@ import { Card } from "../../atoms/eventCard";
 
 export default function EventosEnLinea({ cardsInfo }) {
 
-  const renderCards = () => {
-    return (
-      <>
-        {cardsInfo.map((card, i) => (
-          <Card key={i} info={card} />
-        ))}
-      </>
-    );
-  };
-
   return (
     <div className="p-5 lg:p-10 bg-white">
       <h1 className="text-2xl font-bold mb-2">Eventos en linea</h1>
@@ -21,8 +11,12 @@ export default function EventosEnLinea({ cardsInfo }) {
           Ver todo <MdArrowRight size={20} />
         </button>
       </div>
-      <div className="w-full columns-2xs md:columns-2 xl:columns-4">
-        {renderCards()}
+      <div className="w-full grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+      {cardsInfo.map((card, i) => (
+          <div key={card._id} className="bg-white rounded-lg shadow-lg">
+            <Card key={i} info={card} />
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ function UserHeaderMenu({ options, toCancelClose, toCloseMenu, onLogout }) {
               onClick={() => handleOptionClick(option)}
               onBlur={toCloseMenu}
               id={`test-${option.dataTest}`}
+              data-test={option.dataTest}
             >
               {option.text}
             </button>
@@ -30,7 +31,7 @@ function UserHeaderMenu({ options, toCancelClose, toCloseMenu, onLogout }) {
               onClick={() => handleOptionClick(option)}
               key={option.text}
               to={option.redirect}
-              id={`test-${option.dataTest}`}
+              id={option.dataTest}
             >
               {option.text}
             </NavLink>

@@ -6,17 +6,17 @@ import useFetch from "../../../hooks/useFetch";
 
 export default function Detail() {
   const { id } = useParams();
-  const [eventRes, eventStatus, fetchEvent] = useFetch()
+  const [eventRes, eventStatus, fetchEvent] = useFetch();
 
-  useEffect(()=> {
-    fetchEvent({path: `/event/${id}`, method: 'GET'})
-  },[])
+  useEffect(() => {
+    fetchEvent({ path: `/event/${id}`, method: "GET" });
+  }, []);
 
-  useEffect(()=> {
-    if(eventStatus.success) {
+  useEffect(() => {
+    if (eventStatus.success) {
       console.log(eventRes);
     }
-  },[eventStatus])
+  }, [eventStatus]);
 
   const [favorited, setFavorited] = useState(false);
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function Detail() {
         <div className="mt-4 flex flex-row justify-between items-center">
           <div className="flex flex-col">
             <h3 className="font-poppins font-bold text-3xl">
-              Nombre del artista
+              {eventStatus.success ? eventRes.data.title : "Loading..."}
             </h3>
             <p>02 y 03 de diciembre</p>
           </div>
