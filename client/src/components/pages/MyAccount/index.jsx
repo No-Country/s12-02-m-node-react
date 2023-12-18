@@ -1,4 +1,4 @@
-import FormAccount from "../../atoms/myAccountiItems"
+import FormAccount from "../../organisms/formAccount"
 
 function MyAccount() {
   return (

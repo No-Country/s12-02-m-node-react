@@ -15,8 +15,8 @@ import CreateEventPage from "./components/pages/CreateEventPage";
 import MyAccount from "./components/pages/MyAccount";
 import axios from "axios";
 
-axios.defaults.baseURL = `http://localhost:3031/api`; //Local
-//axios.defaults.baseURL = `https://event-wave-server.vercel.app/api`; //deployada
+// axios.defaults.baseURL = `http://localhost:3031/api`; //Local
+axios.defaults.baseURL = `https://event-wave-server.vercel.app/api`; //deployada
 
 const router = createBrowserRouter([
   {
