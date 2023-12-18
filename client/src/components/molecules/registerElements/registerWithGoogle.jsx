@@ -22,30 +22,26 @@ const WithGoogleLogin = ({ onGoogleLogin, setshowAlertMessage, setAlertMessage }
       const result = await signInWithPopup(auth, provider);
 
       const userData = result.user;
-
+      console.log("chotooooooooooooooooo")
       try {
         const registered = await axios.get(`/user/${userData.email}`);
-        onGoogleLogin(userData);
         if (registered.data.status === 0) {
-          // // alert(
-          // //   "El usuario ya está registrado. Diríjase al logín o cambie de email si desea registrarse con otro."
-          // // );
-          // setAlertMessage("El correo electrónico ya fué registrado, utilice otro para registrarse o inicie sesión.");
-          // setshowAlertMessage(true);
-          // setTimeout(() => {
-          // setshowAlertMessage(false);
-          // }, 5000);
+          setAlertMessage("El correo electrónico ya fué registrado, utilice otro para registrarse o inicie sesión.");
+          setshowAlertMessage(true);
+          setTimeout(() => {
+            setshowAlertMessage(false);
+          }, 5000);
+        } else {
+          console.log("chotoooooooooo222222222222")
+          onGoogleLogin(userData); // Llama a la función de devolución de llamada solo si no está registrado
         }
       } catch (error) {
-        if (error.response.data.status === 1) {
-          // Llama a la función de devolución de llamada con los datos del usuario
-          console.log("a registrarse mostro")
+        if (error.response.data.status === 1) { //a registrase
           onGoogleLogin(userData);
         }
       }
     } catch (error) {
       console.error("Error signing in with Google:", error.message);
-      // Llama a la función de devolución de llamada con el usuario como null en caso de error
       onGoogleLogin(null);
     }
   };

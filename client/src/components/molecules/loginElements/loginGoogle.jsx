@@ -31,14 +31,15 @@ const GoogleLogin = () => {
       try {
         const registered = await axios.get(`/user/${userData.email}`);
         if (registered.data.status === 0) {
-          setIsShowRegister(false);
+          // setIsShowRegister(false);
           localStorage.setItem("user", JSON.stringify(registered.data.data));
           localStorage.setItem("token", userData.accessToken);
+          console.log(localStorage.user)
           navigate("/");
         }
       } catch (error) {
         if (error.response.data.status === 1) {
-          setIsShowRegister(true);
+          // setIsShowRegister(true);
           console.log("a registrarse mostro")
         }
       }
@@ -56,9 +57,9 @@ const GoogleLogin = () => {
       >
         Continuar con Google
       </button>
-      {isShowRegister && user && (
+      {/* {isShowRegister && user && (
         <RegisterModal user={user}/>
-      )}
+      )} */}
     </div>
   );
 };
