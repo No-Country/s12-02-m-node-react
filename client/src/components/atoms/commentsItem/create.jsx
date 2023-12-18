@@ -1,31 +1,57 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useFetch from "../../../hooks/useFetch";
 
-const Create = ({ imgUrl = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png' }) => {
-  const [comment, setComment] = useState('');
+const Create = ({
+  imgUrl = "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
+}) => {
+  const [createComments, createCommentStatus, createCommentApi] = useFetch();
+
+  const { id } = useParams();
+  const userData = JSON.parse(localStorage.getItem("user"));
+
+  const [comment, setComment] = useState("");
   const [isCommenting, setIsCommenting] = useState(false);
 
   const handleChange = (e) => {
     const newComment = e.target.value;
     setComment(newComment);
-    setIsCommenting(newComment.trim() !== '');
+    setIsCommenting(newComment.trim() !== "");
   };
 
   const handleCancel = () => {
-    setComment('');
+    setComment("");
     setIsCommenting(false);
   };
 
   const handleComment = () => {
-    console.log('Comentario:', comment);
-    setComment('');
+    const data = {
+      text: comment,
+      event_ID: id,
+      email: userData.email,
+    };
+
+    createCommentApi({path: '/comments', method:'POST', data: data})
+    /*     console.log('Comentario:', comment);
+    console.log('data:', data); */
+    setComment("");
     setIsCommenting(false);
   };
 
+  useEffect(()=>{
+    if(createCommentStatus.success){
+      console.log(createComments);
+    }
+  },[createCommentStatus])
   return (
     <div className="flex flex-row w-full h-auto gap-4 mt-4 mb-4">
       <div>
-        <picture className='block rounded-full overflow-hidden w-12 h-12'>
-          <img className='w-full h-full object-cover' src={imgUrl} alt="User image profile" />
+        <picture className="block rounded-full overflow-hidden w-12 h-12">
+          <img
+            className="w-full h-full object-cover"
+            src={imgUrl}
+            alt="User image profile"
+          />
         </picture>
       </div>
       <div className="w-full h-auto relative">
@@ -57,6 +83,6 @@ const Create = ({ imgUrl = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.
       </div>
     </div>
   );
-}
+};
 
 export default Create;

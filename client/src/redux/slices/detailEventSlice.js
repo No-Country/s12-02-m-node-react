@@ -18,5 +18,5 @@ export const eventDetailSlice = createSlice({
   },
 });
 
-export const { setEventDetails } = eventDetailSlice.actions;
+export const { setEventDetails, setEventComments } = eventDetailSlice.actions;
 export default eventDetailSlice.reducer;

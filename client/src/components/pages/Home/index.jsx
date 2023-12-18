@@ -16,6 +16,8 @@ function Home() {
   const [onlineEvents, setOnlineEvents] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
 
+  const [isLogged, setIsLogged] = useState(Boolean(localStorage.getItem('user')))
+
   /* ?category=música */
   useEffect(() => {
     fetchEvents({ path: "/event", method: "GET" });
@@ -43,7 +45,7 @@ function Home() {
       <DependingOnLocation cardsInfo={Array(8).fill(dataCard)} />
       <ProximosEventos cardsInfo={upcomingEvents} />
       <EventosEnLinea cardsInfo={onlineEvents} />
-      <CreateEvent />
+      {isLogged && (<CreateEvent />)}
     </main>
   );
 }

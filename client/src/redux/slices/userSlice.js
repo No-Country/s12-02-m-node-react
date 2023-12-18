@@ -1,58 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  names: "",
-  lastname: "",
-  birthDate: "",
-  email: "",
-  country: "",
-  rol: "",
-  location: "",
+  data: {}
 };
 
-export const userHandler = createSlice({
+export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setNames: (state, action) => {
-      state.names = action.payload;
-    },
-    setLastname: (state, action) => {
-      state.lastname = action.payload;
-    },
-    setBirthDate: (state, action) => {
-      state.birthDate = action.payload;
-    },
-    setEmail: (state, action) => {
-      state.email = action.payload;
-    },
-    setCountry: (state, action) => {
-      state.country = action.payload;
-    },
-    setRol: (state, action) => {
-      state.rol = action.payload;
-    },
-    setLocation: (state,action) => {
-      state.location = action.payload;
+    setUser: (state, action) => {
+      state.data = action.payload;
     }
   },
 });
 
-export const getNames = (state) => state.user.names;
-export const getLastname = (state) => state.user.lastname;
-export const getBirthDate = (state) => state.user.birthDate;
-export const getEmail = (state) => state.user.email;
-export const getCountry = (state) => state.user.country;
-export const getRol = (state) => state.user.rol;
+export const getUser = (state) => state.data;
 
 export const {
-  setNames,
-  setLastname,
-  setBirthDate,
-  setEmail,
-  setCountry,
-  setRol,
-  setLocation,
-} = userHandler.actions;
+  setUser
+} = userSlice.actions;
 
-export default userHandler.reducer;
+export default userSlice.reducer;

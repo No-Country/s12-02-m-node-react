@@ -18,9 +18,13 @@ export default function Detail() {
 
   const { id } = useParams();
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const [eventRes, eventStatus, fetchEvent] = useFetch();
   const [commentsRes, commentsStatus, fetchComments] = useFetch();
+  const [bookingRes, bookingStatus, fetchBooking] = useFetch();
+  const [userBookingsRes, UserBookingsStatus, fetchUserBookings] = useFetch();
+
 
   useEffect(() => {
     fetchEvent({ path: `/event/${id}`, method: "GET" });
@@ -47,6 +51,10 @@ export default function Detail() {
     setFavorited((prev) => !prev);
   };
 
+  useEffect(()=>{
+    fetchUserBookings({path:`/bookings/all?email=${user.email}`, method: 'GET'})
+  },[])
+
   const renderData = ({
     dataTorender,
     typeOfSkeleton,
@@ -57,6 +65,15 @@ export default function Detail() {
     ) : (
       <LoadingSkeleton className={customSkeletonClass} type={typeOfSkeleton} />
     );
+
+  const handleBook = (e) => {
+    e.preventDefault();
+    const data = {
+      email: user.email,
+      event_ID: id,
+    };
+    fetchBooking({ path: "/bookings", method: "POST", data: data });
+  };
   return (
     <main className="w-full grid p-3 gap-7 md:p-7 lg:p-10 lg:gap-10 xl:grid-cols-3">
       <section className="flex flex-col gap-3 md:gap-5 lg:gap-7 xl:col-span-2">
@@ -91,11 +108,18 @@ export default function Detail() {
               className="text-2xl text-secondary-2 outline-none"
               onClick={toggleFavorite}
             >
-              <span className="block w-6 h-6 md:w-8 md:h-8">{favorited ? <GoHeartFill className="w-full h-full" /> : <GoHeart className="w-full h-full" />}</span>
+              <span className="block w-6 h-6 md:w-8 md:h-8">
+                {favorited ? (
+                  <GoHeartFill className="w-full h-full" />
+                ) : (
+                  <GoHeart className="w-full h-full" />
+                )}
+              </span>
             </button>
           </div>
         </div>
         <button
+          onClick={handleBook}
           data-test="book_event"
           className="w-full rounded-full outline-none bg-primary-500 hover:bg-primary-600 shadow-md p-3 text-white md:my-3"
         >
@@ -142,7 +166,7 @@ export default function Detail() {
       <section className="flex flex-col col-span-full">
         <h3 className="font-bold text-2xl text-secondary-1">Comentarios</h3>
         <div className="xl:max-w-4xl">
-          <Comments />
+          <Comments eventId={id} />
         </div>
       </section>
     </main>

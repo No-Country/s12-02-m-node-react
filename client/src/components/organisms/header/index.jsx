@@ -53,11 +53,6 @@ function Header() {
       dataTest: "link_reservas",
     },
     {
-      text: "'Me gusta'",
-      redirect: "/my-likes",
-      dataTest: "link_me_gusta",
-    },
-    {
       text: "Cerrar Sesión",
       onClick: () => {
         console.log("Clic en Cerrar Sesión");
@@ -157,13 +152,13 @@ function Header() {
       {isMobileNav && (
         <div className="px-10 mt-1 pt-3 border-t-2 border-gray-500 flex flex-col gap-5 items-center lg:hidden">
           <Searcher />
-          <NavbarHeader />
+          <NavbarHeader isLogged={isLogged} />
           {renderLogSection()}
         </div>
       )}
       <div className="hidden lg:flex lg:items-center lg:justify-between lg:mr-10 lg:gap-5 lg:flex-grow">
         <Searcher className={"hidden xl:inline-flex xl:ml-5"} />
-        <NavbarHeader className={"lg:flex-grow"} />
+        <NavbarHeader className={"lg:flex-grow"} isLogged={isLogged} />
         {renderLogSection()}
       </div>
     </header>
