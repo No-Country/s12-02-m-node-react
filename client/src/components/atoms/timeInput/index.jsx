@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BsFillClockFill } from "react-icons/bs";
 
-function TimeInput({propertyName, label}) {
+function TimeInput({propertyName, label,dataTest,className=``}) {
   const [time, setTime] = useState("");
   const handleChange = (e) => {
     console.log(e.target.value);
@@ -9,7 +9,8 @@ function TimeInput({propertyName, label}) {
   };
   return (
     <label
-      className={`${
+      data-test={dataTest}
+      className={`${className} ${
         time && "bg-white"
       } m-2 relative max-w-xs overflow-hidden flex rounded-xl h-16`}
     >

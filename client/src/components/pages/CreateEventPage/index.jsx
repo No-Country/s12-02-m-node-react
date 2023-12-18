@@ -113,7 +113,7 @@ function CreateEventPage() {
           )}
         </div>
 
-        <div className="p-6 flex items-center">
+        <div className="p-10 flex items-center">
           <div className="relative bg-white p-5 block rounded-xl outline-2 outline-secondary-2 focus-within:outline hover:outline focus-within:shadow-lg shadow-secondary-1 w-4/12">
             <Calendar
               data-test="calendar"
