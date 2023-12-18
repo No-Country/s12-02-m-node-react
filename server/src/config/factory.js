@@ -21,7 +21,8 @@ async function getAllDocuments(collection, query = {}, select) {
 		}
 		// busca una coleccion mediante una query, si la query es un objeto vacio pinta todo.
 		const document = await db[collection].find(query).project(select).toArray();
-		return document;
+		const total = await document.length;
+		return { document, total };
 	} catch (error) {
 		throw error;
 	}

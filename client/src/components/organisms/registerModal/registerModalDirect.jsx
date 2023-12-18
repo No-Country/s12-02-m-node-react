@@ -18,10 +18,11 @@ const RegisterModalDirect = () => {
     email: "",
     country: "",
     birthDate: "2000-01-01",
-    picture: null,
     password: "",
     showPassword: true,
+    picture: null,
   });
+  const [imageData, setImageData] = useState(null);
 
   const navigate = useNavigate();
   const [firebaseConfig, setFirebaseConfig] = useState(null);
@@ -59,19 +60,27 @@ const RegisterModalDirect = () => {
 
   const handleGoogleLoginCallback = (userData) => {
     setUser(userData);
+    console.log("UUSSSEEER",userData,user)
   };
+
+  const updateProfilePicture = (picture) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      picture: picture,
+    }));
+  };
+  
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors(validate(user||formData));
+    setErrors(validate(formData));
     if (errors) {
       try {
-
         const firebaseCFG = await axios.get("/login");
         if (!firebaseCFG.data) {
           throw new Error("Empty response from server");
         }
-
         setFirebaseConfig(firebaseCFG.data);
         const app = initializeApp(firebaseCFG.data); 
         const auth = getAuth(app);
@@ -80,8 +89,17 @@ const RegisterModalDirect = () => {
           formData.email,
           formData.password
         );
+        
+        const formDataToSend = new FormData();
+      for (const key in formData) {
+        formDataToSend.append(key, formData[key]);
+      }
 
-        const response = await axios.post("/user", formData);
+      const response = await axios.post("/user", formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Configurar el tipo de contenido
+        },
+      });
         if (response.data.status === 0) {
           setFirebaseConfig(response.data);
           toHome();
@@ -129,9 +147,9 @@ const RegisterModalDirect = () => {
         />
       </div>
 
-      <form className="flex flex-col max-w-6xl w-full mt-8 pt-8 items-center justify-center border-t">
+      <form className="flex flex-col max-w-6xl w-full mt-8 pt-8 items-center justify-center border-t" encType="multipart/form-data">
         <div className="flex flex-row items-start">
-          <ShowCamera/>
+        <ShowCamera updateProfilePicture={updateProfilePicture} />
           <div className="flex flex-col w-5/5 items-">
             <div className="flex flex-wrap w-4/5 ">
 

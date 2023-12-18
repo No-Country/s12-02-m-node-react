@@ -70,6 +70,7 @@ async function createEvent(req, res) {
 async function getAllEvents(req, res) {
 	try {
 		const allEvents = await eventmananger.getAllEvents(req.query);
+		// console.log(allEvents)
 		return res.status(200).json({
 			data: allEvents,
 			status: 0,

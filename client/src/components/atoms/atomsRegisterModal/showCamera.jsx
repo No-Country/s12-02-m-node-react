@@ -1,8 +1,8 @@
-import React, { useRef,useState } from "react";
+import React, { useEffect, useRef,useState } from "react";
 import AvatarEditor from 'react-avatar-editor';
 import Dropzone from 'react-dropzone';
 
-export default function ShowCamera (){
+export default function ShowCamera ({ updateProfilePicture }){
 
   const [formData, setFormData] = useState({
     names: "",
@@ -22,6 +22,43 @@ export default function ShowCamera (){
   const [isEditorVisible, setIsEditorVisible] = useState(true);
   const [scaleValue, setScaleValue] = useState(1.2);
   const [showCamera, setShowCamera] = useState(false);
+
+  useEffect(() => {
+    const openCamera = async () => {
+      if (showCamera) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+          });
+  
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+            videoRef.current
+              .play()
+              .then(() => console.log("Camera access successful"))
+              .catch((error) => console.error("Error accessing camera:", error));
+          }
+        } catch (error) {
+          console.error("Error accessing camera:", error);
+        }
+      }
+    };
+  
+    openCamera();
+  
+    return () => {
+      const stream = videoRef.current?.srcObject;
+      const tracks = stream?.getTracks() || [];
+  
+      tracks.forEach((track) => {
+        track.stop();
+      });
+  
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
+    };
+  }, [showCamera]);
 
   const handleFileChange = (acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -53,22 +90,9 @@ export default function ShowCamera (){
 
   const handleElegir = async (e) => {
     e.preventDefault();
-    setIsEditorVisible(false)
-    setShowCamera(true);
-    if (showCamera===true) {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        console.log("videoRef.current:", videoRef.current);
-  
-        videoRef.current.srcObject = stream;
-        videoRef.current.play()
-    .then(() => console.log("Camera access successful"))
-    .catch(error => console.error("Error accessing camera:", error));
-  
-      } catch (error) {
-        console.error("Error accessing camera:", error);
-      }
-    };
+    setIsEditorVisible(!isEditorVisible)
+    setShowCamera(!showCamera);
+    
   }
 
   const handleCameraCapture = async (e) => {
@@ -97,7 +121,10 @@ export default function ShowCamera (){
     const ctx = canvas.getContext("2d");
     ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
     
+
     const dataURL = canvas.toDataURL("image/png");
+
+    updateProfilePicture(convertDataUrlToFile(dataURL,'foto'))
     setFormData({
       ...formData,
       picture: dataURL,
@@ -127,6 +154,23 @@ export default function ShowCamera (){
     setShowCamera(false)
   };
 
+  const convertDataUrlToFile = (dataUrl, fileName) => {
+    const base64String = dataUrl.split(',')[1];
+    const byteCharacters = window.atob(base64String);
+    const byteNumbers = new Array(byteCharacters.length);
+  
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+  
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'image/png' });
+    const file = new File([blob], fileName, { type: 'image/png' });
+  
+    return file;
+  };
+  
+  
   const handleSave = (e) => {
     e.preventDefault();
     if (editor) {
@@ -135,6 +179,7 @@ export default function ShowCamera (){
         ...formData,
         croppedPicture: croppedImage,
       });
+      updateProfilePicture(convertDataUrlToFile(croppedImage,'foto'))
       setIsEditorVisible(false);
     }
   };
@@ -251,9 +296,9 @@ export default function ShowCamera (){
           <div className="w-3/5 px-2 flex justify-center">
             <button
               onClick={handleElegir}
-              className="mt-4 text-black text-base"
+              className="bg-blue-500 text-white mt-2 py-2 px-4 rounded-full w-full"
             >
-              Abrir camara
+              {!showCamera ? "Abrir camara" : "Archivo PC"}
             </button>
           </div>
       </div>

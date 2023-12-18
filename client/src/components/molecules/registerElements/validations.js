@@ -46,7 +46,7 @@ export const validate = (user) => {
   
   if (!user.password) {
     errors.password = "La contraseña es requerida";
-  } else if (user.password.length() < 6) {
+  } else if (user.password.length < 6) {
           errors.password = "La contraseña debe tener al menos 6 caracteres.";
         }
   
