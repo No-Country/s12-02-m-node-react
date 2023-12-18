@@ -56,7 +56,6 @@ const LoginModal = () => {
       
           const userData = result.user;
           setUser(userData);
-        
           try {
             // Realiza las operaciones adicionales según tus necesidades
             const registered = await axios.get(`/user/${userData.email}`);

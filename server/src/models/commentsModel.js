@@ -24,7 +24,7 @@ const commentsScheme = new mongoose.Schema({
 		type: Date,
 		required: true,
 		trim: true,
-		default: new Date(),
+		default: Date.now,
 	},
 	active: {
 		type: Boolean,
