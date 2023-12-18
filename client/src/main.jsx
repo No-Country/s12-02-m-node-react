@@ -12,6 +12,7 @@ import Detail from "./components/pages/EventDetail";
 import Register from "./components/pages/Register";
 import Login from "./components/pages/Login"
 import CreateEventPage from "./components/pages/CreateEventPage";
+import MyAccount from "./components/pages/MyAccount";
 import axios from "axios";
 
 axios.defaults.baseURL = `http://localhost:3031/api`; //Local
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/createEvent",
         element: <CreateEventPage />,
+      },
+      {
+        path: "/myAccount",
+        element: <MyAccount />,
       },
       {
         path: "*",
