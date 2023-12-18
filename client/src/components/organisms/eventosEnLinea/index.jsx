@@ -1,18 +1,7 @@
 import { MdArrowRight } from "react-icons/md";
 import { Card } from "../../atoms/eventCard";
 
-export default function EventosEnLinea() {
-  const cardData = {
-    photo:
-      "https://th.bing.com/th/id/OIP.zF_astuhx1EG7SVCpqar2gHaEo?rs=1&pid=ImgDetMain",
-    title: "Congreso de Ciberseguridad",
-    date: "3 de febrero de 2024",
-    location: "Virtual",
-  };
-
-  const renderedCards = Array.from({ length: 4 }, (_, index) => (
-    <Card key={index} {...cardData} />
-  ));
+export default function EventosEnLinea({ cardsInfo }) {
 
   return (
     <div className="p-5 lg:p-10 bg-white">
@@ -22,7 +11,13 @@ export default function EventosEnLinea() {
           Ver todo <MdArrowRight size={20} />
         </button>
       </div>
-      <div className="w-full columns-2xs md:columns-2 xl:columns-4">{renderedCards}</div>
+      <div className="w-full grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+      {cardsInfo.map((card, i) => (
+          <div key={card._id} className="bg-white rounded-lg shadow-lg">
+            <Card key={i} info={card} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
