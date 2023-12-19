@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
+
 import useFetch from "../../../hooks/useFetch";
+import { useSelector } from "react-redux";
 
 import UserIcon from "../../atoms/userIcon";
 import Calendar from "@demark-pro/react-booking-calendar";
@@ -23,11 +24,12 @@ function CreateEventPage() {
 
   const [eventResponse, eventStatus, eventPost] = useFetch();
 
-  /*   useEffect(() => {
+  const user = useSelector((state) => state.user.data)
+  useEffect(() => {
     if (window.scrollY > 0) {
       window.scrollTo(0, 0);
     }
-  }, []); */
+  }, []);
 
   useEffect(() => {
     if (eventStatus.success) {
@@ -110,22 +112,21 @@ function CreateEventPage() {
     const formData = new FormData(e.currentTarget);
     console.log("fechas: ", formatedSelectedDates);
     formData.append("dates", JSON.stringify(formatedSelectedDates));
-    formData.append("email", "pedro@example.com");
+    formData.append("email", user.email);
 
-    // const dataObj = Object.fromEntries(formData);
-    const myrequest = eventPost({
+    eventPost({
       path: "/event",
       data: formData,
       method: "POST",
     });
-
-    // axios.post("http://localhost:3031/api/event", formData);
   };
   return (
     <main className="w-full flex flex-col items-center">
       <Toaster />
       <header className="bg-secondary-4 h-fit py-10 w-full">
-        <h2 className="text-white text-5xl text-center font-semibold px-2">Crear evento</h2>
+        <h2 className="text-white text-5xl text-center font-semibold px-2">
+          Crear evento
+        </h2>
       </header>
       <form
         ref={form}
@@ -135,7 +136,9 @@ function CreateEventPage() {
         <div className="flex justify-center items-center gap-2 my-5 md:col-span-full md:justify-self-start">
           <UserIcon />
           <p>
-            <span className="text-secondary-5 text-lg font-medium">Capipop</span>
+            <span className="text-secondary-5 text-lg font-medium">
+              Capipop
+            </span>
             <span className="flex flex-col items-start gap-2 text-primary-5 text-sm">
               Organizador - Ir al perfil
             </span>
@@ -223,7 +226,7 @@ function CreateEventPage() {
             <option value="presencial">Presencial</option>
           </select>
         </label>
-        
+
         <label aria-label="select a category" className="md:col-span-2">
           <select
             name="category"

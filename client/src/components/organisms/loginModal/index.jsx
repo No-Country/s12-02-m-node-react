@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import GoogleLogin from "../../molecules/loginElements/loginGoogle";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
+import RegisterModal from "../registerModal";
+import { useDispatch } from "react-redux";
+import { login } from "../../../redux/slices/userSlice";
 
 const LoginModal = () => {
+  const dispatch = useDispatch()
   const [firebaseConfig, setFirebaseConfig] = useState(null);
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlertMessage, setShowAlertMessage] = useState(false);
