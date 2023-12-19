@@ -5,6 +5,14 @@ import renderDate from "../../../utils/formatDate";
 export const Card = ({ className, info = {} }) => {
   const eventId = info._id || 1;
   const navigate = useNavigate();
+  const renderLocation = (location) => {
+    if(typeof location === 'string'){
+      return location;
+    }else if(typeof location === 'object'){
+      return location.province
+    }
+
+  }
 
   return (
     <div
@@ -31,11 +39,11 @@ export const Card = ({ className, info = {} }) => {
             >
               <circle cx="2.5" cy="2.5" r="2.5" fill="#828D9E" />
             </svg>
-            <p>{info.location}</p>
+            <p>{renderLocation(info.location || info.ubication)}</p>
           </div>
         </header>
         <button
-          onClick={() => navigate(`event/${eventId}`)}
+          onClick={() => navigate(`/event/${eventId}`)}
           className="w-28 text-primary-4 text-sm font-semibold bg-transparent border border-primary-4 rounded-full px-6 py-2"
         >
           Ver más

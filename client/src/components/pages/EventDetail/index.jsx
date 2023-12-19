@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
-import { Accordion, AccordionItem } from "@nextui-org/react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import Map from "../../atoms/map";
+import { NavLink } from "react-router-dom";
+
+import toast, { Toaster } from "react-hot-toast";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
   setEventDetails,
   setEventBookings,
-  setEventHost,
+  setIsFull,
 } from "../../../redux/slices/detailEventSlice";
 import { setUserBookings } from "../../../redux/slices/userSlice";
 
@@ -22,8 +25,15 @@ import renderDate from "../../../utils/formatDate";
 export default function Detail() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const bookButton = useRef(null);
+  const [isEventBooked, setIsEventBooked] = useState(false);
 
-  const { data: user, isLogged, bookings } = useSelector((state) => state.user);
+  const { data: user, isLogged } = useSelector((state) => state.user);
+  const {
+    data: eventData,
+    bookings: eventBookings,
+    freeSlots,
+  } = useSelector((state) => state.eventDetail);
 
   const [eventRes, eventStatus, getEvent] = useFetch();
   const [eventHostRes, eventHostStatus, getEventHost] = useFetch();
@@ -51,20 +61,39 @@ export default function Detail() {
       getEventHost({ path: `/user/${eventRes.data.email}`, method: "GET" });
       console.log("eventDetail: ", eventRes);
     }
+  }, [eventStatus]);
+
+  useEffect(() => {
     if (eventBookingsStatus.success) {
       dispatch(setEventBookings(eventBookingsRes.data.document));
-      console.log("commentsDetail: ", eventBookingsRes);
+      console.log("EventBooks: ", eventBookingsRes);
     }
-  }, [eventStatus, eventBookingsStatus]);
+  }, [eventBookingsStatus]);
 
   useEffect(() => {
     if (bookingStatus.success) {
+      toast.success("Evento reservado");
       getEventBookings({ path: `/bookings/all?event_ID=${id}`, method: "GET" });
+      getUserBookings({
+        path: `/bookings/all?email=${user.email}`,
+        method: "GET",
+      });
     }
   }, [bookingStatus]);
 
   useEffect(() => {
     if (userBookingsStatus.success) {
+      const booked = userBookingsRes.data.document.some(
+        (book) => book.event_ID === id
+      );
+      if (booked) {
+        setIsEventBooked(true);
+        bookButton.current.disabled = true;
+      } else {
+        setIsEventBooked(false);
+        bookButton.current.disabled = false;
+      }
+      console.log("reservado: ", booked);
       dispatch(setUserBookings(userBookingsRes.data.document));
     }
   }, [userBookingsStatus]);
@@ -88,6 +117,26 @@ export default function Detail() {
       <LoadingSkeleton className={customSkeletonClass} type={typeOfSkeleton} />
     );
 
+  const renderFreeEventSlots = () => {
+    const { capacity } = eventData;
+    const bookedQuantity = eventBookings.length;
+    const freeSlots = capacity - bookedQuantity;
+    if (capacity == bookedQuantity) {
+			dispatch(setIsFull(true))
+      bookButton.disabled = true;
+      return "Ya no quedan lugares";
+    }
+    console.log(`slots libres: ${freeSlots}`);
+    return freeSlots;
+  };
+
+  const mapCoordinates = () => {
+    const latitude = eventRes?.data.location.coordinates.latitude;
+    const longitude = eventRes?.data.location.coordinates.longitude;
+
+    return [latitude, longitude];
+  };
+
   const handleBook = (e) => {
     e.preventDefault();
     const data = {
@@ -95,9 +144,12 @@ export default function Detail() {
       event_ID: id,
     };
     postBooking({ path: "/bookings", method: "POST", data: data });
+    toast.loading("Reservando evento", { duration: 1000 });
   };
+
   return (
     <main className="w-full grid p-3 gap-7 grid-cols-1 md:p-7 lg:p-10 lg:gap-10 xl:grid-cols-3">
+      <Toaster />
       <section className="flex flex-col gap-3 md:gap-5 lg:gap-7 xl:col-span-2">
         <picture className="w-full h-fit rounded-lg overflow-hidden">
           {renderData({
@@ -125,13 +177,28 @@ export default function Detail() {
             })}
           </p>
         </div>
-        <button
-          onClick={handleBook}
-          data-test="book_event"
-          className="w-full rounded-full outline-none bg-primary-500 hover:bg-primary-600 shadow-md p-3 text-white md:my-3"
-        >
-          Reservar Ahora
-        </button>
+        {isLogged ? (
+          <button
+            ref={bookButton}
+            onClick={handleBook}
+            data-test="book_event"
+            className="w-full rounded-full outline-none bg-primary-500 hover:bg-primary-600 shadow-md p-3 text-white md:my-3 cursor-pointer disabled:bg-teal-800 disabled:cursor-default"
+          >
+            {freeSlots
+              ? "Ya no hay espacios libres"
+              : isEventBooked
+              ? "Evento Reservado"
+              : "Reservar Ahora"}
+          </button>
+        ) : (
+          <NavLink
+            id="link_to_login"
+            className="w-full rounded-full outline-none bg-primary-500 hover:bg-primary-600 shadow-md p-3 text-white md:my-3 cursor-pointer text-center"
+            to="/login"
+          >
+            Inicia Sesión para reservar
+          </NavLink>
+        )}
         <div className="flex flex-col gap-3 items-center  md:items-start">
           <h3 className="font-bold text-2xl text-secondary-1">
             Acerca del evento
@@ -170,7 +237,14 @@ export default function Detail() {
           {renderData({
             dataTorender: () => (
               <DetailInfoBlock title={"Capacidad"}>
-                <p>{eventRes.data.capacity} Lugares</p>
+                <p>
+                  <strong>Total: </strong>
+                  {eventRes.data.capacity} Lugares
+                </p>
+                <p>
+                  <strong>Restantes: </strong>
+                  {renderFreeEventSlots()}
+                </p>
               </DetailInfoBlock>
             ),
             status: eventStatus,
@@ -187,14 +261,16 @@ export default function Detail() {
             typeOfSkeleton: "block",
           })}
         </div>
-
-        <DetailInfoBlock title={"Ubicación"}>
-          <p className="pb-3">
-            Avenida Corrientes 857 1043 Ciudad Autónoma De Buenos Aires ,Teatro
-            Gran Rex
-          </p>
-          <img className="p-2" src="/image 10.png" alt="" />
-        </DetailInfoBlock>
+        {renderData({
+          dataTorender: () => (
+            <DetailInfoBlock title={"Ubicación"}>
+              <p className="pb-3">{eventRes?.data.location.streets}</p>
+              <Map coordinates={mapCoordinates()} />
+            </DetailInfoBlock>
+          ),
+          status: eventStatus,
+          typeOfSkeleton: "block",
+        })}
       </section>
       <section className="flex flex-col col-span-full">
         <h3 className="font-bold text-2xl text-secondary-1">Comentarios</h3>
