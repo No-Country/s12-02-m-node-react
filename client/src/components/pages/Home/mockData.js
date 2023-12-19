@@ -23,5 +23,11 @@ const heroData = [
     id: 4,
   },
 ];
-
-export { heroData };
+const dataCard = {
+  pictures:
+    ["https://cdn-cefip.nitrocdn.com/ybeySFXGglflJkEZOZyILOIlSfsvMhtE/assets/static/optimized/wp-content/uploads/2017/10/cac6d46bea5ef2c2e4e69d99c5f0f64c.League-of-Legends-Tournament.jpg"],
+  title: "Lollapalooza",
+  dates: {start: '2023-01-15', end: '2023-02-20'},
+  location: "Hipódromo de San Isidro",
+}
+export { heroData, dataCard };

@@ -5,6 +5,7 @@ import { uploadImage } from '../utils/cloudinary.js';
 const eventmananger = new EventManager();
 
 async function createEvent(req, res) {
+	console.log(req.body);
 	try {
 		const {
 			email,
@@ -15,7 +16,7 @@ async function createEvent(req, res) {
 			startHour,
 			endHour,
 			modality,
-			ubication,
+			location,
 			category,
 			price,
 			minimumAge,
@@ -27,11 +28,11 @@ async function createEvent(req, res) {
 			title,
 			description,
 			capacity: parseInt(capacity, 10),
-			dates,
+			dates: JSON.parse(dates),
 			startHour,
 			endHour,
 			modality,
-			ubication,
+			location,
 			category,
 			price: parseInt(price, 10),
 			minimumAge: parseInt(minimumAge, 10),
@@ -69,6 +70,7 @@ async function createEvent(req, res) {
 async function getAllEvents(req, res) {
 	try {
 		const allEvents = await eventmananger.getAllEvents(req.query);
+		// console.log(allEvents)
 		return res.status(200).json({
 			data: allEvents,
 			status: 0,

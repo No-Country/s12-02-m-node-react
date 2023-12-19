@@ -4,7 +4,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { Card } from "../../atoms/eventCard";
 import { UseGeolocalization } from "../../../hooks/geolocalization";
 
-const DependingOnLocation = () => {
+const DependingOnLocation = ({ cardsInfo }) => {
   const [locationSelected, setLocationSelected] = useState("Buenos Aires");
   const [isLocationMenuOn, setIsLocationMenuOn] = useState(false);
   const [userLocation, fetchStatus, getUserLocation] = UseGeolocalization();
@@ -13,8 +13,6 @@ const DependingOnLocation = () => {
   useEffect(() => {
     // getUserLocation()
   }, []);
-
-  console.log(fetchStatus);
 
   const cities = [
     "Buenos Aires",
@@ -44,10 +42,8 @@ const DependingOnLocation = () => {
     }, 1000);
   };
 
-  const cardsData = [{}, {}, {}, {}, {}, {}, {}, {}];
-
   return (
-    <div className="p-5 lg:p-10">
+    <section className="p-5 lg:p-10">
       <div>
         <h2 className="text-2xl font-bold mb-2">Según tu ubicación</h2>
         <p className="mb-4">
@@ -57,6 +53,7 @@ const DependingOnLocation = () => {
           <button
             onClick={() => setIsLocationMenuOn((prev) => !prev)}
             onBlur={handleBlur}
+            data-test="toggle-location-menu"
             className="text-secondary-2 flex items-center mb-4 px-2  py-1 rounded-full hover:scale-105 transform transition-transform duration-100 ease-out-expo"
           >
             <FaChevronDown className="mr-2" />
@@ -96,6 +93,7 @@ const DependingOnLocation = () => {
                 type="submit"
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                data-test="select-location"
                 className="bg-secondary-3 w-full py-1 text-secondary-1 font-medium hover:bg-secondary-2 hover:text-primary-1 focus:bg-secondary-2 focus:text-primary-1"
               >
                 Seleccionar
@@ -115,18 +113,14 @@ const DependingOnLocation = () => {
       </div>
 
       <div className="group regular snap-x snap-mandatory w-full flex gap-3 overflow-scroll xl:overflow-hidden xl:columns-2xs xl:block">
-        {cardsData.map((card, i) => (
-          <Card key={i} />
+        {cardsInfo.map((card, i) => (
+          <div key={i} className="bg-white rounded-lg shadow-lg mb-3">
+            <Card info={card} />
+          </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
 export default DependingOnLocation;
-
-/*       <div className="flex justify-end mb-4 font-poppins font-medium">
-                <button className="flex items-center">
-                    Ver todo <MdArrowRight size={20} />
-                </button>
-            </div> */

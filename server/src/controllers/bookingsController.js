@@ -30,14 +30,14 @@ async function createBookingController(req, res) {
 async function getAllBookingsController(req, res) {
 	try {
 		const queryParams = req.query;
-		let query = {};
-		if (queryParams.email) {
-			query = { email: queryParams.email };
-		} else {
-			query = queryParams;
-		}
-		console.log(query);
-		const allBookings = await bookingsmanager.getAllBookings(query);
+		// let query = {};
+		// if (queryParams.email) {
+		// 	query = { email: queryParams.email };
+		// } else {
+		// 	query = queryParams;
+		// }
+		console.log(queryParams);
+		const allBookings = await bookingsmanager.getAllBookings(queryParams);
 		if (allBookings.length === 0) throw new Error('No hay reservas para mostrar');
 		return res.status(200).json({
 			data: allBookings,

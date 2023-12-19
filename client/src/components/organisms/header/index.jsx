@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, Menu } from "lucide-react";
+import {useDispatch, useSelector} from 'react-redux'
+import { login, logout } from "../../../redux/slices/userSlice";
 
 import NavbarHeader from "../../molecules/navbarHeader";
 import NavbarButton from "../../atoms/navbarButton";
@@ -10,43 +12,44 @@ import UserHeaderMenu from "../../atoms/userHeaderMenu";
 import { useState, useEffect } from "react";
 
 function Header() {
-  const [isLogged, setIsLogged] = useState(true);
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
-  const userDefault = {
-    names: "Caperactus",
-  };
-  const [userInfo, setUserInfo] = useState(
-    JSON.parse(localStorage.getItem("user")) 
-  );
+
+  const dispatch = useDispatch()
+
+  const isLogged = useSelector((state) => state.user.isLogged)
+  const userInfo = useSelector((state) => state.user.data)
 
   const navigate = useNavigate();
 
   const toLogout = () => {
-    setIsLogged(false);  
+    dispatch(logout())
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    navigate("/"); 
+    navigate("/");
   };
 
   useEffect(() => {
-    if (userInfo?.email) {
-      setIsLogged(true);
-    } else {
-      setIsLogged(false)
+    const userInfo = localStorage.getItem("user")
+    const isLogged = Boolean(userInfo);
+    if (isLogged) {
+      dispatch(login(JSON.parse(userInfo)))
+    }else{
+      dispatch(logout())
     }
-  }, [userInfo]);
-
-const closeSession = () => {
-  toLogout();
-};
+  }, []);
 
   const headerMenuOptions = [
     {
       text: "Mi Cuenta",
       redirect: "/Myaccount",
       dataTest: "link_mi-cuenta",
+    },
+    {
+      text: "Mis eventos",
+      redirect: "/my-events",
+      dataTest: "link_mis_eventos",
     },
     {
       text: "Reservas",
@@ -59,12 +62,16 @@ const closeSession = () => {
         console.log("Clic en Cerrar Sesión");
         toLogout();
       },
-      dataTest: 'link_cerrar-sesion',
-    }
+      dataTest: "link_cerrar-sesion",
+    },
   ];
 
   const toRegister = () => {
     navigate("/Register");
+  };
+
+  const toLogin = () => {
+    navigate("/Login");
   };
 
   const closeMenu = () => {
@@ -72,10 +79,6 @@ const closeSession = () => {
       setIsMenuToggled(false);
     }, 200);
     setCloseMenuTimeOut(timeout);
-  };
-
-  const toLogin = () => {
-    navigate("/Login");
   };
 
   const renderLogSection = () => {
@@ -88,7 +91,7 @@ const closeSession = () => {
             onBlur={closeMenu}
             data-test="user_menu_toggle"
           >
-            <UserIcon imgUrl={userInfo?.picture}/>
+            <UserIcon imgUrl={userInfo?.picture} />
             <span className="group-hover:text-secondary-3 group-focus:text-secondary-3">
               {userInfo?.names}
             </span>
@@ -116,8 +119,14 @@ const closeSession = () => {
           filled={false}
           text={"Iniciar Sesión"}
           handler={toLogin}
+          dataTest="Login"
         />
-        <NavbarButton filled text={"Registrarse"} handler={toRegister} />
+        <NavbarButton
+          filled
+          text={"Registrarse"}
+          handler={toRegister}
+          dataTest="signUp"
+        />
       </div>
     );
   };
@@ -147,13 +156,13 @@ const closeSession = () => {
       {isMobileNav && (
         <div className="px-10 mt-1 pt-3 border-t-2 border-gray-500 flex flex-col gap-5 items-center lg:hidden">
           <Searcher />
-          <NavbarHeader />
+          <NavbarHeader isLogged={isLogged} />
           {renderLogSection()}
         </div>
       )}
       <div className="hidden lg:flex lg:items-center lg:justify-between lg:mr-10 lg:gap-5 lg:flex-grow">
         <Searcher className={"hidden xl:inline-flex xl:ml-5"} />
-        <NavbarHeader className={"lg:flex-grow"} />
+        <NavbarHeader className={"lg:flex-grow"} isLogged={isLogged} />
         {renderLogSection()}
       </div>
     </header>
