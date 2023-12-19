@@ -1,5 +1,28 @@
 import mongoose from 'mongoose';
 
+const locationSchema = new mongoose.Schema({
+	province: {
+		type: String,
+		required: true,
+		trim: true,
+	},
+	streets: {
+		type: String,
+		required: true,
+		trim: true,
+	},
+	coordinates: {
+		latitude: {
+			type: Number,
+			required: true,
+		},
+		longitude: {
+			type: Number,
+			required: true,
+		},
+	},
+});
+
 const eventSchema = new mongoose.Schema({
 	email: {
 		type: String,
@@ -45,6 +68,7 @@ const eventSchema = new mongoose.Schema({
 			},
 		},
 		required: true,
+		_id: false,
 	},
 	startHour: {
 		type: String,
@@ -75,9 +99,9 @@ const eventSchema = new mongoose.Schema({
 		trim: true,
 	},
 	location: {
-		type: String,
+		type: locationSchema,
 		required: true,
-		trim: true,
+		_id: false,
 	},
 	category: {
 		type: String,

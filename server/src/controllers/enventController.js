@@ -32,7 +32,7 @@ async function createEvent(req, res) {
 			startHour,
 			endHour,
 			modality,
-			location,
+			location: JSON.parse(location),
 			category,
 			price: parseInt(price, 10),
 			minimumAge: parseInt(minimumAge, 10),

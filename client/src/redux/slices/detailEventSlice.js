@@ -5,6 +5,7 @@ const initialState = {
   comments: [],
   bookings: [],
   host: {},
+  isFull: false
 };
 
 export const eventDetailSlice = createSlice({
@@ -23,6 +24,9 @@ export const eventDetailSlice = createSlice({
     setEventHost: (state, action) => {
       state.host = action.payload;
     },
+    setIsFull: (state, action) => {
+      state.isFull = action.payload;
+    }
   },
 });
 
@@ -31,5 +35,6 @@ export const {
   setEventComments,
   setEventBookings,
   setEventHost,
+  setIsFull,
 } = eventDetailSlice.actions;
 export default eventDetailSlice.reducer;

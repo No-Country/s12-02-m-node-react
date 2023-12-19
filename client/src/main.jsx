@@ -13,6 +13,7 @@ import Detail from "./components/pages/EventDetail";
 import Register from "./components/pages/Register";
 import Login from "./components/pages/Login"
 import CreateEventPage from "./components/pages/CreateEventPage";
+import News from "./components/pages/News";
 import MyEvents from "./components/pages/myEvents";
 
 import MyAccount from "./components/pages/MyAccount";
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/createEvent",
         element: <CreateEventPage />,
+      },
+      {
+        path: "/News",
+        element: <News />,
       },
       {
         path: "/my-events",
