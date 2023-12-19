@@ -174,6 +174,7 @@ export default function Detail() {
               </DetailInfoBlock>
             ),
             status: eventStatus,
+            typeOfSkeleton: "block",
           })}
 
           {renderData({
@@ -183,6 +184,7 @@ export default function Detail() {
               </DetailInfoBlock>
             ),
             status: eventStatus,
+            typeOfSkeleton: "block",
           })}
         </div>
 
