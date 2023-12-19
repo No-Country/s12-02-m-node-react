@@ -128,4 +128,5 @@ const RegisterModal = (user) => {
   );
 };
 
+
 export default RegisterModal;

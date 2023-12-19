@@ -43,7 +43,7 @@ function Header() {
   const headerMenuOptions = [
     {
       text: "Mi Cuenta",
-      redirect: "/Myaccount",
+      redirect: "/myAccount",
       dataTest: "link_mi-cuenta",
     },
     {
