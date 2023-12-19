@@ -8,11 +8,6 @@ function NavbarHeader({ className, isLogged }) {
       dataTest: "link_inicio",
     },
     {
-      text: "Eventos",
-      route: "/Events",
-      dataTest: "link_eventos",
-    },
-    {
       text: "Novedades",
       route: "/News",
       dataTest: "link_novedades",

@@ -1,66 +1,88 @@
 import { useEffect, useState } from "react";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setEventDetails } from "../../../redux/slices/detailEventSlice";
 
-import { GoHeart, GoHeartFill } from "react-icons/go";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setEventDetails,
+  setEventBookings,
+  setEventHost,
+} from "../../../redux/slices/detailEventSlice";
+import { setUserBookings } from "../../../redux/slices/userSlice";
 
 import Comments from "../../organisms/comments";
 import LoadingSkeleton from "../../atoms/loadingSkeleton";
+import DetailInfoBlock from "../../atoms/detailInfoBlock";
+import UserIcon from "../../atoms/userIcon";
 
 import useFetch from "../../../hooks/useFetch";
 
 import renderDate from "../../../utils/formatDate";
 
 export default function Detail() {
-  const [favorited, setFavorited] = useState(false);
-
   const { id } = useParams();
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('user'));
 
-  const [eventRes, eventStatus, fetchEvent] = useFetch();
-  const [commentsRes, commentsStatus, fetchComments] = useFetch();
-  const [bookingRes, bookingStatus, fetchBooking] = useFetch();
-  const [userBookingsRes, UserBookingsStatus, fetchUserBookings] = useFetch();
+  const { data: user, isLogged, bookings } = useSelector((state) => state.user);
 
+  const [eventRes, eventStatus, getEvent] = useFetch();
+  const [eventHostRes, eventHostStatus, getEventHost] = useFetch();
+  const [bookingRes, bookingStatus, postBooking] = useFetch();
+  const [userBookingsRes, userBookingsStatus, getUserBookings] = useFetch();
+  const [eventBookingsRes, eventBookingsStatus, getEventBookings] = useFetch();
 
   useEffect(() => {
-    fetchEvent({ path: `/event/${id}`, method: "GET" });
-    fetchComments({ path: `/comments/all`, method: "GET" });
+    getEvent({ path: `/event/${id}`, method: "GET" });
+    getEventBookings({ path: `/bookings/all?event_ID=${id}`, method: "GET" });
   }, []);
+
+  useEffect(() => {
+    if (isLogged) {
+      getUserBookings({
+        path: `/bookings/all?email=${user.email}`,
+        method: "GET",
+      });
+    }
+  }, [isLogged]);
 
   useEffect(() => {
     if (eventStatus.success) {
       dispatch(setEventDetails(eventRes.data));
-      console.log(eventRes);
+      getEventHost({ path: `/user/${eventRes.data.email}`, method: "GET" });
+      console.log("eventDetail: ", eventRes);
     }
-    if (commentsStatus.success) {
-      console.log(commentsRes);
+    if (eventBookingsStatus.success) {
+      dispatch(setEventBookings(eventBookingsRes.data.document));
+      console.log("commentsDetail: ", eventBookingsRes);
     }
-  }, [eventStatus]);
+  }, [eventStatus, eventBookingsStatus]);
 
+  useEffect(() => {
+    if (bookingStatus.success) {
+      getEventBookings({ path: `/bookings/all?event_ID=${id}`, method: "GET" });
+    }
+  }, [bookingStatus]);
+
+  useEffect(() => {
+    if (userBookingsStatus.success) {
+      dispatch(setUserBookings(userBookingsRes.data.document));
+    }
+  }, [userBookingsStatus]);
+
+  /* Reset Screen scroll */
   useEffect(() => {
     if (window.scrollY > 0) {
       window.scrollTo(0, 0);
     }
   }, []);
 
-  const toggleFavorite = () => {
-    setFavorited((prev) => !prev);
-  };
-
-  useEffect(()=>{
-    fetchUserBookings({path:`/bookings/all?email=${user.email}`, method: 'GET'})
-  },[])
-
   const renderData = ({
     dataTorender,
     typeOfSkeleton,
     customSkeletonClass = "",
+    status = eventStatus,
   }) =>
-    eventStatus.success ? (
+    status.success ? (
       dataTorender()
     ) : (
       <LoadingSkeleton className={customSkeletonClass} type={typeOfSkeleton} />
@@ -72,10 +94,10 @@ export default function Detail() {
       email: user.email,
       event_ID: id,
     };
-    fetchBooking({ path: "/bookings", method: "POST", data: data });
+    postBooking({ path: "/bookings", method: "POST", data: data });
   };
   return (
-    <main className="w-full grid p-3 gap-7 md:p-7 lg:p-10 lg:gap-10 xl:grid-cols-3">
+    <main className="w-full grid p-3 gap-7 grid-cols-1 md:p-7 lg:p-10 lg:gap-10 xl:grid-cols-3">
       <section className="flex flex-col gap-3 md:gap-5 lg:gap-7 xl:col-span-2">
         <picture className="w-full h-fit rounded-lg overflow-hidden">
           {renderData({
@@ -96,27 +118,12 @@ export default function Detail() {
               typeOfSkeleton: "title",
             })}
           </h2>
-          <div className="flex gap-2 items-center justify-between md:items-start">
-            <p className="text-start mt-2 self-end">
-              {renderData({
-                dataTorender: () => renderDate(eventRes?.data.dates),
-                typeOfSkeleton: "line",
-              })}
-            </p>
-            <button
-              data-test="toggle_favorite"
-              className="text-2xl text-secondary-2 outline-none"
-              onClick={toggleFavorite}
-            >
-              <span className="block w-6 h-6 md:w-8 md:h-8">
-                {favorited ? (
-                  <GoHeartFill className="w-full h-full" />
-                ) : (
-                  <GoHeart className="w-full h-full" />
-                )}
-              </span>
-            </button>
-          </div>
+          <p className="text-start mt-2">
+            {renderData({
+              dataTorender: () => renderDate(eventRes?.data.dates),
+              typeOfSkeleton: "line",
+            })}
+          </p>
         </div>
         <button
           onClick={handleBook}
@@ -137,31 +144,55 @@ export default function Detail() {
           </p>
         </div>
       </section>
-      <section className="flex flex-col items-center gap-3 md:flex-row md:items-start lg:gap-7 xl:flex-col">
-        <div className="flex flex-col gap-4 bg-primary-1 rounded-xl p-3 w-full lg:max-w-sm xl:max-w-md">
-          <h3 className="font-bold py-2 text-xl rounded-xl xl:px-5 xl:py-3">
-            Tickets
-          </h3>
-          <Accordion variant="splitted">
-            <AccordionItem
-              key="1"
-              aria-label="Accordion 1"
-              title="Puntos de venta"
-              className=""
-            >
-              Los tickets para el show se pueden adquirir únicamente a través de
-              www.movistararena.com.ar.
-            </AccordionItem>
-          </Accordion>
+      <section className="grid gap-3 md:grid-cols-2 md:items-start lg:gap-7 xl:grid-cols-1">
+        <div className="flex flex-col gap-3 md:gap-5">
+          {renderData({
+            status: eventHostStatus,
+            dataTorender: () => (
+              <DetailInfoBlock title={"Organiza"}>
+                <div className="flex items-center justify-center gap-3">
+                  <UserIcon
+                    className="w-12 h-12"
+                    imgUrl={eventHostRes.data.picture || null}
+                  />
+                  <div>
+                    <p className="font-semibold text-xl">
+                      {eventHostRes.data.names.toUpperCase()}
+                    </p>
+                    <p className="text-gray-600">{eventHostRes.data.email}</p>
+                  </div>
+                </div>
+              </DetailInfoBlock>
+            ),
+            typeOfSkeleton: "block",
+          })}
+
+          {renderData({
+            dataTorender: () => (
+              <DetailInfoBlock title={"Capacidad"}>
+                <p>{eventRes.data.capacity} Lugares</p>
+              </DetailInfoBlock>
+            ),
+            status: eventStatus,
+          })}
+
+          {renderData({
+            dataTorender: () => (
+              <DetailInfoBlock title={"Modalidad"}>
+                <p>{eventRes.data.modality.split("-").join(" ")}</p>
+              </DetailInfoBlock>
+            ),
+            status: eventStatus,
+          })}
         </div>
-        <div className="flex flex-col bg-primary-1 rounded-xl">
-          <h3 className="font-bold text-xl px-5 pt-5">Ubicacion</h3>
-          <p className="px-5 pb-3 ">
+
+        <DetailInfoBlock title={"Ubicación"}>
+          <p className="pb-3">
             Avenida Corrientes 857 1043 Ciudad Autónoma De Buenos Aires ,Teatro
             Gran Rex
           </p>
           <img className="p-2" src="/image 10.png" alt="" />
-        </div>
+        </DetailInfoBlock>
       </section>
       <section className="flex flex-col col-span-full">
         <h3 className="font-bold text-2xl text-secondary-1">Comentarios</h3>

@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, Menu } from "lucide-react";
+import {useDispatch, useSelector} from 'react-redux'
+import { login, logout } from "../../../redux/slices/userSlice";
 
 import NavbarHeader from "../../molecules/navbarHeader";
 import NavbarButton from "../../atoms/navbarButton";
@@ -14,27 +16,29 @@ function Header() {
   const [isMobileNav, setIsMobileNav] = useState(false);
   const [closeMenuTimeOut, setCloseMenuTimeOut] = useState(null);
 
-  const [isLogged, setIsLogged] = useState(false);
-  const [userInfo, setUserInfo] = useState(
-    JSON.parse(localStorage.getItem("user"))
-  );
+  const dispatch = useDispatch()
+
+  const isLogged = useSelector((state) => state.user.isLogged)
+  const userInfo = useSelector((state) => state.user.data)
 
   const navigate = useNavigate();
 
   const toLogout = () => {
-    setIsLogged(false);
+    dispatch(logout())
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     navigate("/");
   };
 
   useEffect(() => {
-    if (userInfo?.email) {
-      setIsLogged(true);
-    } else {
-      setIsLogged(false);
+    const userInfo = localStorage.getItem("user")
+    const isLogged = Boolean(userInfo);
+    if (isLogged) {
+      dispatch(login(JSON.parse(userInfo)))
+    }else{
+      dispatch(logout())
     }
-  }, [userInfo]);
+  }, []);
 
   const headerMenuOptions = [
     {
