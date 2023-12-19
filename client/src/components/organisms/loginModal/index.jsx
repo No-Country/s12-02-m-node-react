@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GoogleLogin from "../../molecules/loginElements/loginGoogle";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
-import RegisterModal from "../registerModal";
 import { useDispatch } from "react-redux";
 import { login } from "../../../redux/slices/userSlice";
 
 const LoginModal = () => {
   const dispatch = useDispatch()
   const [firebaseConfig, setFirebaseConfig] = useState(null);
-  const [user, setUser] = useState(null);
-  const [isShowRegister, setIsShowRegister] = useState(false); // Nuevo estado para verificar si el usuario está registrado
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showAlertMessage, setShowAlertMessage] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -38,19 +37,16 @@ const LoginModal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Datos enviados:", formData);
-
     try {
       const response = await axios.get("/login");
       if (!response.data) {
-        throw new Error("Empty response from server");
+        throw new Error("Respuesta vacía del servidor");
       }
 
       setFirebaseConfig(response.data);
       const app = initializeApp(response.data);
       const auth = getAuth(app);
 
-      // Autenticación con correo electrónico y contraseña
       const result = await signInWithEmailAndPassword(
         auth,
         formData.email,
@@ -59,26 +55,52 @@ const LoginModal = () => {
 
       const userData = result.user;
       setUser(userData);
+
       try {
-        // Realiza las operaciones adicionales según tus necesidades
         const registered = await axios.get(`/user/${userData.email}`);
-        console.log(registered);
+
         if (registered.data.status === 0) {
           setIsShowRegister(false);
           localStorage.setItem("user", JSON.stringify(registered.data.data));
-          dispatch(login(registered.data.data))
           navigate("/");
         }
       } catch (error) {
-        if (error.response.data.status === 1) {
+        console.log("Error al obtener información del usuario:", error);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.status === 1
+        ) {
           setIsShowRegister(true);
-          console.log("a registrarse mostro");
+          console.log("A registrarse, mostro");
         }
       }
     } catch (error) {
-      console.error("Error signing in with email and password:", error.message);
+      console.error("Error al iniciar sesión con correo y contraseña:",error.message);
+      if (
+        error.code === "auth/invalid-credential" ||
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/user-not-found"
+      ) {
+        console.log("Credenciales incorrectas. Por favor, verifica tu correo y contraseña.");
+        setAlertMessage("Credenciales incorrectas. Por favor, verifica tu correo y contraseña.");
+        setShowAlertMessage(true);
+      } else {
+        console.log("Error de autenticación:", error.message);
+      }
     }
   };
+
+  useEffect(() => {
+    if (showAlertMessage) {
+      const timeoutId = setTimeout(() => {
+        setShowAlertMessage(false);
+      }, 5000);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [showAlertMessage]);
+
   const toHome = () => {
     navigate("/");
   };
@@ -94,9 +116,14 @@ const LoginModal = () => {
         Inicia Sesión
       </h1>
       <h3 className="text-center text-base mb-6">Ingresa tus credenciales</h3>
-
-      {/* Formulario para iniciar sesion, inputs de Email y Contraseña */}
-
+      {showAlertMessage && (
+        <div>
+          <p className="bg-red-500 text-white font-medium py-2 px-5 mb-2 focus:outline-none focus:shadow-outline">
+            {alertMessage}
+          </p>
+        </div>
+      )}
+ 
       <form className="flex flex-col w-full justify-center items-center">
         <div className="flex flex-col w-2/5">
           <div className="flex pb-5 justify-center items-center w-full">
@@ -130,10 +157,13 @@ const LoginModal = () => {
         </button>
         <p className="flex m-1">o</p>
       </form>
-      {isShowRegister && user && <RegisterModal user={user} />}
+
       <div className="flex flex-col justify-between items-center mb-4 w-full">
         <div className="flex-1">
-          <GoogleLogin user={user} />
+          <GoogleLogin 
+            setShowAlertMessage={setShowAlertMessage}
+            setAlertMessage={setAlertMessage}
+          />
         </div>
       </div>
 
