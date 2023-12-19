@@ -30,18 +30,20 @@ function Home() {
   useEffect(() => {
     if (eventsStatus.success) {
       const orderedByDate = eventsRes.data.document.sort((a, b) => {
-      const orderedByDate = eventsRes.data.document.sort((a, b) => {
         const aDate = a.dates.start.split("-")[2];
         const bDate = b.dates.start.split("-")[2];
         return bDate - aDate;
       });
       setUpcomingEvents(orderedByDate.splice(0, 5));
     }
+  
     if (onlineEventsStatus.success) {
       const onlineEventsFiltered = onlineEventsRes.data.document.splice(0, 4);
       setOnlineEvents(onlineEventsFiltered);
     }
   }, [eventsStatus, onlineEventsRes]);
+  
+  
   return (
     <main className="w-full h-full">
       <Hero events={heroData} />
