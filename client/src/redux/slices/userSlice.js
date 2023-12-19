@@ -1,58 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  names: "",
-  lastname: "",
-  birthDate: "",
-  email: "",
-  country: "",
-  rol: "",
-  location: "",
+  data: {},
+  isLogged: false,
+  bookings: []
 };
 
-export const userHandler = createSlice({
+export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setNames: (state, action) => {
-      state.names = action.payload;
+    login: (state, action) => {
+      state.isLogged = true
+      state.data = action.payload;
     },
-    setLastname: (state, action) => {
-      state.lastname = action.payload;
+    logout: (state) => {
+      state.isLogged = false
+      state.data = {}
     },
-    setBirthDate: (state, action) => {
-      state.birthDate = action.payload;
-    },
-    setEmail: (state, action) => {
-      state.email = action.payload;
-    },
-    setCountry: (state, action) => {
-      state.country = action.payload;
-    },
-    setRol: (state, action) => {
-      state.rol = action.payload;
-    },
-    setLocation: (state,action) => {
-      state.location = action.payload;
+    setUserBookings: (state, action) => {
+      state.bookings = action.payload
     }
   },
 });
 
-export const getNames = (state) => state.user.names;
-export const getLastname = (state) => state.user.lastname;
-export const getBirthDate = (state) => state.user.birthDate;
-export const getEmail = (state) => state.user.email;
-export const getCountry = (state) => state.user.country;
-export const getRol = (state) => state.user.rol;
+export const getUser = (state) => state.data;
 
 export const {
-  setNames,
-  setLastname,
-  setBirthDate,
-  setEmail,
-  setCountry,
-  setRol,
-  setLocation,
-} = userHandler.actions;
+  login,
+  logout,
+  setUserBookings
+} = userSlice.actions;
 
-export default userHandler.reducer;
+export default userSlice.reducer;

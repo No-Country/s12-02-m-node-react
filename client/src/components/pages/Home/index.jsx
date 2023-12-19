@@ -3,11 +3,14 @@ import { useEffect, useState } from "react";
 import Categories from "../../molecules/categories";
 import CreateEvent from "../../molecules/createEvent";
 import Hero from "../../molecules/hero";
-import { heroData, dataCard } from "./mockData";
 import EventosEnLinea from "../../organisms/eventosEnLinea";
 import ProximosEventos from "../../organisms/proximosEventos";
 import DependingOnLocation from "../../molecules/dependingonlocation";
+
 import useFetch from "../../../hooks/useFetch";
+import {useSelector} from 'react-redux'
+
+import { heroData, dataCard } from "./mockData";
 
 function Home() {
   const [eventsRes, eventsStatus, fetchEvents] = useFetch();
@@ -15,6 +18,8 @@ function Home() {
 
   const [onlineEvents, setOnlineEvents] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
+
+  const isLogged = useSelector((state) => state.user.isLogged)
 
   /* ?category=música */
   useEffect(() => {
@@ -24,7 +29,7 @@ function Home() {
 
   useEffect(() => {
     if (eventsStatus.success) {
-      const orderedByDate = eventsRes.data.sort((a, b) => {
+      const orderedByDate = eventsRes.data.document.sort((a, b) => {
         const aDate = a.dates.start.split("-")[2];
         const bDate = b.dates.start.split("-")[2];
         return bDate - aDate;
@@ -32,7 +37,7 @@ function Home() {
       setUpcomingEvents(orderedByDate.splice(0, 5));
     }
     if (onlineEventsStatus.success) {
-      const onlineEventsFiltered = onlineEventsRes.data.splice(0, 4);
+      const onlineEventsFiltered = onlineEventsRes.data.document.splice(10, 4);
       setOnlineEvents(onlineEventsFiltered);
     }
   }, [eventsStatus, onlineEventsRes]);
@@ -43,7 +48,7 @@ function Home() {
       <DependingOnLocation cardsInfo={Array(8).fill(dataCard)} />
       <ProximosEventos cardsInfo={upcomingEvents} />
       <EventosEnLinea cardsInfo={onlineEvents} />
-      <CreateEvent />
+      {isLogged && (<CreateEvent />)}
     </main>
   );
 }
