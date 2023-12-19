@@ -8,7 +8,7 @@ import ProximosEventos from "../../organisms/proximosEventos";
 import DependingOnLocation from "../../molecules/dependingonlocation";
 
 import useFetch from "../../../hooks/useFetch";
-import {useSelector} from 'react-redux'
+import { useSelector } from "react-redux";
 
 import { heroData, dataCard } from "./mockData";
 
@@ -19,7 +19,7 @@ function Home() {
   const [onlineEvents, setOnlineEvents] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
 
-  const isLogged = useSelector((state) => state.user.isLogged)
+  const isLogged = useSelector((state) => state.user.isLogged);
 
   /* ?category=música */
   useEffect(() => {
@@ -36,14 +36,15 @@ function Home() {
       });
       setUpcomingEvents(orderedByDate.splice(0, 5));
     }
-  
+  }, [eventsStatus]);
+
+  useEffect(() => {
     if (onlineEventsStatus.success) {
-      const onlineEventsFiltered = onlineEventsRes.data.document.splice(0, 4);
+      const onlineEventsFiltered = onlineEventsRes.data.document.splice(-4, 4);
       setOnlineEvents(onlineEventsFiltered);
     }
-  }, [eventsStatus, onlineEventsRes]);
-  
-  
+  }, [onlineEventsRes]);
+
   return (
     <main className="w-full h-full">
       <Hero events={heroData} />
@@ -51,7 +52,7 @@ function Home() {
       <DependingOnLocation cardsInfo={Array(8).fill(dataCard)} />
       <ProximosEventos cardsInfo={upcomingEvents} />
       <EventosEnLinea cardsInfo={onlineEvents} />
-      {isLogged && (<CreateEvent />)}
+      {isLogged && <CreateEvent />}
     </main>
   );
 }

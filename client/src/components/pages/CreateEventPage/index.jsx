@@ -24,7 +24,9 @@ function CreateEventPage() {
 
   const [eventResponse, eventStatus, eventPost] = useFetch();
 
-  const user = useSelector((state) => state.user.data)
+  const user = useSelector((state) => state.user.data);
+  const locations = useSelector((state) => state.locations.data)
+
   useEffect(() => {
     if (window.scrollY > 0) {
       window.scrollTo(0, 0);
@@ -113,6 +115,22 @@ function CreateEventPage() {
     console.log("fechas: ", formatedSelectedDates);
     formData.append("dates", JSON.stringify(formatedSelectedDates));
     formData.append("email", user.email);
+    const street = formData.get('streets')
+    const locationName = formData.get('province')
+    const locationData = locations.find((location) => location.nombre === locationName)
+    const newLocationData = {
+      province: locationData.nombre,
+      streets: street,
+      coordinates: {
+        latitude: Number(locationData.centroide.lat),
+        longitude: Number(locationData.centroide.lon)
+      }
+    }
+    formData.delete('province')
+    formData.delete('streets')
+    formData.append('location', JSON.stringify(newLocationData))
+    console.log(newLocationData);
+    console.log(Object.fromEntries(formData));
 
     eventPost({
       path: "/event",
@@ -247,10 +265,10 @@ function CreateEventPage() {
         <label className="bg-white p-5 rounded-xl outline-2 outline-secondary-2 focus-within:outline hover:outline focus-within:shadow-lg shadow-secondary-1 flex items-center gap-2 lg:row-start-5 lg:col-start-3">
           <FaLocationDot className="w-6 h-6" />
           <input
-            data-test="location"
+            data-test="streets"
             type="text"
-            name="location"
-            placeholder="Ubicacion"
+            name="streets"
+            placeholder="Dirección"
             className="outline-none flex-grow"
           />
         </label>
@@ -262,6 +280,17 @@ function CreateEventPage() {
             data-test="minimum-age"
             className="bg-white p-5 block rounded-xl outline-2 outline-secondary-2 focus:outline hover:outline focus:shadow-lg shadow-secondary-1 w-full"
           />
+        </label>
+        <label aria-label="select a province">
+          <select
+            className="bg-white p-5 block rounded-xl outline-2 outline-secondary-2 focus-within:outline hover:outline focus-within:shadow-lg shadow-secondary-1 w-full"
+            name="province"
+          >
+            <option value="">--Selecciona una provincia--</option>
+            {locations.map((location) => (
+              <option key={location.id} value={location.name}>{location.nombre}</option>
+            ))}
+          </select>
         </label>
         <label className="lg:row-start-7">
           <input
