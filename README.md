@@ -2,7 +2,7 @@
 <img align="center" width="100%" src="https://github.com/No-Country/s12-02-m-node-react/blob/main/IMAGE.png">
 
 
-<h3>Sabemos que iniciar un evento cerca de ti puede ser un poco tedioso, pero es porque estás muy ocupado con el trabajo u otros motivos, normalmente en los eventos puedes conocer gente nueva y ampliar tu red de amigos. Para que no pierdas estas oportunidades, acudiré a EventWave, un entorno donde podrás ingresar en terreno a los próximos eventos, para que puedas reservar o crear tu propio evento. </h3>
+<h3>Sabemos que iniciar un evento cerca de ti puede ser un poco tedioso, pero es porque estás muy ocupado con el trabajo u otros motivos, normalmente en los eventos puedes conocer gente nueva y ampliar tu red de amigos. Para que no pierdas estas oportunidades, acudiré a EventWave, un entorno donde podrás ingresar en terreno a los próximos eventos, para que puedas reservar o crear tu propio evento. </h3><p align="center" ><img width="100px" align="center"src="https://i.pinimg.com/originals/65/ab/66/65ab660f0fd4b6509fd93f846b1693f8.gif"></p>
 
 
 <hr/>
@@ -11,7 +11,7 @@
 
 <h3 align="center"  ><b>Puedes consultar nuestra página web aquí:</b></h3>
 <h3 align="center"><a href="https://s12-02-m-node-react-gestor-de-eventos.vercel.app/" rel="noopener noreferrer">  EventWave </a></h3>
-<p  align="center" ><a href=""> <img src="https://img.shields.io/badge/Video Preview%20-%23FF0000.svg?&style=for-the-badge&logo=YouTube&logoColor=white"/></a></p>
+<p  align="center" ><a href=""> <img src="https://img.shields.io/badge/Video Preview%20-%23FF0000.svg?&style=for-the-badge&logo=YouTube&logoColor=white"/></a></p><p align="center" ><img width="100px" align="center"src="https://i.pinimg.com/originals/65/ab/66/65ab660f0fd4b6509fd93f846b1693f8.gif"></p>
 
 <hr/>
 
@@ -82,19 +82,18 @@ VITE_APP_API_ROUTE = Localhost de su API (ej. http://localhost:4000).
 
 ## ✔ Frontend
 
-### 👉🏻 Task List ✅
+### 👉🏻Lista de tareas ✅
 
-- Development of the view through dynamic components with Javascript and React.
-- Adding style with Material UI components, tables and elements.
-- Creating the linked routes of the page using React Router.
-- Formik, Yup, Axios and Redux to control and submit form data.
-- Using Google Oauth API as Login alternative.
-- Using Google Maps API to show dinamical maps and Location Autocomplete.
-- obtaining and uploading images of pets with Cloudinary.
-- Visual and attractive animations added with Framer Motion.
-- Deployed on Vercel.
+- Desarrollo de la vista mediante componentes dinámicos con Javascript, React y Vite .
+- Agregar estilo con componentes, tablas y elementos de Material UI.
+- Crear las rutas enlazadas de la página usando React Router.
+- Axios y Redux para controlar y enviar datos de formularios.
+- Uso de la API de Firebase como alternativa de inicio de sesión.
+- obtención y carga de imágenes con Cloudinary.
+- Animaciones visuales y atractivas agregadas con tailwind css y react hot toast.
+- Implementado en Vercel.
 
-### 👉🏻 Built with 🛠️
+### 👉🏻 Construido con 🛠️
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-%23323330.svg?style=for-the-badge&logo=Javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/React-149eca?style=for-the-badge&logo=react&logoColor=fff) ![Redux](https://img.shields.io/badge/Redux_Toolkit-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![MUI](https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=MUI&logoColor=fff) ![Framer Motion](https://img.shields.io/badge/Framer_Motion-d2c?style=for-the-badge&logo=Framer_Motion&logoColor=fff) ![Formik](https://img.shields.io/badge/Formik-172B4D?style=for-the-badge&logo=Formik&logoColor=fff) ![Yup](https://img.shields.io/badge/Yup-crimson?style=for-the-badge&logo=Yup&logoColor=fff) ![React Router](https://img.shields.io/badge/React_Router-000?style=for-the-badge&logo=reactrouter&logoColor=fff) ![Google Maps Api](https://img.shields.io/badge/Google_Maps_Api-DE4032?style=for-the-badge&logo=GoogleMaps&logoColor=fff) ![Vercel](https://img.shields.io/badge/vercel%20-%23000000.svg?&style=for-the-badge&logo=vercel&logoColor=white)
 
