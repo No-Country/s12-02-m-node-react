@@ -179,9 +179,9 @@ export default function ShowCamera ({ updateProfilePicture }){
         ...formData,
         croppedPicture: croppedImage,
       });
-      updateProfilePicture(convertDataUrlToFile(croppedImage,'foto'))
+      updateProfilePicture(convertDataUrlToFile(croppedImage, 'foto'));
       setIsEditorVisible(false);
-    }
+    } 
   };
 
     return(
@@ -247,6 +247,7 @@ export default function ShowCamera ({ updateProfilePicture }){
                         ¡Arrastra y suelta una imagen aquí o haz clic para
                         seleccionar una!
                       </div>
+                      
                     )}
                   </div>
                 )}

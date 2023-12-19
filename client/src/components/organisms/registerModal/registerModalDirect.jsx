@@ -29,7 +29,7 @@ const RegisterModalDirect = () => {
   const [user, setUser] = useState(null);
   const [isEnabled, setIsEnabled] = useState(true);
   const [alertMessage, setAlertMessage] = useState("");
-  const [showAlertMessage, setshowAlertMessage] = useState(false);
+  const [showAlertMessage, setShowAlertMessage] = useState(false);
   const [errors, setErrors] = useState({});
   
   const handleChange = (e) => {
@@ -60,7 +60,6 @@ const RegisterModalDirect = () => {
 
   const handleGoogleLoginCallback = (userData) => {
     setUser(userData);
-    console.log("UUSSSEEER",userData,user)
   };
 
   const updateProfilePicture = (picture) => {
@@ -70,8 +69,6 @@ const RegisterModalDirect = () => {
     }));
   };
   
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors(validate(formData));
@@ -97,7 +94,7 @@ const RegisterModalDirect = () => {
 
       const response = await axios.post("/user", formDataToSend, {
         headers: {
-          "Content-Type": "multipart/form-data", // Configurar el tipo de contenido
+          "Content-Type": "multipart/form-data", 
         },
       });
         if (response.data.status === 0) {
@@ -109,9 +106,9 @@ const RegisterModalDirect = () => {
           setAlertMessage(
             "El correo electrónico ya fue registrado, utilice otro para registrarse o inicie sesión."
           );
-          setshowAlertMessage(true);
+          setShowAlertMessage(true);
           setTimeout(() => {
-            setshowAlertMessage(false);
+            setShowAlertMessage(false);
           }, 5000);
         }
         console.error(
@@ -121,7 +118,16 @@ const RegisterModalDirect = () => {
       }
     };
   }
-
+  useEffect(() => {
+    if (showAlertMessage) {
+      const timeoutId = setTimeout(() => {
+        setShowAlertMessage(false);
+      }, 5000);
+  
+      return () => clearTimeout(timeoutId); 
+    }
+  }, [showAlertMessage]);
+  
   const toHome = () => {
     navigate("/");
   };
@@ -142,14 +148,23 @@ const RegisterModalDirect = () => {
         <p className="text-1xl text-center">o</p>
         <WithGoogleLogin
           onGoogleLogin={handleGoogleLoginCallback}
-          mostrarError={setshowAlertMessage}
-          alertMessageError={setAlertMessage}
+          setShowAlertMessage={setShowAlertMessage}
+          setAlertMessage={setAlertMessage}
         />
+        
       </div>
-
+      <div className="flex-1"> 
+      {showAlertMessage && (
+            <div>
+              <p className="bg-red-500 text-white font-medium py-2 px-5 mt-2 focus:outline-none focus:shadow-outline">
+                {alertMessage}
+              </p>
+            </div>
+          )}
+      </div>
       <form className="flex flex-col max-w-6xl w-full mt-8 pt-8 items-center justify-center border-t" encType="multipart/form-data">
         <div className="flex flex-row items-start">
-        <ShowCamera updateProfilePicture={updateProfilePicture} />
+        <ShowCamera updateProfilePicture={updateProfilePicture}/>
           <div className="flex flex-col w-5/5 items-">
             <div className="flex flex-wrap w-4/5 ">
 
@@ -259,13 +274,7 @@ const RegisterModalDirect = () => {
           >
             Registrarse
           </button>
-          {showAlertMessage && (
-            <div>
-              <p className="bg-red-500 hover:bg-gray-700 text-white font-medium py-2 px-5 rounded-full focus:outline-none focus:shadow-outline">
-                {alertMessage}
-              </p>
-            </div>
-          )}
+          
         </div>
 
       </form>
