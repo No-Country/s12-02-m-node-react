@@ -1,15 +1,12 @@
-// En GoogleLogin.js
 import React, { useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import RegisterModal from "../../organisms/registerModal";
 
-const GoogleLogin = () => {
+const GoogleLogin = ({ setShowAlertMessage, setAlertMessage }) => {
   const [firebaseConfig, setFirebaseConfig] = useState(null);
   const [user, setUser] = useState(null);
-  const [isShowRegister, setIsShowRegister] = useState(false); // Nuevo estado para verificar si el usuario está registrado
   const navigate = useNavigate();
 
   const handleGoogleLogin = async () => {
@@ -31,20 +28,16 @@ const GoogleLogin = () => {
       try {
         const registered = await axios.get(`/user/${userData.email}`);
         if (registered.data.status === 0) {
-          // setIsShowRegister(false);
           localStorage.setItem("user", JSON.stringify(registered.data.data));
-          localStorage.setItem("token", userData.accessToken);
-          console.log(localStorage.user)
           navigate("/");
         }
       } catch (error) {
         if (error.response.data.status === 1) {
-          // setIsShowRegister(true);
-          console.log("a registrarse mostro")
+          setAlertMessage("El correo electrónico no está registrado.");
+          setShowAlertMessage(true);
         }
       }
     } catch (error) {
-      console.log("a registrarse mostro2")
       console.error("Error signing in with Google:", error.message);
     }
   };
@@ -57,9 +50,6 @@ const GoogleLogin = () => {
       >
         Continuar con Google
       </button>
-      {/* {isShowRegister && user && (
-        <RegisterModal user={user}/>
-      )} */}
     </div>
   );
 };

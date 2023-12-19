@@ -36,11 +36,14 @@ function Home() {
       });
       setUpcomingEvents(orderedByDate.splice(0, 5));
     }
+  
     if (onlineEventsStatus.success) {
-      const onlineEventsFiltered = onlineEventsRes.data.document.splice(10, 4);
+      const onlineEventsFiltered = onlineEventsRes.data.document.splice(0, 4);
       setOnlineEvents(onlineEventsFiltered);
     }
   }, [eventsStatus, onlineEventsRes]);
+  
+  
   return (
     <main className="w-full h-full">
       <Hero events={heroData} />
