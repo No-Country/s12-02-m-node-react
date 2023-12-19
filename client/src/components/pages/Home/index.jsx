@@ -38,7 +38,7 @@ function Home() {
     }
   
     if (onlineEventsStatus.success) {
-      const onlineEventsFiltered = onlineEventsRes.data.document.splice(0, 4);
+      const onlineEventsFiltered = onlineEventsRes.data.document.splice(10, 4);
       setOnlineEvents(onlineEventsFiltered);
     }
   }, [eventsStatus, onlineEventsRes]);

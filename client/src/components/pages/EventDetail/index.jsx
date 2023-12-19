@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Accordion, AccordionItem } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
+import Map from "../../atoms/map";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -193,7 +193,7 @@ export default function Detail() {
             Avenida Corrientes 857 1043 Ciudad Autónoma De Buenos Aires ,Teatro
             Gran Rex
           </p>
-          <img className="p-2" src="/image 10.png" alt="" />
+          <Map />
         </DetailInfoBlock>
       </section>
       <section className="flex flex-col col-span-full">

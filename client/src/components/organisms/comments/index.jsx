@@ -21,7 +21,7 @@ export default function Comments({ eventId }) {
   }, []);
   useEffect(() => {
     if (commentsStatus.success) {
-      dispatch(setEventComments(commentsRes.data.document));
+      dispatch(setEventComments(commentsRes.data?.document));
       console.log("commentsDetail: ", commentsRes);
     }
   }, [commentsStatus]);
