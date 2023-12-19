@@ -35,7 +35,7 @@ export const Card = ({ className, info = {} }) => {
           </div>
         </header>
         <button
-          onClick={() => navigate(`event/${eventId}`)}
+          onClick={() => navigate(`/event/${eventId}`)}
           className="w-28 text-primary-4 text-sm font-semibold bg-transparent border border-primary-4 rounded-full px-6 py-2"
         >
           Ver más

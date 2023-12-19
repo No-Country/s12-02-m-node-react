@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useFetch from "../../../hooks/useFetch";
+import { Card } from '../../atoms/eventCard';
+import UserIcon from '../../atoms/userIcon';
 
 function MyEvents() {
   const [events, setEvents] = useState([]);
@@ -8,12 +10,12 @@ function MyEvents() {
 
   const [eventsRes, eventsStatus, fetchEvents] = useFetch();
 
-  console.log('Respuesta de la solicitud:', eventsRes);
+  console.log('Respuesta de la solicitud2:', eventsRes);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchEvents({ path:`/event?email=${email}`, method: "GET" });
+        const response = await fetchEvents({ path: `/event?email=${email}`, method: "GET" });
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -30,22 +32,32 @@ function MyEvents() {
   }, [eventsRes, eventsStatus]);
 
   return (
-    <div>
-      <h1>Mis eventos</h1>
-      {eventsStatus.loading ? (
-        <p>Cargando eventos...</p>
-      ) : eventsStatus.error ? (
-        <p>Error al cargar eventos</p>
-      ) : (
-        <ul>
-          {events.map((event) => (
-            <li key={event._id}>
-              {/* Render each event data here */}
-              {event.description} - {event.email} {/* Reemplaza con las propiedades reales del evento */}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="w-full">
+      <div className='flex items-center mb-4 pl-8 pt-10'>
+        <UserIcon imgUrl={userData.picture} />
+        <div className="ml-3">
+          <p>{`${userData.names} ${userData.lastname}`}</p>
+          {eventsRes && eventsRes.data && (
+            <p className="text-blue-500">Mis eventos: {eventsRes.data.total}</p>
+          )}
+        </div>
+      </div>
+      <div className="w-full">
+        <h1 className="text-center mb-3 text-4xl">Mis eventos</h1>
+        {eventsStatus.loading ? (
+          <p>Cargando eventos...</p>
+        ) : eventsStatus.error ? (
+          <p>Error al cargar eventos</p>
+        ) : (
+          <div className="w-full flex justify-center flex-wrap">
+            {events.map((event) => (
+              <div key={event._id} style={{ marginBottom: '20px', maxWidth: '250px' }}>
+                <Card info={event} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

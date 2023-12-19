@@ -53,7 +53,7 @@ function Header() {
     },
     {
       text: "Reservas",
-      redirect: "/booked",
+      redirect: "/my-reservations",
       dataTest: "link_reservas",
     },
     {
