@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FaRegImage } from "react-icons/fa";
 import axios from 'axios';
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Form({ userData }) {
   const [image, setImage] = useState();
@@ -12,6 +13,7 @@ export default function Form({ userData }) {
     country: userData.country,
     picture: userData.picture,
   });
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -46,32 +48,40 @@ export default function Form({ userData }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const formData = new FormData();
+  
+    const formDataToSend = new FormData();
   
     // Agregar campos de texto al formulario
-    formData.append("names", userData.names);
-    formData.append("lastname", userData.lastname);
-    formData.append("birthDate", userData.birthDate);
-    formData.append("country", userData.country);
+    formDataToSend.append("names", formData.names);
+    formDataToSend.append("lastname", formData.lastname);
+    formDataToSend.append("birthDate", formData.birthDate);
+    formDataToSend.append("country", formData.country);
   
     // Agregar archivo al formulario
     if (image) {
       const blob = await fetch(image).then((res) => res.blob());
-      formData.append("picture", blob, "profile.jpg");
+      formDataToSend.append("picture", blob, "profile.jpg");
     }
   
     try {
-      const response = await axios.put(`user/${userData.email}`, formData, {
+      console.log("estos datos se vana enviar", formDataToSend.get("picture"));
+
+      const response = await axios.put(`user/${userData.email}`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(response);
+      const newDataUser = await axios.get(`/user/${userData.email}`);
+        if (newDataUser.data.status === 0) {
+          localStorage.setItem("user", JSON.stringify(newDataUser.data.data));
+          navigate("/");
+        }
     } catch (error) {
       console.error("Error al guardar los cambios:", error);
     }
   };
+  
+  
   
 
   return (

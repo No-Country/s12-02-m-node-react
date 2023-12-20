@@ -95,17 +95,20 @@ async function updateUser(req, res) {
 	const email = req.params;
 	const data = req.body;
 	const uploadedFiles = req.files;
-
 	if (uploadedFiles && uploadedFiles.picture) {
 		const file = uploadedFiles.picture;
-		try {
-			const imageUrl = await uploadImage(file.data);
-			data.picture = imageUrl;
-		} catch (uploadError) {
-			console.error('Error al cargar la imagen a Cloudinary:', uploadError);
+		if (file.mimetype === 'image/svg+xml') {
+			data.picture = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png';
+		} else {
+			try {
+				const imageUrl = await uploadImage(file.data);
+				data.picture = imageUrl;
+			} catch (uploadError) {
+				console.error('Error al cargar la imagen a Cloudinary:', uploadError);
+				data.picture = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png';
+			}
 		}
 	} else {
-		// Si no se subió un archivo, asignar una URL predeterminada
 		data.picture = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png';
 	}
 
