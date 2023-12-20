@@ -122,7 +122,7 @@ export default function Detail() {
     const bookedQuantity = eventBookings.length;
     const freeSlots = capacity - bookedQuantity;
     if (capacity == bookedQuantity) {
-			dispatch(setIsFull(true))
+      dispatch(setIsFull(true));
       bookButton.disabled = true;
       return "Ya no quedan lugares";
     }
@@ -131,10 +131,12 @@ export default function Detail() {
   };
 
   const mapCoordinates = () => {
-    const latitude = eventRes?.data.location.coordinates.latitude;
-    const longitude = eventRes?.data.location.coordinates.longitude;
-
-    return [latitude, longitude];
+    const latitude = eventRes?.data.location?.coordinates.latitude;
+    const longitude = eventRes?.data.location?.coordinates.longitude;
+    if (latitude && longitude) {
+      return [latitude, longitude];
+    }
+		return null
   };
 
   const handleBook = (e) => {
@@ -264,7 +266,7 @@ export default function Detail() {
         {renderData({
           dataTorender: () => (
             <DetailInfoBlock title={"Ubicación"}>
-              <p className="pb-3">{eventRes?.data.location.streets}</p>
+              <p className="pb-3 whitespace-nowrap w-full overflow-hidden text-ellipsis">{eventRes?.data.location?.streets}</p>
               <Map coordinates={mapCoordinates()} />
             </DetailInfoBlock>
           ),

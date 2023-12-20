@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import Categories from "../../molecules/categories";
 import CreateEvent from "../../molecules/createEvent";
@@ -6,12 +7,10 @@ import Hero from "../../molecules/hero";
 import EventosEnLinea from "../../organisms/eventosEnLinea";
 import ProximosEventos from "../../organisms/proximosEventos";
 import DependingOnLocation from "../../molecules/dependingonlocation";
-
+import LoadingSkeleton from "../../atoms/loadingSkeleton";
 import useFetch from "../../../hooks/useFetch";
-import { useSelector } from "react-redux";
 
-import { heroData, dataCard } from "./mockData";
-import { login } from "../../../redux/slices/userSlice";
+import orderedByDate from "../../../utils/orderByDate";
 
 function Home() {
   const [eventsRes, eventsStatus, fetchEvents] = useFetch();
@@ -32,16 +31,12 @@ function Home() {
   useEffect(() => {
     if (eventsStatus.success) {
       const invertedEvents = eventsRes.data.document;
-      console.log(invertedEvents);
+      // console.log(invertedEvents);
       setHeroEvents(invertedEvents.splice(-4, 4));
-      
-      const orderedByDate = eventsRes.data.document.sort((a, b) => {
-        const aDate = a.dates.start.split("-")[2];
-        const bDate = b.dates.start.split("-")[2];
-        return bDate - aDate;
-      });
-      setUpcomingEvents(orderedByDate.splice(0, 5));
 
+      const eventsOrderedByDate = orderedByDate(eventsRes.data.document)
+      
+      setUpcomingEvents(eventsOrderedByDate.splice(0, 5));
     }
   }, [eventsStatus]);
 
@@ -54,9 +49,13 @@ function Home() {
 
   return (
     <main className="w-full h-full">
-      {eventsStatus.success && heroEvents && <Hero events={heroEvents} />}
+      {eventsStatus.success && heroEvents ? (
+        <Hero events={heroEvents} />
+      ) : (
+        <LoadingSkeleton type={"img"} />
+      )}
       <Categories />
-      <DependingOnLocation cardsInfo={Array(8).fill(dataCard)} />
+      <DependingOnLocation />
       <ProximosEventos cardsInfo={upcomingEvents} />
       <EventosEnLinea cardsInfo={onlineEvents} />
       {isLogged && <CreateEvent />}

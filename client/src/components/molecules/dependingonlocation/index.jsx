@@ -3,27 +3,38 @@ import { MdArrowRight } from "react-icons/md";
 import { FaChevronDown } from "react-icons/fa";
 import { Card } from "../../atoms/eventCard";
 import { UseGeolocalization } from "../../../hooks/geolocalization";
+import { useSelector } from "react-redux";
+import useFetch from "../../../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
 
-const DependingOnLocation = ({ cardsInfo }) => {
+const DependingOnLocation = () => {
+  const navigate = useNavigate();
+
   const [locationSelected, setLocationSelected] = useState("Buenos Aires");
   const [isLocationMenuOn, setIsLocationMenuOn] = useState(false);
   const [userLocation, fetchStatus, getUserLocation] = UseGeolocalization();
+  const [eventsByLocation, eventsByLocationStatus, getEventsByLocation] =
+    useFetch();
+
   let timeout;
+  const locations = useSelector((state) => state.locations.data);
 
   useEffect(() => {
     // getUserLocation()
   }, []);
 
-  const cities = [
-    "Buenos Aires",
-    "Ciudad de Mexico",
-    "Sao Paulo",
-    "Bogotá",
-    "Santiago de Chile",
-    "Lima",
-    "Caracas",
-    "Montevideo",
-  ];
+  useEffect(() => {
+    getEventsByLocation({
+      path: `/event?location.province=${locationSelected}`,
+      method: "GET",
+    });
+  }, [locationSelected]);
+
+  useEffect(() => {
+    if (eventsByLocationStatus.success) {
+      // console.log("eventos por lugar: ", eventsByLocation.data.document);
+    }
+  }, [eventsByLocationStatus]);
 
   const handleLocationSelected = (e) => {
     e.preventDefault();
@@ -42,6 +53,10 @@ const DependingOnLocation = ({ cardsInfo }) => {
     }, 1000);
   };
 
+  const handleViewAll = (e) => {
+    e.preventDefault()
+    navigate(`/filtro/location.province/${locationSelected}`)
+  };
   return (
     <section className="p-5 lg:p-10">
       <div>
@@ -67,24 +82,24 @@ const DependingOnLocation = ({ cardsInfo }) => {
               className="absolute inset-0 top-10 bg-white border-primary-1 border-small w-fit h-fit rounded-xl shadow-lg shadow-secondary-1 flex flex-col overflow-hidden"
             >
               <fieldset className="flex flex-col p-2">
-                {cities.map((city, i) => (
+                {locations.map((city) => (
                   <label
-                    key={i}
+                    key={city.id}
                     className={`focus-within:text-secondary-2 focus-within:scale-105 transform transition-transform duration-150 hover:text-secondary-2 cursor-pointer ${
-                      city === locationSelected
+                      city.nombre === locationSelected
                         ? "text-secondary-3 underline underline-offset-2"
                         : "text-secondary-1"
                     }`}
                   >
-                    <span>{city}</span>
+                    <span>{city.nombre}</span>
                     <input
                       onFocus={handleFocus}
                       onBlur={handleBlur}
                       className="absolute -left-96"
-                      data-test={`select_${city}_as_location`}
+                      data-test={`select_${city.nombre}_as_location`}
                       type="radio"
                       name="city"
-                      value={city}
+                      value={city.nombre}
                     />
                   </label>
                 ))}
@@ -107,13 +122,14 @@ const DependingOnLocation = ({ cardsInfo }) => {
         <button
           data-test="go_to_events_by_location"
           className="flex items-center px-2 py-1 rounded-full"
+          onClick={handleViewAll}
         >
           Ver todo <MdArrowRight size={20} />
         </button>
       </div>
 
-      <div className="group regular snap-x snap-mandatory w-full flex gap-3 overflow-scroll xl:overflow-hidden xl:columns-2xs xl:block">
-        {cardsInfo.map((card, i) => (
+      <div className="group regular snap-x snap-mandatory w-full flex gap-3 overflow-scroll xl:overflow-hidden xl:columns-2xs xl:grid xl:grid-cols-4">
+        {eventsByLocation?.data.document.map((card, i) => (
           <div key={i} className="bg-white rounded-lg shadow-lg mb-3">
             <Card info={card} />
           </div>

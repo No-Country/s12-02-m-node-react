@@ -4,7 +4,7 @@ import { BiSolidDrink } from "react-icons/bi";
 import { MdFastfood } from "react-icons/md";
 import { IoMdBriefcase } from "react-icons/io";
 import { IoGameController } from "react-icons/io5";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   { icon: FaGuitar, description: "Música" },
@@ -23,7 +23,7 @@ export default function Categories() {
     e.preventDefault();
     const category = e.currentTarget.getAttribute('data-filter_by');
     // alert(`Filtrando eventos: ${category}`)
-    navigate(`/filtro/${category}`)
+    navigate(`/filtro/category/${category}`)
   };
   return (
     <section className="bg-primary-1 h-fit p-5 columns-[8rem] w-full sm:columns-4 lg:flex lg:justify-around lg:p-10">
