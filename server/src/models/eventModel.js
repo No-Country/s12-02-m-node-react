@@ -39,7 +39,7 @@ const eventSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		trim: true,
-		maxlength: [500, 'La descripción no puede tener más de 500 caracteres.'],
+		maxlength: [1500, 'La descripción no puede tener más de 500 caracteres.'],
 	},
 	capacity: {
 		type: Number,
