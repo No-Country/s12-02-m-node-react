@@ -37,7 +37,7 @@ function Hero({ events }) {
                 className={`group bg-primary-1 h-4 block rounded-full relative overflow-hidden ${
                   idSelected === i ? "active w-14" : "w-7 inactive"
                 }`}
-                key={event.id}
+                key={event._id}
                 aria-label={`show slide ${i + 1} of ${events.length}`}
                 aria-current={idSelected == i}
                 data-test={`select_slide_${i + 1}`}
@@ -52,7 +52,7 @@ function Hero({ events }) {
             filled
             color="primary-1"
             line="black"
-            handler={() => navigate(`/event/${events[idSelected].id}`)}
+            handler={() => navigate(`/event/${events[idSelected]._id}`)}
           />
         </footer>
       </div>
@@ -63,7 +63,7 @@ function Hero({ events }) {
         <div className="after:absolute after:w-full after:h-full after:inset-0 after:bg-gradient-to-b after:from-secondary-1 after:to-secondary-1 after:via-transparent after:md:bg-gradient-to-r after:md:to-transparent after:md:via-90% "></div>
         <img
           className="w-full h-full object-cover"
-          src={events[idSelected].banner_img}
+          src={events[idSelected].pictures}
           alt="event banner image"
         />
       </picture>

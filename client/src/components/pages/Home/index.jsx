@@ -11,11 +11,13 @@ import useFetch from "../../../hooks/useFetch";
 import { useSelector } from "react-redux";
 
 import { heroData, dataCard } from "./mockData";
+import { login } from "../../../redux/slices/userSlice";
 
 function Home() {
   const [eventsRes, eventsStatus, fetchEvents] = useFetch();
   const [onlineEventsRes, onlineEventsStatus, fetchOnlineEvents] = useFetch();
 
+  const [heroEvents, setHeroEvents] = useState(null);
   const [onlineEvents, setOnlineEvents] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
 
@@ -29,12 +31,17 @@ function Home() {
 
   useEffect(() => {
     if (eventsStatus.success) {
+      const invertedEvents = eventsRes.data.document;
+      console.log(invertedEvents);
+      setHeroEvents(invertedEvents.splice(-4, 4));
+      
       const orderedByDate = eventsRes.data.document.sort((a, b) => {
         const aDate = a.dates.start.split("-")[2];
         const bDate = b.dates.start.split("-")[2];
         return bDate - aDate;
       });
       setUpcomingEvents(orderedByDate.splice(0, 5));
+
     }
   }, [eventsStatus]);
 
@@ -47,7 +54,7 @@ function Home() {
 
   return (
     <main className="w-full h-full">
-      <Hero events={heroData} />
+      {eventsStatus.success && heroEvents && <Hero events={heroEvents} />}
       <Categories />
       <DependingOnLocation cardsInfo={Array(8).fill(dataCard)} />
       <ProximosEventos cardsInfo={upcomingEvents} />
