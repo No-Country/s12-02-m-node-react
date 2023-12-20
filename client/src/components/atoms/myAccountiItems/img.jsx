@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FaRegImage } from 'react-icons/fa';
 
-const Img = () => {
-  const [image, setImage] = useState(null);
+const Img = ({ picture }) => {
+  const [image, setImage] = useState();
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    // Verificar si es la primera renderización
+    if (isFirstRender.current) {
+      setImage(picture);
+      isFirstRender.current = false;
+    }
+  }, [picture]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -16,12 +25,11 @@ const Img = () => {
     }
   };
 
-
   return (
     <div className="relative inline-block flex flex-row justify-center items-center gap-6">
       {image ? (
         <div className="relative inline-block">
-          <img className="w-40 h-40 rounded-lg" alt="Profile" />
+          <img src={image} className="w-40 h-40 rounded-lg" alt="Profile" />
           <label
             htmlFor="fileInput"
             className="absolute bottom-1 right-1 cursor-pointer bg-white bg-opacity-70 p-1 rounded-full"

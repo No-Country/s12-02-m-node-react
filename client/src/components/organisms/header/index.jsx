@@ -20,7 +20,7 @@ function Header() {
 
   const isLogged = useSelector((state) => state.user.isLogged)
   const userInfo = useSelector((state) => state.user.data)
-
+  const userInf = localStorage.getItem("user")
   const navigate = useNavigate();
 
   const toLogout = () => {
@@ -29,16 +29,16 @@ function Header() {
     localStorage.removeItem("token");
     navigate("/");
   };
-
+  
   useEffect(() => {
-    const userInfo = localStorage.getItem("user")
-    const isLogged = Boolean(userInfo);
+    
+    const isLogged = Boolean(userInf);
     if (isLogged) {
-      dispatch(login(JSON.parse(userInfo)))
+      dispatch(login(JSON.parse(userInf)))
     }else{
       dispatch(logout())
     }
-  }, []);
+  }, [userInf]);
 
   const headerMenuOptions = [
     {
@@ -53,7 +53,7 @@ function Header() {
     },
     {
       text: "Reservas",
-      redirect: "/booked",
+      redirect: "/my-reservations",
       dataTest: "link_reservas",
     },
     {
