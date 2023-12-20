@@ -58,5 +58,5 @@ export default function renderDate (dates) {
   }
 
   // console.log("Fecha : ", message);
-  return message;
+  return message
 };

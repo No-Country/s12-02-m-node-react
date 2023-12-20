@@ -275,6 +275,8 @@ function CreateEventPage() {
         <label className="lg:row-start-7">
           <input
             type="number"
+            min={'0'}
+            max={'100'}
             name="minimumAge"
             placeholder="Edad minima"
             data-test="minimum-age"
@@ -297,6 +299,7 @@ function CreateEventPage() {
             name="capacity"
             data-test="event-capacity"
             type="number"
+            min='0'
             className="bg-white p-5 block rounded-xl outline-2 outline-secondary-2 focus-within:outline hover:outline focus-within:shadow-lg shadow-secondary-1 w-full"
             placeholder="Capacidad"
           />
@@ -306,6 +309,7 @@ function CreateEventPage() {
           <input
             data-test="input-price"
             type="number"
+            min={'0'}
             name="price"
             placeholder="Precio"
             className="py-5 px-2 outline-none flex-grow"
