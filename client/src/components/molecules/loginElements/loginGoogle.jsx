@@ -15,7 +15,6 @@ const GoogleLogin = ({ setShowAlertMessage, setAlertMessage }) => {
       if (!response.data) {
         throw new Error("Empty response from server");
       }
-
       setFirebaseConfig(response.data);
       const app = initializeApp(response.data);
       const auth = getAuth(app);
@@ -35,12 +34,24 @@ const GoogleLogin = ({ setShowAlertMessage, setAlertMessage }) => {
         if (error.response.data.status === 1) {
           setAlertMessage("El correo electrónico no está registrado.");
           setShowAlertMessage(true);
+          await deleteFirebaseUser(auth);
         }
       }
     } catch (error) {
       console.error("Error signing in with Google:", error.message);
     }
   };
+
+  async function deleteFirebaseUser(auth) {
+    try {
+      const user = auth.currentUser;
+      await user.delete();
+      console.log("Usuario eliminado de Firebase Authentication");
+    } catch (error) {
+      console.error("Error al eliminar el usuario de Firebase Authentication:", error.message);
+      throw error;
+    }
+  }
 
   return (
     <div className="flex flex-col items-center w-full">

@@ -6,7 +6,7 @@ const useFetch = () => {
 //https://event-wave-server.vercel.app/api //deployada
 
   const connection = axios.create({
-    baseURL: 'http://localhost:3031/api'
+    baseURL: 'https://event-wave-server.vercel.app/api'
   });
 
   const [infoApi, setInfoApi] = useState();
