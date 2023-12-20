@@ -72,7 +72,6 @@ const LoginModal = () => {
           error.response.data.status === 1
         ) {
           setIsShowRegister(true);
-          console.log("A registrarse, mostro");
         }
       }
     } catch (error) {
