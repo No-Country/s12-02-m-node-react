@@ -15,7 +15,8 @@ import Login from "./components/pages/Login"
 import CreateEventPage from "./components/pages/CreateEventPage";
 import News from "./components/pages/News";
 import MyEvents from "./components/pages/myEvents";
-
+import ShowFilter from "./components/pages/ShowFilter";
+import ShowSearch from "./components/pages/ShowSearch";
 import MyAccount from "./components/pages/MyAccount";
 import MyRservations from "./components/pages/MyReservations";
 
@@ -38,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: "/createEvent",
         element: <CreateEventPage />,
+      },
+      {
+        path: "/filtro/:category",
+        element: <ShowFilter />,
+      },
+      {
+        path: "/search/:searchValue",
+        element: <ShowSearch />,
       },
       {
         path: "/News",
