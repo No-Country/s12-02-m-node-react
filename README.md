@@ -110,24 +110,24 @@ VITE_APP_API_ROUTE = Localhost de su API (ej. http://localhost:4000).
 
 ### 👉🏻 Built with 🛠️
 
-![Figma](https://img.shields.io/badge/Figma-%23F24E1E.svg?style=for-the-badge&logo=Figma&logoColor=white) ![Cloudinary](https://img.shields.io/badge/Cloudinary-%231563FF.svg?&style=for-the-badge&logo=google-cloud&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-%23F24E1E.svg?style=for-the-badge&logo=Figma&logoColor=white) 
 
 ### <a href="https://www.figma.com/file/4b5wGH4naRF0EoVPpavEt5/Encontrar-pets?node-id=342%3A8385"><img height="18px" src="https://img.icons8.com/color/344/figma--v1.png"/> Mockup</a>
 
 ### 👉🏻 Designer
 
-| <img src="https://res.cloudinary.com/diyk4to11/image/upload/v1666206668/Integrantes/4b94dc66375663.62dc2dd79dd14_tkhwac.png" width=80>|
-|:-:|
-| Andres Fuentes|
-| <a href="https://www.behance.net/andrsplazas1"><img src="https://img.shields.io/badge/Behance-%2320232a.svg?style=for-the-badge&logo=Behance&logoColor=%%2361DAFB"/></a> <a href="https://www.linkedin.com/in/eafuentes"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
+| <img src="https://media.licdn.com/dms/image/D4D35AQFsjmIHEuFE0A/profile-framedphoto-shrink_200_200/0/1701831039826?e=1703689200&v=beta&t=AE0lzLOB3rJ6AB42DaTWnm_PxTO5piicPs-WS-15J1I" width=80>|<img src="https://media.licdn.com/dms/image/D4D03AQGP8zpwtWi_IA/profile-displayphoto-shrink_200_200/0/1668181895442?e=1708560000&v=beta&t=j6wC2jo9XEh_X3lC6Wwxx_y9nKNrctwCki7POt5Tw-o" width=80>|
+|:-:|:-:|
+| **Maria Paula Moscardini** | **Leandro Mancilla** |
+| <a href="https://www.linkedin.com/in/paumoscardini/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/leomancilla/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
 
 ### 👉🏻 Team Leader
 
 
-| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQF9rsUvFbgBoQ/profile-displayphoto-shrink_800_800/0/1655738132255?e=1671667200&v=beta&t=SQxTTu16OigEskquv-1wXmuK72t6H_5chkWc2RSDSSg" width=80>|
+| <img src="https://media.licdn.com/dms/image/D4D03AQEmS7QyKg_Jyg/profile-displayphoto-shrink_200_200/0/1690907815260?e=1708560000&v=beta&t=Mf9WILBAnJESAlB_dVHvkPdo1arSIh3up_HZZ2oZUGQ" width=80>|
 |:-:|
-| Alejandro Cardenas |
-|<a href="https://github.com/Al3x4nDr0s"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/alejandro-alfredo-cardenas/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
+|**Thomas Barenghi** |
+|<a href="https://github.com/thomasbarenghi"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/thomasbarenghi/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
 
 ## Communication
 
