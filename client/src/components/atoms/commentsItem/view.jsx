@@ -1,23 +1,36 @@
-const View = () => {
-    const dataComments = {
-        photo: 'https://grandemente.net/wp-content/uploads/Fotos-para-Perfil-06.jpg',
-        name: 'Cristina Fuentes',
-        comment: '¡Contando los días para vivir esta increíble noche llena de emociones y melodías inolvidables! 🌟🎶 #DiegoTorres #EmociónIncontenible #ContandoLosDías',
-      }
+import { useEffect, useState } from "react";
+import UserIcon from "../userIcon";
+import useFetch from "../../../hooks/useFetch";
 
-    return (
-        <div className="flex flex-col rounded-md bg-gray-100 p-4 mb-4">
-            <div className="flex flex-row gap-4 items-center">
-                <picture className='block rounded-full overflow-hidden w-10 h-10'>
-                    <img className='w-full h-full object-cover' src={dataComments.photo} alt="User image profile" />
-                </picture>
-                <h2 className="text-black font-poppins text-16 font-semibold leading-normal tracking-tighter">{dataComments.name}</h2>
-            </div>
-            <div className="w-full h-auto pt-2 pl-1">
-                <p className="text-black font-poppins text-20 font-normal leading-normal tracking-tighter">{dataComments.comment}</p>
-            </div>
-        </div>
-    );
-  }
+const View = ({ data }) => {
+  const [userData, userDataStatus, getUserData] = useFetch();
+  const [fullUserName, setFullUserName] = useState("");
 
-  export default View
+  useEffect(() => {
+    getUserData({ path: `/user/${data.email}`, method: "GET" });
+  }, []);
+  useEffect(() => {
+    if (userDataStatus.success) {
+      const fullname = `${userData.data.names} ${userData.data.lastname}`;
+      setFullUserName(fullname);
+    }
+  }, [userDataStatus]);
+
+  return (
+    <div className="flex flex-col rounded-md bg-gray-100 p-4 mb-4">
+      <div className="flex flex-row gap-4 items-center">
+        <UserIcon imgUrl={userData?.data.picture} />
+        <p className="text-black font-poppins text-16 font-semibold leading-normal tracking-tighter">
+          {fullUserName}
+        </p>
+      </div>
+      <div className="w-full h-auto pt-2 pl-1">
+        <p className="text-black font-poppins text-20 font-normal leading-normal tracking-tighter">
+          {data.text}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default View;

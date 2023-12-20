@@ -12,7 +12,6 @@ const createUser = async (req, res) => {
 		const uploadedFiles = req.files;
 
 		const validateError = UserModel(data).validateSync();
-
 		if (uploadedFiles && uploadedFiles.picture) {
 			const file = uploadedFiles.picture;
 			try {
@@ -95,6 +94,24 @@ async function getUsers(req, res) {
 async function updateUser(req, res) {
 	const email = req.params;
 	const data = req.body;
+	const uploadedFiles = req.files;
+	if (uploadedFiles && uploadedFiles.picture) {
+		const file = uploadedFiles.picture;
+		if (file.mimetype === 'image/svg+xml') {
+			data.picture = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png';
+		} else {
+			try {
+				const imageUrl = await uploadImage(file.data);
+				data.picture = imageUrl;
+			} catch (uploadError) {
+				console.error('Error al cargar la imagen a Cloudinary:', uploadError);
+				data.picture = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png';
+			}
+		}
+	} else {
+		data.picture = 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png';
+	}
+
 	try {
 		const Users = await usermanager.updateUser(email, data);
 		if (Users.matchedCount > 0) {

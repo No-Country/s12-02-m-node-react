@@ -13,8 +13,12 @@ import Detail from "./components/pages/EventDetail";
 import Register from "./components/pages/Register";
 import Login from "./components/pages/Login"
 import CreateEventPage from "./components/pages/CreateEventPage";
+import News from "./components/pages/News";
 import MyEvents from "./components/pages/myEvents";
-
+import ShowFilter from "./components/pages/ShowFilter";
+import ShowSearch from "./components/pages/ShowSearch";
+import MyAccount from "./components/pages/MyAccount";
+import MyRservations from "./components/pages/MyReservations";
 
 axios.defaults.baseURL = `http://localhost:3031/api`; //Local
 //axios.defaults.baseURL = `https://event-wave-server.vercel.app/api`; //deployada
@@ -37,8 +41,28 @@ const router = createBrowserRouter([
         element: <CreateEventPage />,
       },
       {
+        path: "/filtro/:category",
+        element: <ShowFilter />,
+      },
+      {
+        path: "/search/:searchValue",
+        element: <ShowSearch />,
+      },
+      {
+        path: "/News",
+        element: <News />,
+      },
+      {
         path: "/my-events",
         element: <MyEvents />,
+      },
+      {
+        path: "/my-reservations",
+        element: <MyRservations />,
+      },
+      {
+        path: "/myAccount",
+        element: <MyAccount />,
       },
       {
         path: "*",
