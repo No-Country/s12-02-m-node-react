@@ -17,6 +17,7 @@ import News from "./components/pages/News";
 import MyEvents from "./components/pages/myEvents";
 import ShowFilter from "./components/pages/ShowFilter";
 import ShowSearch from "./components/pages/ShowSearch";
+import Team from "./components/pages/About/Team";
 import MyAccount from "./components/pages/MyAccount";
 import MyRservations from "./components/pages/MyReservations";
 
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/search/:searchValue",
         element: <ShowSearch />,
+      },
+      {
+        path: "/about",
+        element: <Team />,
       },
       {
         path: "/News",

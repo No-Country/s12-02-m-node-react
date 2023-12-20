@@ -17,6 +17,11 @@ function NavbarHeader({ className, isLogged }) {
       route: "/CreateEvent",
       dataTest: "link_crear-eventos",
     },
+    {
+      text: "Quiénes Somos",
+      route: "/About",
+      dataTest: "link_quienes-somos",
+    },
   ];
   const renderNavItems = () => {
     if (isLogged) {
