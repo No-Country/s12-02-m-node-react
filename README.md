@@ -101,7 +101,7 @@ VITE_APP_API_ROUTE = Localhost de su API (ej. http://localhost:4000).
 
 ### 👉🏻 Developers
 
-| <img src="https://media.licdn.com/dms/image/C5603AQFjNf0Ouu9r_Q/profile-displayphoto-shrink_200_200/0/1572633629789?e=1708560000&v=beta&t=NrZ2KYGbQIhY4N49zuMwTS-WDq_ayvPKgWWo0C5XeBk" width=80>| <img src="https://media.licdn.com/dms/image/D4D03AQFglntcTLGDZg/profile-displayphoto-shrink_200_200/0/1673531572979?e=1708560000&v=beta&t=dVA4tromQA4fcMwJKHD7_p8LrX2vh7eqCMGsrAD1M34" width=80>|  <img src="https://media.licdn.com/dms/image/D4E35AQF94YlmU-DTRQ/profile-framedphoto-shrink_800_800/0/1642558760273?e=1703606400&v=beta&t=R1rCrqvEgZWyZFkx-eEN7ekZWDmlHTYJnAEV_h1j76w" width=80>  |
+| <img src="https://media.licdn.com/dms/image/C5603AQFjNf0Ouu9r_Q/profile-displayphoto-shrink_200_200/0/1572633629789?e=1708560000&v=beta&t=NrZ2KYGbQIhY4N49zuMwTS-WDq_ayvPKgWWo0C5XeBk" width=80>| <img src="https://media.licdn.com/dms/image/D4D03AQEonovW2Orz5g/profile-displayphoto-shrink_200_200/0/1703079501165?e=1708560000&v=beta&t=UEubLxJuamlfxPygXjprRfi9byS5FPlgLsR1wBKnC5U" width=80>|  <img src="https://media.licdn.com/dms/image/D4E35AQF94YlmU-DTRQ/profile-framedphoto-shrink_800_800/0/1642558760273?e=1703606400&v=beta&t=R1rCrqvEgZWyZFkx-eEN7ekZWDmlHTYJnAEV_h1j76w" width=80>  |
 :-:|:-:|:-:
 | **Kevin Daniel Hincapie Lumbaque**  | **Mateo Corsi**  | **Damian Javier Aguirre Cerullo**  | 
 | <a href="https://github.com/CaperAsDev"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/caperasdev/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://github.com/Mateocorsi33"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/mateocorsi/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://github.com/DamianJavierAguirreCerullo"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/damian-javier-aguirre-cerullo-55335522a/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | 
@@ -120,6 +120,15 @@ VITE_APP_API_ROUTE = Localhost de su API (ej. http://localhost:4000).
 |:-:|:-:|
 | **Maria Paula Moscardini** | **Leandro Mancilla** |
 | <a href="https://www.linkedin.com/in/paumoscardini/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/leomancilla/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
+
+## ✔ QA Tester
+
+### 👉🏻 Tester
+
+| <img src="https://media.licdn.com/dms/image/D4E35AQH-R_7TUfDFCw/profile-framedphoto-shrink_200_200/0/1691533975145?e=1703692800&v=beta&t=ucVYSIUJ-ra9RU78obfKtx6EcnPhuTHqNwHxBAy0H3c" width=80>|
+|:-:|
+| **Maria Paula Moscardini** |
+| <a href="https://www.linkedin.com/in/marcelo-gereniere/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
 
 ### 👉🏻 Team Leader
 
