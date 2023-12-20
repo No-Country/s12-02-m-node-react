@@ -127,7 +127,7 @@ VITE_APP_API_ROUTE = Localhost de su API (ej. http://localhost:4000).
 
 | <img src="https://media.licdn.com/dms/image/D4E35AQH-R_7TUfDFCw/profile-framedphoto-shrink_200_200/0/1691533975145?e=1703692800&v=beta&t=ucVYSIUJ-ra9RU78obfKtx6EcnPhuTHqNwHxBAy0H3c" width=80>|
 |:-:|
-| **Maria Paula Moscardini** |
+| **Marcelo Gereniere** |
 | <a href="https://www.linkedin.com/in/marcelo-gereniere/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
 
 ### 👉🏻 Team Leader
