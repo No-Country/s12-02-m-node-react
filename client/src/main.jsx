@@ -20,8 +20,8 @@ import ShowSearch from "./components/pages/ShowSearch";
 import MyAccount from "./components/pages/MyAccount";
 import MyRservations from "./components/pages/MyReservations";
 
-axios.defaults.baseURL = `http://localhost:3031/api`; //Local
-//axios.defaults.baseURL = `https://event-wave-server.vercel.app/api`; //deployada
+//axios.defaults.baseURL = `http://localhost:3031/api`; //Local
+axios.defaults.baseURL = `https://event-wave-server.vercel.app/api`; //deployada
 
 const router = createBrowserRouter([
   {
