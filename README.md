@@ -2,7 +2,7 @@
 <img align="center" width="100%" src="https://github.com/No-Country/s12-02-m-node-react/blob/main/IMAGE.png">
 
 
-<h3>Sabemos que iniciar un evento cerca de ti puede ser un poco tedioso, pero es porque estás muy ocupado con el trabajo u otros motivos, normalmente en los eventos puedes conocer gente nueva y ampliar tu red de amigos. Para que no pierdas estas oportunidades, acudiré a EventWave, un entorno donde podrás ingresar en terreno a los próximos eventos, para que puedas reservar o crear tu propio evento. </h3><p align="center" ><img width="100px" align="center"src="https://i.pinimg.com/originals/65/ab/66/65ab660f0fd4b6509fd93f846b1693f8.gif"></p>
+<h3>Sabemos que enterarce de un evento cerca de ti puede ser un poco tedioso, ya sea porque estás muy ocupado con el trabajo u otros motivos, normalmente en los eventos puedes conocer gente nueva y ampliar tu red de amigos. Para que no pierdas estas oportunidades, llego EventWave, un entorno donde podrás enterarte de los próximos eventos, para que puedas reservar o crear tu propio evento. </h3><p align="center" ><img width="100px" align="center"src="https://i.pinimg.com/originals/65/ab/66/65ab660f0fd4b6509fd93f846b1693f8.gif"></p>
 
 
 <hr/>
