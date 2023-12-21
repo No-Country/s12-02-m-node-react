@@ -15,7 +15,7 @@ function Layout() {
     axios.get(argentinaProvincias).then((res) => {
       const locations = res.data.provincias;
       dispatch(setLocations(locations));
-      console.log(locations);
+      // console.log(locations);
     });
   }, []);
   return (

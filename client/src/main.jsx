@@ -42,7 +42,7 @@ const router = createBrowserRouter([
         element: <CreateEventPage />,
       },
       {
-        path: "/filtro/:category",
+        path: "/filtro/:category/:query",
         element: <ShowFilter />,
       },
       {

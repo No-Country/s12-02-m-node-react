@@ -2,8 +2,8 @@ import React from 'react'
 import { MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({coordinates = [-34.6144420654301,-58.4458763250916]}) => {
-    let position = coordinates
+const Map = ({coordinates}) => {
+    let position = coordinates || [-34.6144420654301,-58.4458763250916]
     return (
         <MapContainer className='h-60 w-full rounded-2xl z-0' center={position} zoom={8} scrollWheelZoom={false}>
         <TileLayer

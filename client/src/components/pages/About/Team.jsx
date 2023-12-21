@@ -17,15 +17,15 @@ const Team = () => {
   };
 
   return (
-    <div>
+    <div className="relative">
       <div className="flex items-center">
         <Link
           to="/"
-          className="text-4xl text-white bg-blue-900 w-8 h-8 flex items-center justify-center rounded-lg m-4"
+          className="fixed text-4xl text-white bg-secondary-2 w-8 h-8 flex items-center justify-center rounded-lg m-4"
         >
           <BiSolidChevronLeft />
         </Link>
-        <h2 className="text-2xl font-bold mb-2 w-full text-center text-blue-900">
+        <h2 className="text-2xl font-bold mb-2 w-full text-center text-secondary-1">
           Nuestro Equipo de Desarrollo
         </h2>
       </div>

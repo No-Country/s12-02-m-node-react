@@ -132,7 +132,7 @@ function Header() {
   };
 
   return (
-    <header className="w-full h-fit py-6 flex flex-col items-center justify-between bg-gradient-to-b from-black to-secondary-1 text-primary-1 sticky top-0 z-50 lg:flex-row">
+    <header className="w-full h-fit py-6 flex flex-col items-center justify-between bg-gradient-to-b from-black to-secondary-1 text-primary-1 sticky top-0 z-40 lg:flex-row">
       <div className="flex items-center justify-between w-full lg:w-fit lg:flex-grow-0">
         <picture
           onClick={() => navigate("/")}
