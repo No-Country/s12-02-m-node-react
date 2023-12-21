@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { setEventComments } from "../../../redux/slices/detailEventSlice";
+import {
+  setEventComments,
+  clearState,
+} from "../../../redux/slices/detailEventSlice";
 
 import useFetch from "../../../hooks/useFetch";
 
@@ -28,18 +31,24 @@ export default function Comments({ eventId }) {
     }
   }, [commentsStatus]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearState());
+    };
+  }, [dispatch]);
+
   return (
     <div className="flex flex-col mb-4">
       {isLogged ? (
         <CreateComments getComments={getComments} />
       ) : (
         <NavLink
-            id="link_to_login"
-            className="max-w-xs rounded-full outline-none bg-primary-500 hover:bg-primary-600 shadow-md p-3 text-white md:my-3 cursor-pointer text-center"
-            to="/login"
-          >
-            Inicia Sesión para Comentar
-          </NavLink>
+          id="link_to_login"
+          className="max-w-xs rounded-full outline-none bg-primary-500 hover:bg-primary-600 shadow-md p-3 text-white md:my-3 cursor-pointer text-center"
+          to="/login"
+        >
+          Inicia Sesión para Comentar
+        </NavLink>
       )}
       <ViewComments commentsStatus={commentsStatus} />
     </div>
