@@ -54,8 +54,8 @@ const DependingOnLocation = () => {
   };
 
   const handleViewAll = (e) => {
-    e.preventDefault()
-    navigate(`/filtro/location.province/${locationSelected}`)
+    e.preventDefault();
+    navigate(`/filtro/location.province/${locationSelected}`);
   };
   return (
     <section className="p-5 lg:p-10">
