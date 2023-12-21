@@ -26,6 +26,13 @@ export const eventDetailSlice = createSlice({
     },
     setIsFull: (state, action) => {
       state.isFull = action.payload;
+    },
+    clearState: ( state ) => {
+      state.isFull = false;
+      state.host = {};
+      state.comments = [];
+      state.bookings = [];
+      state.data = {};
     }
   },
 });
@@ -36,5 +43,6 @@ export const {
   setEventBookings,
   setEventHost,
   setIsFull,
+  clearState
 } = eventDetailSlice.actions;
 export default eventDetailSlice.reducer;
