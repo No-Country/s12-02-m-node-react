@@ -116,7 +116,7 @@ VITE_APP_API_ROUTE = Localhost de su API (ej. http://localhost:4000).
 
 ### 👉🏻 Designer
 
-| <img src="https://media.licdn.com/dms/image/D4D35AQFsjmIHEuFE0A/profile-framedphoto-shrink_200_200/0/1701831039826?e=1703689200&v=beta&t=AE0lzLOB3rJ6AB42DaTWnm_PxTO5piicPs-WS-15J1I" width=80>|<img src="https://media.licdn.com/dms/image/D4D03AQGP8zpwtWi_IA/profile-displayphoto-shrink_200_200/0/1668181895442?e=1708560000&v=beta&t=j6wC2jo9XEh_X3lC6Wwxx_y9nKNrctwCki7POt5Tw-o" width=80>|
+| <img src="https://media.licdn.com/dms/image/D4D03AQHVCLbhjdpRdw/profile-displayphoto-shrink_200_200/0/1696607039954?e=1708560000&v=beta&t=QEH3LMZ3PCwD-YOxgDysu6JKMeeJVwPKZp6Vrch5MPY" width=80>|<img src="https://media.licdn.com/dms/image/D4D03AQGP8zpwtWi_IA/profile-displayphoto-shrink_200_200/0/1668181895442?e=1708560000&v=beta&t=j6wC2jo9XEh_X3lC6Wwxx_y9nKNrctwCki7POt5Tw-o" width=80>|
 |:-:|:-:|
 | **Maria Paula Moscardini** | **Leandro Mancilla** |
 | <a href="https://www.linkedin.com/in/paumoscardini/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/leomancilla/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
