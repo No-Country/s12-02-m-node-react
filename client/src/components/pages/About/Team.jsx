@@ -16,6 +16,7 @@ const Team = () => {
     setSelectedMember(null);
   };
 
+  
   return (
     <div className="relative">
       <div className="flex items-center">
@@ -25,7 +26,7 @@ const Team = () => {
         >
           <BiSolidChevronLeft />
         </Link>
-        <h2 className="text-2xl font-bold mb-2 w-full text-center text-secondary-1">
+        <h2 className="text-3xl extrabold font-bold mt-4 mb-2 w-full text-center text-secondary-1">
           Nuestro Equipo de Desarrollo
         </h2>
       </div>
