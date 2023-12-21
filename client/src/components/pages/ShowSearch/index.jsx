@@ -30,12 +30,18 @@ const ShowSearch = () => {
     setShowEvents(true);
 }, [events])
 
+const renderHeader = () => {
+  let title;
+  title = 'Se buscó: ' + `"${searchValue}"`;
+  return title;
+  }
 
     return (
       <div className="w-full">
-
+<h1 className="text-start mb-3 text-4xl p-3 border-b-2">
+          {renderHeader()}
+        </h1>
           <div className="w-full">
-              <h1 className="text-center mb-3 text-4xl">Search x {searchValue.toUpperCase()}</h1>
               {showEvents &&
                   <div className="w-full flex justify-center flex-wrap">
                       {events.map((event) => (
